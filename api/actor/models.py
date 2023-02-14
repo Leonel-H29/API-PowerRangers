@@ -22,6 +22,6 @@ class personaje(models.Model):
     
 class aparecen(models.Model):
     id_aparicion = AutoField(primary_key=True)
-    id_personaje= models.ForeignKey(personaje, on_delete=DO_NOTHING)
-    id_temporada = models.ForeignKey(temporada, on_delete=DO_NOTHING)
+    id_personaje= models.ForeignKey(personaje, on_delete=CASCADE)
+    id_temporada = models.ForeignKey(temporada, on_delete=CASCADE)
     rol=models.CharField(max_length=10)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from actor.models import actor, personaje
+from actor.models import actor, personaje, aparecen
 
 class ActorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,3 +24,15 @@ class PersonajeSerializer(serializers.ModelSerializer):
             'foto',
         )
         read_only_fields = ['id_personaje']
+        
+        
+class AparecenEnSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = aparecen
+        fields = (
+            'id_aparicion', 
+            'id_personaje',
+            'id_temporada', 
+            'rol'
+        )
+        read_only_fields = ['id_aparicion', 'id_personaje', 'id_temporada']
