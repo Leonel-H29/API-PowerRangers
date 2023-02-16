@@ -8,6 +8,7 @@ class TemporadaSerializer(serializers.ModelSerializer):
             'id_temporada'
             'nombre',
             'descripcion',
+            'anio_estreno',
             'foto',
             'cancion',
             'basada_en'

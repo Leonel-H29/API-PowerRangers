@@ -8,5 +8,6 @@ class temporada(models.Model):
     nombre=models.CharField(max_length=50)
     descripcion=models.CharField(max_length=300)
     foto=models.CharField(max_length=270)
+    anio_estreno=models.PositiveIntegerField()
     cancion=models.CharField(max_length=270)
     basada_en=models.CharField(max_length=50)

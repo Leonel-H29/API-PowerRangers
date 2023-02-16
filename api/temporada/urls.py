@@ -8,11 +8,8 @@ from rest_framework import routers
 
 
 router = routers.DefaultRouter()
-router.register(r'actores', views.ServiciosViewSet, basename='actores')
-#router.register(r'mutuales', views.MutualesViewSet, basename='mutuales')
-# router.register(r'servicio_mutual', views.ServiciosMutualViewSet, basename='servicios_mutuales')
-#router.register(r'planes', views.PlanesViewSet, basename='planes')
-#router.register(r'beneficios', views.BeneficiosViewSet, basename='beneficios')
+router.register(r'temporadas', views.TemporadasViewSet, basename='temporadas')
+
 
 urlpatterns = [
     path('', include(router.urls)),
