@@ -5,6 +5,7 @@ from django.db.models.fields import AutoField
 # Create your models here.
 class temporada(models.Model):
     id_temporada = AutoField(primary_key=True)
+    numero_temporada = models.PositiveIntegerField(unique=True)
     nombre=models.CharField(max_length=50)
     descripcion=models.CharField(max_length=300)
     foto=models.CharField(max_length=270)
