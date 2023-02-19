@@ -128,12 +128,16 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+
+#App directories
+
 api/Actor/migrations
 api/Actor/__pycache__
 api/Capitulos/migrations
 api/Capitulos/__pycache__
 api/Temporadas/migrations
 api/Temporadas/__pycache__
+api/data
 
 
 Comandos.txt
