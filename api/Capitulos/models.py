@@ -7,5 +7,5 @@ from Temporadas.models import temporada
 class capitulo(models.Model):
     id_capitulo = AutoField(primary_key=True)
     nombre=models.CharField(max_length=20)
-    descripcion=models.CharField(max_length=150)
+    descripcion=models.TextField(blank=True, null=True)
     id_temporada = models.ForeignKey(temporada, on_delete=DO_NOTHING)
