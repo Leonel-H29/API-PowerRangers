@@ -1,67 +1,64 @@
-#from django.test import TestCase
-from rest_framework.test import APITestCase, APIRequestFactory, APIClient
 from django.urls import reverse
 from rest_framework import status
-from .views import ActoresViewSet
+from rest_framework.test import APITestCase
 from .models import actor
-import pytest
-import json
-# Create your tests here.
 
-class ActoresTestCase(APITestCase):
+class ActoresTest(APITestCase):
     #Inicializacion de la clase
-    def setUp(self) -> None:
-        self.factory=APIRequestFactory()
-        self.view=ActoresViewSet()
-        self.url='/actores/'
-    
-    #Test para evaluar si el actor se crea correctamente
-    def test_create_actor(self):
-        people = actor.objects.create(
-            nombre_actor='Pablo Rago',
-            nombre_artistico='Pablo Rago',
+    def setUp(self):
+        self.url = '/actores/'
+        self.actor1 = actor.objects.create(
+            nombre_actor='Leo Herrera',
+            nombre_artistico='Leo Herrera',
             foto='http://www.developerpe.com/programaci%C3%B3n/testing-con-python-y-django/',
             biografia='http://www.developerpe.com/programaci%C3%B3n/testing-con-python-y-django/'
         )
-        assert people.nombre_actor == 'Pablo Rago'
-            
-    
-    #Test para evaluar si el actor se postea correctamente
-    def test_post_actores(self):
-        try:
-            people = actor.objects.create(
-                nombre_actor='Pablo Rago',
-                nombre_artistico='Pablo Rago',
-                foto='http://www.developerpe.com/programaci%C3%B3n/testing-con-python-y-django/',
-                biografia='http://www.developerpe.com/programaci%C3%B3n/testing-con-python-y-django/'
-            )
-            client = APIClient()
-            response = client.post(self.url, people,  format='multipart')
-            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-            self.assertEqual(
-                self.assertEqual(json.loads(response.content), {
-                    'nombre_actor':'Pablo Rago',
-                    'nombre_artistico':'Pablo Rago',
-                    'foto':'http://www.developerpe.com/programaci%C3%B3n/testing-con-python-y-django/',
-                    'biografia':'http://www.developerpe.com/programaci%C3%B3n/testing-con-python-y-django/'
-                })
-                ) 
-        except:
-            with pytest.raises(Exception) as exc_info:
-                client.post(self.url, people,  format='multipart')
-        self.assertEqual(str(exc_info.value), "'actor' object has no attribute 'items'")   
-            
-
-    #Test para evaluar si se trae los actores correctamente
-    def test_get_actores(self):
-        response = self.client.get(self.url, format='json')
-        """
-        Pruebo si el resultado de la respuesta es el mismo que espero,
-        en este caso el status 200
-        """
-        print(response.json())
-        json = response.json()
+        
+    #Test para evaluar si se trae todos los actores correctamente
+    def test_get_all_actores(self):
+        response = self.client.get(self.url)
+        #print(response.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json['count'], 0)
-        
-        
+        self.assertEqual(len(response.data), 2)
+    
+    #Test para evaluar si se trae a un actor correctamente
+    def test_get_one_actor(self):
+        url = self.url + str(self.actor1.id_actor) + '/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['nombre_actor'], self.actor1.nombre_actor)
+    
+    #Test para evaluar si el actor se crea correctamente
+    def test_create_actor(self):
+        data = {
+            'nombre_actor':'Pablo Rago',
+            'nombre_artistico':'Pablo Rago',
+            'foto':'http://www.developerpe.com/programaci%C3%B3n/testing-con-python-y-django/',
+            'biografia':'http://www.developerpe.com/programaci%C3%B3n/testing-con-python-y-django/'
+        }
+        response = self.client.post(self.url, data, format='json')
+        #print(response.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['nombre_actor'], data['nombre_actor'])
+        self.assertEqual(actor.objects.count(), 3)
+    
+    #Test para evaluar si el actor se actualiza correctamente
+    def test_update_actor(self):
+        data = {
+            'id_actor' : 1,
+            'nombre_actor':'Pablo Perez Lopez',
+            'nombre_artistico':'Pablo Perez Lopez',
+            'foto':'http://www.developerpe.com/programaci%C3%B3n/testing-con-python-y-django/',
+            'biografia':'http://www.developerpe.com/programaci%C3%B3n/testing-con-python-y-django/'
+        }
+        url = self.url + str(data['id_actor']) + '/'
+        response = self.client.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['nombre_actor'], data['nombre_actor'])
+    
+    #Test para evaluar si el actor se elimina correctamente
+    def test_delete_actor(self):
+        url = self.url + str(self.actor1.id_actor) + '/'
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(actor.objects.count(), 1)
