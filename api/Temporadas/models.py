@@ -12,3 +12,10 @@ class temporada(models.Model):
     anio_estreno=models.PositiveIntegerField()
     cancion=models.CharField(max_length=260)
     basada_en=models.CharField(max_length=50)
+    
+    class Meta:
+        db_table='temporadas'
+        verbose_name='temporada'
+        verbose_name_plural='temporadas'
+        ordering = ['numero_temporada']
+        unique_together = ('numero_temporada', 'nombre')

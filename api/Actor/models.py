@@ -10,6 +10,12 @@ class actor(models.Model):
     nombre_artistico=models.CharField(max_length=80, blank=True, null=True)
     foto=models.CharField(max_length=260)
     biografia=models.CharField(max_length=260)
+    
+    class Meta :
+        db_table='actor'
+        verbose_name='actor'
+        verbose_name_plural='actores'
+        ordering = ['nombre_actor']
 
 
 class personaje(models.Model):

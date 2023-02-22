@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Elimino la base de datos
+rm db.sqlite3
+
 """
 Busco los directorios con el nombre de '__pycache__' y 'migrations'
 """
@@ -12,3 +15,4 @@ for x in $directorios; do
 	#echo $x
 	rm -r $x
 done
+
