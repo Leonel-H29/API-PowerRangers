@@ -5,7 +5,8 @@ class TemporadaSerializer(serializers.ModelSerializer):
     class Meta:
         model = temporada
         fields = (
-            'id_temporada'
+            'id_temporada',
+            'numero_temporada',
             'nombre',
             'descripcion',
             'anio_estreno',
