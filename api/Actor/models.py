@@ -6,10 +6,13 @@ from Temporadas.models import temporada
 # Create your models here.
 class actor(models.Model):
     id_actor= AutoField(primary_key=True)
-    nombre_actor=models.CharField(max_length=80)
+    nombre_actor=models.CharField(max_length=80, unique=True)
     nombre_artistico=models.CharField(max_length=80, blank=True, null=True)
     foto=models.CharField(max_length=260)
     biografia=models.CharField(max_length=260)
+    
+    def __str__(self):
+        return str(self.id_actor)  + self.nombre_actor
     
     class Meta :
         db_table='actor'
