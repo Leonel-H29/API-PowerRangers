@@ -6,6 +6,7 @@ class CapitulosSerializer(serializers.ModelSerializer):
         model = capitulo
         fields = (
             'id_capitulo',
+            'numero_cap',
             'nombre',
             'descripcion',
             'id_temporada', 
