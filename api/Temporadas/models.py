@@ -13,6 +13,9 @@ class temporada(models.Model):
     cancion=models.CharField(max_length=260)
     basada_en=models.CharField(max_length=50)
     
+    def __str__(self):
+        return str(self.id_temporada) + ")- " + str(self.numero_temporada)+ "-- " +self.nombre
+    
     class Meta:
         db_table='temporadas'
         verbose_name='temporada'
