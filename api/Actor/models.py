@@ -50,3 +50,4 @@ class aparecen(models.Model):
         verbose_name='aparece'
         verbose_name_plural='aparecen'
         ordering = ['id_aparicion']
+        unique_together = ('id_personaje', 'id_temporada')
