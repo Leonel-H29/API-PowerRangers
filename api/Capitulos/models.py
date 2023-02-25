@@ -18,5 +18,5 @@ class capitulo(models.Model):
         db_table='capitulos'
         verbose_name='capitulo'
         verbose_name_plural='capitulos'
-        ordering = ['numero_cap','id_capitulo']
-        unique_together = ('numero_cap', 'temporada')
+        ordering = ['temporada', 'numero_cap']
+        unique_together = ('numero_cap','temporada')
