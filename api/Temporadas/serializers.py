@@ -1,7 +1,10 @@
 from rest_framework import serializers
 from Temporadas.models import temporada
+#from Capitulos.models import capitulo
+from Capitulos.serializers import CapitulosSerializer
 
 class TemporadaSerializer(serializers.ModelSerializer):
+    capitulos = CapitulosSerializer(many=True) 
     class Meta:
         model = temporada
         fields = (
@@ -12,6 +15,7 @@ class TemporadaSerializer(serializers.ModelSerializer):
             'anio_estreno',
             'foto',
             'cancion',
-            'basada_en'
+            'basada_en',
+            'capitulos'
         )
-        read_only_fields = ['id_temporada']
+        read_only_fields = ['id_temporada', 'capitulos']
