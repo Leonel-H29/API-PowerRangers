@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     # CORS
     "corsheaders",
     # LOCAL APPS
-    #'Actor',
     'Actor',
     'Capitulos',
     'Temporadas',

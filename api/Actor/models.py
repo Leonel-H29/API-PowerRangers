@@ -23,26 +23,28 @@ class actor(models.Model):
 
 class personaje(models.Model):
     id_personaje= AutoField(primary_key=True)
-    nombre_personaje=models.CharField(max_length=80)
+    nombre_personaje=models.CharField(max_length=80, unique=True)
     descripcion=models.TextField(blank=True, null=True)
     foto=models.CharField(max_length=260)
-    id_actor= models.ForeignKey(actor, on_delete=DO_NOTHING, db_column='id_actor')
-    #temporada=models.ManyToManyField(temporada, related_name='aparecen')
+    #id_actor= models.ForeignKey(actor, on_delete=DO_NOTHING, db_column='id_actor')
+    actor= models.ForeignKey(actor, on_delete=DO_NOTHING, db_column='id_actor',related_name='personajes')
+    temporadas=models.ManyToManyField(temporada,through='Aparecen', related_name='personajes')
     
     def __str__(self):
-        return str(self.id_personaje) + ")- " + self.nombre + "-- " + str(self.id_actor) 
+        return str(self.id_personaje) + ")- " + self.nombre_personaje 
     
     class Meta:
         db_table='personajes'
         verbose_name='personaje'
         verbose_name_plural='personajes'
         ordering = ['nombre_personaje']
+        unique_together = ('nombre_personaje', 'actor')
 
 
 class aparecen(models.Model):
     id_aparicion = AutoField(primary_key=True)
-    id_personaje= models.ForeignKey(personaje, on_delete=CASCADE, db_column='id_personaje')
-    id_temporada = models.ForeignKey(temporada, on_delete=CASCADE, db_column='id_temporada')
+    personaje= models.ForeignKey(personaje, on_delete=CASCADE, db_column='id_personaje')
+    temporada = models.ForeignKey(temporada, on_delete=CASCADE, db_column='id_temporada')
     rol=models.CharField(max_length=10)
     
     class Meta:
@@ -50,4 +52,4 @@ class aparecen(models.Model):
         verbose_name='aparece'
         verbose_name_plural='aparecen'
         ordering = ['id_aparicion']
-        unique_together = ('id_personaje', 'id_temporada')
+        unique_together = ('personaje', 'temporada')

@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from Actor.models import actor, personaje, aparecen
+from Temporadas.models import temporada
+from Temporadas.serializers import TemporadaSerializer
+#from .serializers import PersonajeSerializer
 
 class ActorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,12 +12,13 @@ class ActorSerializer(serializers.ModelSerializer):
             'nombre_actor',
             'nombre_artistico',
             'foto',
-            'biografia'
+            'biografia'  
         )
-        read_only_fields = ['id_actor']
-        
+        read_only_fields = ['id_actor']       
+
 
 class PersonajeSerializer(serializers.ModelSerializer):
+    actor = ActorSerializer(read_only=True)
     class Meta:
         model = personaje
         fields = (
@@ -22,17 +26,17 @@ class PersonajeSerializer(serializers.ModelSerializer):
             'nombre_personaje',
             'descripcion',
             'foto',
+            'actor',
         )
         read_only_fields = ['id_personaje']
-        
-        
+
+
 class AparecenEnSerializer(serializers.ModelSerializer):
+    personaje = PersonajeSerializer(read_only=True)
+    temporada = TemporadaSerializer(read_only=True)
+    
     class Meta:
         model = aparecen
-        fields = (
-            'id_aparicion', 
-            'id_personaje',
-            'id_temporada', 
-            'rol'
-        )
-        read_only_fields = ['id_aparicion', 'id_personaje', 'id_temporada']
+        fields = ('id_aparicion', 'personaje', 'temporada', 'rol')
+        read_only_fields = ['id_aparicion']
+    
