@@ -28,5 +28,7 @@ class AparecenViewSet(viewsets.ModelViewSet):
 class PersonajesViewSet(viewsets.ModelViewSet):
     queryset = personaje.objects.all()
     serializer_class = PersonajeSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['nombre_actor', 'nombre_personaje']
     name = 'personajes'
     depth = 1
