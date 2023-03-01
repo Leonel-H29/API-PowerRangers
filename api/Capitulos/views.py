@@ -3,6 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.mixins import PermissionRequiredMixin
 #from rest_framework.decorators import action
 #from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
 
 from Capitulos.models import capitulo
 from Capitulos.serializers import CapitulosSerializer
@@ -12,3 +13,5 @@ from Capitulos.serializers import CapitulosSerializer
 class CapitulosViewSet(viewsets.ModelViewSet):
     queryset = capitulo.objects.all()
     serializer_class = CapitulosSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['numero_cap', 'temporada']
