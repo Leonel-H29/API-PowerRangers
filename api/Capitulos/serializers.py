@@ -11,4 +11,4 @@ class CapitulosSerializer(serializers.ModelSerializer):
             'descripcion',
             'temporada', 
         )
-        read_only_fields = ['id_capitulo', 'temporada']
+        read_only_fields = ['id_capitulo']
