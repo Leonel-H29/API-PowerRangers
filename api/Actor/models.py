@@ -24,7 +24,7 @@ class actor(models.Model):
 class personaje(models.Model):
     id_personaje= AutoField(primary_key=True)
     nombre_personaje=models.CharField(max_length=80, unique=True)
-    descripcion=models.TextField(blank=True, null=True)
+    #descripcion=models.TextField(blank=True, null=True)
     foto=models.CharField(max_length=260)
     #id_actor= models.ForeignKey(actor, on_delete=DO_NOTHING, db_column='id_actor')
     actor= models.ForeignKey(actor, on_delete=DO_NOTHING, db_column='id_actor',related_name='personajes')
@@ -46,7 +46,7 @@ class aparecen(models.Model):
     personaje= models.ForeignKey(personaje, on_delete=CASCADE, db_column='id_personaje')
     temporada = models.ForeignKey(temporada, on_delete=CASCADE, db_column='id_temporada')
     rol=models.CharField(max_length=10)
-    
+    descripcion=models.TextField(blank=True, null=True)
     class Meta:
         db_table='aparecen'
         verbose_name='aparece'
