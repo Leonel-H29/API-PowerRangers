@@ -12,6 +12,7 @@ class temporada(models.Model):
     anio_estreno=models.PositiveIntegerField()
     cancion=models.CharField(max_length=260)
     basada_en=models.CharField(max_length=50)
+    tematica=models.CharField(max_length=100)
     
     def __str__(self):
         return str(self.id_temporada) + ")- " + str(self.numero_temporada)+ "-- " +self.nombre

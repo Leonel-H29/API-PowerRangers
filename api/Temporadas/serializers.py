@@ -16,6 +16,7 @@ class TemporadaSerializer(serializers.ModelSerializer):
             'foto',
             'cancion',
             'basada_en',
+            'tematica',
             'capitulos'
         )
         read_only_fields = ['id_temporada', 'capitulos']
