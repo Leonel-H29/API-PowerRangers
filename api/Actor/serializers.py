@@ -24,7 +24,7 @@ class PersonajeSerializer(serializers.ModelSerializer):
         fields = (
             'id_personaje',
             'nombre_personaje',
-            'descripcion',
+            #'descripcion',
             'foto',
             'actor',
         )
