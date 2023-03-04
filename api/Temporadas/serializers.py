@@ -4,7 +4,7 @@ from Temporadas.models import temporada
 from Capitulos.serializers import CapitulosSerializer
 
 class TemporadaSerializer(serializers.ModelSerializer):
-    capitulos = CapitulosSerializer(many=True) 
+    capitulos = CapitulosSerializer(many=True, read_only=True) 
     class Meta:
         model = temporada
         fields = (
