@@ -45,13 +45,12 @@ class ActoresTest(APITestCase):
     #Test para evaluar si el actor se actualiza correctamente
     def test_update_actor(self):
         data = {
-            'id_actor' : 1,
             'nombre_actor':'Pablo Perez Lopez',
             'nombre_artistico':'Pablo Perez Lopez',
             'foto':'http://www.developerpe.com/programaci%C3%B3n/testing-con-python-y-django/',
             'biografia':'http://www.developerpe.com/programaci%C3%B3n/testing-con-python-y-django/'
         }
-        url = self.url + str(data['id_actor']) + '/'
+        url = self.url + str(self.actor1.id_actor) + '/'
         response = self.client.put(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['nombre_actor'], data['nombre_actor'])
