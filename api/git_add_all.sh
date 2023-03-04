@@ -9,4 +9,4 @@ git commit -m "$message"
 
 git push origin $(git branch --show-current)
 
-git log
+git log -1
