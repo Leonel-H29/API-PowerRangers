@@ -138,6 +138,10 @@ api/Capitulos/__pycache__
 api/Temporadas/migrations
 api/Temporadas/__pycache__
 api/data
+api/Actor/tests.py
+api/Capitulos/tests.py
+api/Temporadas/tests.py
+
 
 
 Comandos.txt
