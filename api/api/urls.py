@@ -6,6 +6,7 @@ from django.contrib.auth.views import LogoutView
 from Temporadas.urls import router as routerTemp
 from Actor.urls import router as routerAct
 from Capitulos.urls import router as routerCap 
+from User.urls import router as routerUser
 
 class DefaultRouter(routers.DefaultRouter):
     """
@@ -26,6 +27,7 @@ router = DefaultRouter()
 router.extend(routerTemp)
 router.extend(routerAct)
 router.extend(routerCap)
+router.extend(routerUser)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

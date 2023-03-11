@@ -21,9 +21,11 @@ ALLOWED_HOSTS = ['*']
 
 # LOCAL APPS
 LOCAL_APPS = [
+    #'User',
     'Actor',
     'Capitulos',
-    'Temporadas'
+    'Temporadas',
+    
 ]
 # Django REST framework
 DRF = [
@@ -32,6 +34,7 @@ DRF = [
     "rest_framework_simplejwt",
 ]
 INSTALLED_APPS = [
+    'User',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -115,6 +118,8 @@ DATABASES = {
         "DATABASE_PORT": config("DB_PORT"),
     },
 }
+
+AUTH_USER_MODEL = "User.User" 
 
 
 # Password validation
