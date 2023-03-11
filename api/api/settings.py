@@ -19,6 +19,18 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
+# LOCAL APPS
+LOCAL_APPS = [
+    'Actor',
+    'Capitulos',
+    'Temporadas'
+]
+# Django REST framework
+DRF = [
+    "rest_framework",
+    "rest_framework.authtoken",
+    "rest_framework_simplejwt",
+]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -27,19 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
-    
-    # Django REST framework
-    "rest_framework",
-    "rest_framework.authtoken",
     # Djoser
     'djoser',
     # CORS
     "corsheaders",
-    # LOCAL APPS
-    'Actor',
-    'Capitulos',
-    'Temporadas',
-]
+] + LOCAL_APPS + DRF
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
