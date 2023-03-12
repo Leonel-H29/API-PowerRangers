@@ -10,19 +10,13 @@ from Capitulos.serializers import CapitulosSerializer
 #from django.contrib.auth.models import User
 
 from rest_framework import permissions 
+from User.permissions import SuperuserPermission, ReadOnlyPermission
 
-class CapitulosPermission(permissions.BasePermission):
-    def has_permission(self, request, view):
-        if request.user.is_superuser:
-            return True
-        elif request.method == 'GET':
-            return True
-        else:
-            return False
+
 
 class CapitulosViewSet(viewsets.ModelViewSet):
     queryset = capitulo.objects.all()
     serializer_class = CapitulosSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['numero_cap', 'temporada']
-    permission_classes = [CapitulosPermission]
+    permission_classes = [SuperuserPermission | ReadOnlyPermission]

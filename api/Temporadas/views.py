@@ -8,22 +8,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from Temporadas.models  import temporada
 from Temporadas.serializers import TemporadaSerializer
 #from django.contrib.auth.models import User
+from User.permissions import SuperuserPermission, ReadOnlyPermission
 
-"""
-class TemporadasViewSet(viewsets.ModelViewSet):
-    queryset = temporada.objects.all()
-    serializer_class = TemporadaSerializer
-"""
-
-
-class TemporadasPermission(permissions.BasePermission):
-    def has_permission(self, request, view):
-        if request.user.is_superuser:
-            return True
-        elif request.method == 'GET':
-            return True
-        else:
-            return False
 
 class TemporadasViewSet(viewsets.ModelViewSet):
     queryset = temporada.objects.all()
@@ -32,4 +18,4 @@ class TemporadasViewSet(viewsets.ModelViewSet):
     filterset_fields = ['numero_temporada', 'nombre', 'anio_estreno']
     name = 'temporadas'
     depth = 1
-    permission_classes = [TemporadasPermission]
+    permission_classes = [SuperuserPermission | ReadOnlyPermission]
