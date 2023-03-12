@@ -1,5 +1,5 @@
 from rest_framework import viewsets, generics
-from rest_framework import permissions 
+from rest_framework.authentication import TokenAuthentication 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 #from rest_framework.decorators import action
 #from rest_framework.response import Response
@@ -18,4 +18,5 @@ class TemporadasViewSet(viewsets.ModelViewSet):
     filterset_fields = ['numero_temporada', 'nombre', 'anio_estreno']
     name = 'temporadas'
     depth = 1
+    authentication_classes = [TokenAuthentication]
     permission_classes = [SuperuserPermission | ReadOnlyPermission]
