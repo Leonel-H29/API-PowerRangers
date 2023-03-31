@@ -12,7 +12,8 @@ class ActorSerializer(serializers.ModelSerializer):
             'nombre_actor',
             'nombre_artistico',
             'foto',
-            'biografia'  
+            'biografia',
+            'updated'  
         )
         read_only_fields = ['id_actor']       
 
@@ -27,6 +28,7 @@ class PersonajeSerializer(serializers.ModelSerializer):
             #'descripcion',
             'foto',
             'actor',
+            'updated'  
         )
         read_only_fields = ['id_personaje']
 
