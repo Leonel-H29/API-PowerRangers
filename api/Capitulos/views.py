@@ -18,5 +18,6 @@ class CapitulosViewSet(viewsets.ModelViewSet):
     queryset = capitulo.objects.all()
     serializer_class = CapitulosSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['numero_cap', 'temporada']
+    #filterset_fields = ['numero_cap', 'temporada']
+    filterset_fields = ['numero_cap']
     permission_classes = [SuperuserPermission | ReadOnlyPermission]

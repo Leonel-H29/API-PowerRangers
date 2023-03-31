@@ -133,17 +133,17 @@ dmypy.json
 
 api/Actor/migrations
 api/Actor/__pycache__
+api/Actor/tests.py
 api/Capitulos/migrations
 api/Capitulos/__pycache__
+api/Capitulos/tests.py
 api/Temporadas/migrations
 api/Temporadas/__pycache__
-api/data
-api/Actor/tests.py
-api/Capitulos/tests.py
 api/Temporadas/tests.py
+api/data
 api/User/migrations
 api/User/__pycache__
-
+api/User/tests.py
 
 
 Comandos.txt
