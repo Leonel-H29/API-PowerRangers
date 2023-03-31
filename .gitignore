@@ -141,6 +141,8 @@ api/data
 api/Actor/tests.py
 api/Capitulos/tests.py
 api/Temporadas/tests.py
+api/User/migrations
+api/User/__pycache__
 
 
 
