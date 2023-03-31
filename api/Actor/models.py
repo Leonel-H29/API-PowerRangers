@@ -10,6 +10,8 @@ class actor(models.Model):
     nombre_artistico=models.CharField(max_length=80, blank=True, null=True)
     foto=models.CharField(max_length=260)
     biografia=models.CharField(max_length=260)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return str(self.id_actor)  + self.nombre_actor
@@ -29,6 +31,8 @@ class personaje(models.Model):
     #id_actor= models.ForeignKey(actor, on_delete=DO_NOTHING, db_column='id_actor')
     actor= models.ForeignKey(actor, on_delete=DO_NOTHING, db_column='id_actor',related_name='personajes')
     temporadas=models.ManyToManyField(temporada,through='Aparecen', related_name='personajes')
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return str(self.id_personaje) + ")- " + self.nombre_personaje 
