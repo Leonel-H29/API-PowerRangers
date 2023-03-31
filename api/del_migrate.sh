@@ -1,8 +1,9 @@
 #!/bin/bash
 
 #Elimino la base de datos
-rm db.sqlite3
-
+if [ -f "db.sqlite3" ]; then
+	rm db.sqlite3
+fi
 
 ##Busco los directorios con el nombre de '__pycache__' y 'migrations'
 
