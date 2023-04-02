@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
+    #Swagger
+    'drf_yasg',
     # Djoser
     'djoser',
     # CORS
