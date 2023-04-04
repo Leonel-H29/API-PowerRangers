@@ -47,7 +47,7 @@ class CapitulosViewSet(viewsets.ModelViewSet):
                 'numero_cap' : openapi.Schema(type=openapi.TYPE_INTEGER, description='Numero del capitulo'),
                 'nombre': openapi.Schema(type=openapi.TYPE_STRING, description='Nombre real del capitulo'),
                 'descripcion': openapi.Schema(type=openapi.TYPE_STRING, description='Descripcion de la temporada'),
-                'temporada': openapi.Schema(type=openapi.TYPE_INTEGER, description='Temporada a la que pertenece el capitulo'),              
+                #'temporada': openapi.Schema(type=openapi.TYPE_INTEGER, description='Temporada a la que pertenece el capitulo'),              
             }
         ),
         responses={
@@ -70,7 +70,7 @@ class CapitulosViewSet(viewsets.ModelViewSet):
                 'numero_cap' : openapi.Schema(type=openapi.TYPE_INTEGER, description='Numero del capitulo'),
                 'nombre': openapi.Schema(type=openapi.TYPE_STRING, description='Nombre real del capitulo'),
                 'descripcion': openapi.Schema(type=openapi.TYPE_STRING, description='Descripcion de la temporada'),
-                'temporada': openapi.Schema(type=openapi.TYPE_INTEGER, description='Temporada a la que pertenece el capitulo'),              
+                #'temporada': openapi.Schema(type=openapi.TYPE_INTEGER, description='Temporada a la que pertenece el capitulo'),              
             }
         ),
         responses={200: CapitulosSerializer()})
