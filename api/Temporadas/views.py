@@ -11,6 +11,10 @@ from Temporadas.serializers import TemporadaSerializer
 from User.permissions import SuperuserPermission, ReadOnlyPermission
 
 
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
+
 class TemporadasViewSet(viewsets.ModelViewSet):
     queryset = temporada.objects.all()
     serializer_class = TemporadaSerializer
