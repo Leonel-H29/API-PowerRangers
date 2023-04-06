@@ -27,20 +27,35 @@ class CapitulosViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_summary="Obtener un capitulo por su id",
         operation_description="Retorna un capitulo con la información completa.",
-        responses={200: CapitulosSerializer()})
+        responses={
+            200: CapitulosSerializer(),
+            400: 'No se ha encontrado el actor solicitado'
+        })
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
 
     @swagger_auto_schema(
         operation_summary="Obtener todos los capitulos",
         operation_description="Retorna una lista con todos los capitulos.",
-        responses={200: CapitulosSerializer(many=True)})
+        responses={
+            200: CapitulosSerializer(many=True),
+            400: 'No se ha encontrado el listado'
+        })
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(
         operation_summary="Crear un nueva capitulo",
         operation_description="Crea un nueva capitulo con la información proporcionada.",
+        manual_parameters=[
+            openapi.Parameter(
+                name='Authorization',
+                in_=openapi.IN_HEADER,
+                required=True,
+                type=openapi.TYPE_STRING,
+                description='Token de acceso (Token access_token)'
+            ),
+        ],
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
@@ -64,6 +79,15 @@ class CapitulosViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_summary="Actualizar un actor existente",
         operation_description="Actualiza la información de un actor existente.",
+        manual_parameters=[
+            openapi.Parameter(
+                name='Authorization',
+                in_=openapi.IN_HEADER,
+                required=True,
+                type=openapi.TYPE_STRING,
+                description='Token de acceso (Token access_token)'
+            ),
+        ],
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
@@ -81,6 +105,15 @@ class CapitulosViewSet(viewsets.ModelViewSet):
         request_body=CapitulosSerializer,
         operation_summary="Actualiza parcialmente un capitulo",
         operation_description='Actualiza parcialmente un capitulo existente',
+        manual_parameters=[
+            openapi.Parameter(
+                name='Authorization',
+                in_=openapi.IN_HEADER,
+                required=True,
+                type=openapi.TYPE_STRING,
+                description='Token de acceso (Token access_token)'
+            ),
+        ],
         responses={
             200: 'Actor actualizado exitosamente',
             400: 'Error en los datos enviados',
@@ -96,6 +129,15 @@ class CapitulosViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_summary="Elimina un capitulo",
         operation_description='Elimina un capitulo existente',
+        manual_parameters=[
+            openapi.Parameter(
+                name='Authorization',
+                in_=openapi.IN_HEADER,
+                required=True,
+                type=openapi.TYPE_STRING,
+                description='Token de acceso (Token access_token)'
+            ),
+        ],
         responses={
             204: 'Actor eliminado exitosamente',
             401: 'No autenticado',
