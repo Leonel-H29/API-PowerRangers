@@ -25,23 +25,40 @@ class ActoresViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [SuperuserPermission | ReadOnlyPermission]
     
+    #Documentacion en Swagger
+    
     @swagger_auto_schema(
         operation_summary="Obtener un actor por su id",
         operation_description="Retorna un actor con la información completa.",
-        responses={200: ActorSerializer()})
+        responses={
+            200: ActorSerializer(), 
+            400: 'No se ha encontrado el actor solicitado'
+        })
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
 
     @swagger_auto_schema(
         operation_summary="Obtener todos los actores",
         operation_description="Retorna una lista con todos los actores.",
-        responses={200: ActorSerializer(many=True)})
+        responses={
+            200: ActorSerializer(many=True),
+            400: 'No se ha encontrado el listado'
+        })
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(
         operation_summary="Crear un nuevo actor",
         operation_description="Crea un nuevo actor con la información proporcionada.",
+        manual_parameters=[
+            openapi.Parameter(
+                name='Authorization',
+                in_=openapi.IN_HEADER,
+                required=True,
+                type=openapi.TYPE_STRING,
+                description='Token de acceso (Token access_token)'
+            ),
+        ],
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
@@ -65,6 +82,15 @@ class ActoresViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_summary="Actualizar un actor existente",
         operation_description="Actualiza la información de un actor existente.",
+        manual_parameters=[
+            openapi.Parameter(
+                name='Authorization',
+                in_=openapi.IN_HEADER,
+                required=True,
+                type=openapi.TYPE_STRING,
+                description='Token de acceso (Token access_token)'
+            ),
+        ],
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
@@ -82,6 +108,15 @@ class ActoresViewSet(viewsets.ModelViewSet):
         request_body=ActorSerializer,
         operation_summary="Actualiza parcialmente un actor",
         operation_description='Actualiza parcialmente un actor existente',
+        manual_parameters=[
+            openapi.Parameter(
+                name='Authorization',
+                in_=openapi.IN_HEADER,
+                required=True,
+                type=openapi.TYPE_STRING,
+                description='Token de acceso (Token access_token)'
+            ),
+        ],
         responses={
             200: 'Actor actualizado exitosamente',
             400: 'Error en los datos enviados',
@@ -97,13 +132,22 @@ class ActoresViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(
         operation_summary="Elimina un actor",
         operation_description='Elimina un actor existente',
+        manual_parameters=[
+            openapi.Parameter(
+                name='Authorization',
+                in_=openapi.IN_HEADER,
+                required=True,
+                type=openapi.TYPE_STRING,
+                description='Token de acceso (Token access_token)'
+        ),
+    ],
         responses={
             204: 'Actor eliminado exitosamente',
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado'
         },
-        security=[{'Token de acceso': []}]
+        #security=[{'Token de acceso': []}]
     )
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
