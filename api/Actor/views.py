@@ -69,12 +69,12 @@ class ActoresViewSet(viewsets.ModelViewSet):
             }
         ),
         responses={
-            201: ActorSerializer(),
+            201: 'Actor creado exitosamente',
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado'
         },
-        security=[{'Token de acceso': []}]
+        #security=[{'Token de acceso': []}]
         )     
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
@@ -100,7 +100,13 @@ class ActoresViewSet(viewsets.ModelViewSet):
                 'pais': openapi.Schema(type=openapi.TYPE_STRING, description='País del actor'),
             }
         ),
-        responses={200: ActorSerializer()})
+        responses={
+            200: 'Actor actualizado exitosamente',
+            400: 'Error en los datos enviados',
+            401: 'No autenticado',
+            403: 'Permiso denegado',
+            404: 'No encontrado'
+        })
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
     
@@ -124,7 +130,7 @@ class ActoresViewSet(viewsets.ModelViewSet):
             403: 'Permiso denegado',
             404: 'No encontrado'
         },
-        security=[{'Token de acceso': []}]
+        #security=[{'Token de acceso': []}]
     )
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)

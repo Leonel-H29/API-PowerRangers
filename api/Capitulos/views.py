@@ -24,6 +24,8 @@ class CapitulosViewSet(viewsets.ModelViewSet):
     filterset_fields = ['numero_cap']
     permission_classes = [SuperuserPermission | ReadOnlyPermission]
 
+    #Documentacion en Swagger
+    
     @swagger_auto_schema(
         operation_summary="Obtener un capitulo por su id",
         operation_description="Retorna un capitulo con la información completa.",
@@ -66,12 +68,12 @@ class CapitulosViewSet(viewsets.ModelViewSet):
             }
         ),
         responses={
-            201: CapitulosSerializer(),
+            201: 'Capitulo creado exitosamente',
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado'
         },
-        security=[{'Token de acceso': []}]
+        #security=[{'Token de acceso': []}]
         )     
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
@@ -97,7 +99,13 @@ class CapitulosViewSet(viewsets.ModelViewSet):
                 #'temporada': openapi.Schema(type=openapi.TYPE_INTEGER, description='Temporada a la que pertenece el capitulo'),              
             }
         ),
-        responses={200: CapitulosSerializer()})
+        responses={
+            200: 'Actor actualizado exitosamente',
+            400: 'Error en los datos enviados',
+            401: 'No autenticado',
+            403: 'Permiso denegado',
+            404: 'No encontrado'
+        })
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
     
@@ -121,7 +129,7 @@ class CapitulosViewSet(viewsets.ModelViewSet):
             403: 'Permiso denegado',
             404: 'No encontrado'
         },
-        security=[{'Token de acceso': []}]
+        #security=[{'Token de acceso': []}]
     )
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
@@ -144,7 +152,7 @@ class CapitulosViewSet(viewsets.ModelViewSet):
             403: 'Permiso denegado',
             404: 'No encontrado'
         },
-        security=[{'Token de acceso': []}]
+        #security=[{'Token de acceso': []}]
     )
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
