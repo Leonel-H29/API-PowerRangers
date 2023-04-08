@@ -24,32 +24,12 @@ class UserViewSet(viewsets.GenericViewSet):
     @swagger_auto_schema(
         operation_summary="Inicio de sesion de un usuario",
         operation_description="Permite a un usuario iniciar sesión en el sistema mediante su correo electrónico y contraseña.",
-        manual_parameters=[
-            openapi.Parameter(
-                name='Email',
-                in_=openapi.IN_QUERY,
-                required=True,
-                type=openapi.TYPE_STRING,
-                description='Ingrese su correo electronico'
-            ),
-            openapi.Parameter(
-                name='Password',
-                in_=openapi.IN_QUERY,
-                required=True,
-                type=openapi.TYPE_STRING,
-                description='Ingrese su contraseña'
-            ),
-        ],
         
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
                 'email': openapi.Schema(type=openapi.TYPE_STRING, description='Correo del usuario'),
                 'password': openapi.Schema(type=openapi.TYPE_STRING, description='Contraseña del usuario'), 
-                #'nombre_actor': openapi.Schema(type=openapi.TYPE_STRING, description='Nombre real del actor'),
-                #'nombre_artistico': openapi.Schema(type=openapi.TYPE_STRING, description='Nombre artístico del actor'),
-                #'edad': openapi.Schema(type=openapi.TYPE_INTEGER, description='Edad del actor'),
-                #'pais': openapi.Schema(type=openapi.TYPE_STRING, description='País del actor'),
             }
         ),
         responses={
@@ -78,6 +58,22 @@ class UserViewSet(viewsets.GenericViewSet):
         
 
     """
+    manual_parameters=[
+            openapi.Parameter(
+                name='Email',
+                in_=openapi.IN_QUERY,
+                required=True,
+                type=openapi.TYPE_STRING,
+                description='Ingrese su correo electronico'
+            ),
+            openapi.Parameter(
+                name='Password',
+                in_=openapi.IN_QUERY,
+                required=True,
+                type=openapi.TYPE_STRING,
+                description='Ingrese su contraseña'
+            ),
+        ],
     @action(detail=False, methods=['post'])
     def signup(self, request):
         serializer = UserSignUpSerializer(data=request.data)
