@@ -180,3 +180,132 @@ class PersonajesViewSet(viewsets.ModelViewSet):
     depth = 1
     authentication_classes = [TokenAuthentication]
     permission_classes = [SuperuserPermission | ReadOnlyPermission]
+    
+    #Documentacion en Swagger
+    
+    @swagger_auto_schema(
+        operation_summary="Obtener un personaje por su id",
+        operation_description="Retorna un personaje con la información completa.",
+        responses={
+            200: PersonajeSerializer(), 
+            400: 'No se ha encontrado el personaje solicitado'
+        })
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary="Obtener todos los personajes",
+        operation_description="Retorna una lista con todos los personajes.",
+        responses={
+            200: PersonajeSerializer(many=True),
+            400: 'No se ha encontrado el listado'
+        })
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary="Crear un nuevo personaje",
+        operation_description="Crea un nuevo personaje con la información proporcionada.",
+        manual_parameters=[
+            openapi.Parameter(
+                name='Authorization',
+                in_=openapi.IN_HEADER,
+                required=True,
+                type=openapi.TYPE_STRING,
+                description='Token de acceso (Token access_token)'
+            ),
+        ],
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'nombre_personaje': openapi.Schema(type=openapi.TYPE_STRING, description='Nombre real del personaje'),
+                'foto': openapi.Schema(type=openapi.TYPE_STRING, description='URL de la foto del personaje'),
+            }
+        ),
+        responses={
+            201: 'Personaje creado exitosamente',
+            400: 'Error en los datos enviados',
+            401: 'No autenticado',
+            403: 'Permiso denegado'
+        },
+        #security=[{'Token de acceso': []}]
+        )     
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary="Actualizar un personaje existente",
+        operation_description="Actualiza la información de un personaje existente.",
+        manual_parameters=[
+            openapi.Parameter(
+                name='Authorization',
+                in_=openapi.IN_HEADER,
+                required=True,
+                type=openapi.TYPE_STRING,
+                description='Token de acceso (Token access_token)'
+            ),
+        ],
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'nombre_personaje': openapi.Schema(type=openapi.TYPE_STRING, description='Nombre real del personaje'),
+                'foto': openapi.Schema(type=openapi.TYPE_STRING, description='URL de la foto del personaje'),
+            }
+        ),
+        responses={
+            200: 'Actor actualizado exitosamente',
+            400: 'Error en los datos enviados',
+            401: 'No autenticado',
+            403: 'Permiso denegado',
+            404: 'No encontrado'
+        })
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+    
+    @swagger_auto_schema(
+        request_body=PersonajeSerializer,
+        operation_summary="Actualiza parcialmente un personaje",
+        operation_description='Actualiza parcialmente un personaje existente',
+        manual_parameters=[
+            openapi.Parameter(
+                name='Authorization',
+                in_=openapi.IN_HEADER,
+                required=True,
+                type=openapi.TYPE_STRING,
+                description='Token de acceso (Token access_token)'
+            ),
+        ],
+        responses={
+            200: 'Personaje actualizado exitosamente',
+            400: 'Error en los datos enviados',
+            401: 'No autenticado',
+            403: 'Permiso denegado',
+            404: 'No encontrado'
+        },
+        #security=[{'Token de acceso': []}]
+    )
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
+    
+    @swagger_auto_schema(
+        operation_summary="Elimina un personaje",
+        operation_description='Elimina un personaje existente',
+        manual_parameters=[
+            openapi.Parameter(
+                name='Authorization',
+                in_=openapi.IN_HEADER,
+                required=True,
+                type=openapi.TYPE_STRING,
+                description='Token de acceso (Token access_token)'
+        ),
+    ],
+        responses={
+            204: 'Personaje eliminado exitosamente',
+            401: 'No autenticado',
+            403: 'Permiso denegado',
+            404: 'No encontrado'
+        },
+        #security=[{'Token de acceso': []}]
+    )
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
