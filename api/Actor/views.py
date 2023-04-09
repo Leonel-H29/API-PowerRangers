@@ -59,15 +59,7 @@ class ActoresViewSet(viewsets.ModelViewSet):
                 description='Token de acceso (Token access_token)'
             ),
         ],
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'nombre_actor': openapi.Schema(type=openapi.TYPE_STRING, description='Nombre real del actor'),
-                'nombre_artistico': openapi.Schema(type=openapi.TYPE_STRING, description='Nombre artístico del actor'),
-                'foto': openapi.Schema(type=openapi.TYPE_STRING, description='URL de la foto del actor'),
-                'biografia': openapi.Schema(type=openapi.TYPE_STRING, description='URL de la biografia del actor'),
-            }
-        ),
+        request_body=ActorSerializer,
         responses={
             201: 'Actor creado exitosamente',
             400: 'Error en los datos enviados',
@@ -91,15 +83,7 @@ class ActoresViewSet(viewsets.ModelViewSet):
                 description='Token de acceso (Token access_token)'
             ),
         ],
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'nombre_actor': openapi.Schema(type=openapi.TYPE_STRING, description='Nombre real del actor'),
-                'nombre_artistico': openapi.Schema(type=openapi.TYPE_STRING, description='Nombre artístico del actor'),
-                'edad': openapi.Schema(type=openapi.TYPE_INTEGER, description='Edad del actor'),
-                'pais': openapi.Schema(type=openapi.TYPE_STRING, description='País del actor'),
-            }
-        ),
+        request_body=ActorSerializer,
         responses={
             200: 'Actor actualizado exitosamente',
             400: 'Error en los datos enviados',
@@ -245,13 +229,7 @@ class PersonajesViewSet(viewsets.ModelViewSet):
                 description='Token de acceso (Token access_token)'
             ),
         ],
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'nombre_personaje': openapi.Schema(type=openapi.TYPE_STRING, description='Nombre real del personaje'),
-                'foto': openapi.Schema(type=openapi.TYPE_STRING, description='URL de la foto del personaje'),
-            }
-        ),
+        request_body=PersonajeSerializer,
         responses={
             200: 'Actor actualizado exitosamente',
             400: 'Error en los datos enviados',

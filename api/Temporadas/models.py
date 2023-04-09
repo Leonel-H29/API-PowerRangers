@@ -13,8 +13,8 @@ class temporada(models.Model):
     cancion=models.CharField(max_length=260)
     basada_en=models.CharField(max_length=50)
     tematica=models.CharField(max_length=100)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True, help_text='Fecha de creacion del registro')
+    updated = models.DateTimeField(auto_now_add=True, help_text='Fecha de actualizacion del registro')
     
     def __str__(self):
         return str(self.id_temporada) + ")- " + str(self.numero_temporada)+ "-- " +self.nombre

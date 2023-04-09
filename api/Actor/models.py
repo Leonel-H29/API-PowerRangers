@@ -5,13 +5,13 @@ from Temporadas.models import temporada
 
 # Create your models here.
 class actor(models.Model):
-    id_actor= AutoField(primary_key=True)
-    nombre_actor=models.CharField(max_length=80)
-    nombre_artistico=models.CharField(max_length=80, blank=True, null=True)
-    foto=models.CharField(max_length=300)
-    biografia=models.CharField(max_length=300)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now_add=True)
+    id_actor= AutoField(primary_key=True, help_text='ID del actor')
+    nombre_actor=models.CharField(max_length=80, help_text='Nombre real del actor')
+    nombre_artistico=models.CharField(max_length=80, blank=True, null=True, help_text='Nombre artistico del actor')
+    foto=models.CharField(max_length=300, help_text='URL de la foto del actor')
+    biografia=models.CharField(max_length=300, help_text='URL de la biografia del actor')
+    created = models.DateTimeField(auto_now_add=True, help_text='Fecha de creacion del registro')
+    updated = models.DateTimeField(auto_now_add=True, help_text='Fecha de actualizacion del registro')
     
     def __str__(self):
         return str(self.id_actor)  + self.nombre_actor
@@ -24,15 +24,15 @@ class actor(models.Model):
 
 
 class personaje(models.Model):
-    id_personaje= AutoField(primary_key=True)
-    nombre_personaje=models.CharField(max_length=80, unique=True)
+    id_personaje= AutoField(primary_key=True, help_text='ID del personaje')
+    nombre_personaje=models.CharField(max_length=80, unique=True, help_text='Nombre real del personaje')
     #descripcion=models.TextField(blank=True, null=True)
-    foto=models.CharField(max_length=300)
+    foto=models.CharField(max_length=300, help_text='URL de la foto del personaje')
     #id_actor= models.ForeignKey(actor, on_delete=DO_NOTHING, db_column='id_actor')
-    actor= models.ForeignKey(actor, on_delete=DO_NOTHING, db_column='id_actor',related_name='personajes')
+    actor= models.ForeignKey(actor, on_delete=DO_NOTHING, db_column='id_actor',related_name='personajes', help_text='Datos del actor que interpreta al personaje')
     temporadas=models.ManyToManyField(temporada,through='Aparecen', related_name='personajes')
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True, help_text='Fecha de creacion del registro')
+    updated = models.DateTimeField(auto_now_add=True, help_text='Fecha de actualizacion del registro')
     
     def __str__(self):
         return str(self.id_personaje) + ")- " + self.nombre_personaje 
