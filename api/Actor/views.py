@@ -199,13 +199,7 @@ class PersonajesViewSet(viewsets.ModelViewSet):
                 description='Token de acceso (Token access_token)'
             ),
         ],
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'nombre_personaje': openapi.Schema(type=openapi.TYPE_STRING, description='Nombre real del personaje'),
-                'foto': openapi.Schema(type=openapi.TYPE_STRING, description='URL de la foto del personaje'),
-            }
-        ),
+        request_body=PersonajeSerializer,
         responses={
             201: 'Personaje creado exitosamente',
             400: 'Error en los datos enviados',
