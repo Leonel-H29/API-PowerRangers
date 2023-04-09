@@ -5,7 +5,7 @@ from Temporadas.models import temporada
 
 # Create your models here.
 class actor(models.Model):
-    id_actor= AutoField(primary_key=True, help_text='ID del actor')
+    id_actor= AutoField(primary_key=True, help_text='ID unico del actor')
     nombre_actor=models.CharField(max_length=80, help_text='Nombre real del actor')
     nombre_artistico=models.CharField(max_length=80, blank=True, null=True, help_text='Nombre artistico del actor')
     foto=models.CharField(max_length=300, help_text='URL de la foto del actor')
@@ -24,7 +24,7 @@ class actor(models.Model):
 
 
 class personaje(models.Model):
-    id_personaje= AutoField(primary_key=True, help_text='ID del personaje')
+    id_personaje= AutoField(primary_key=True, help_text='ID unico del personaje')
     nombre_personaje=models.CharField(max_length=80, unique=True, help_text='Nombre real del personaje')
     #descripcion=models.TextField(blank=True, null=True)
     foto=models.CharField(max_length=300, help_text='URL de la foto del personaje')
@@ -46,11 +46,11 @@ class personaje(models.Model):
 
 
 class aparecen(models.Model):
-    id_aparicion = AutoField(primary_key=True)
-    personaje= models.ForeignKey(personaje, on_delete=CASCADE, db_column='id_personaje')
-    temporada = models.ForeignKey(temporada, on_delete=CASCADE, db_column='id_temporada')
-    rol=models.CharField(max_length=30)
-    descripcion=models.TextField(blank=True, null=True)
+    id_aparicion = AutoField(primary_key=True,help_text='ID unico de la aparicion del personaje en la temporada')
+    personaje= models.ForeignKey(personaje, on_delete=CASCADE, db_column='id_personaje', help_text='Datos del personaje')
+    temporada = models.ForeignKey(temporada, on_delete=CASCADE, db_column='id_temporada', help_text='Datos de la temporada')
+    rol=models.CharField(max_length=30, help_text='El rol que ocupa el personaje en la temporada')
+    descripcion=models.TextField(blank=True, null=True, help_text='Descripcion del rol del personje en esta temporada')
     class Meta:
         db_table='aparecen'
         verbose_name='aparece'
