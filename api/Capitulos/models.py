@@ -5,11 +5,11 @@ from Temporadas.models import temporada
 
 # Create your models here.
 class capitulo(models.Model):
-    id_capitulo = AutoField(primary_key=True)
-    numero_cap = models.PositiveIntegerField()
-    nombre=models.CharField(max_length=50)
-    descripcion=models.TextField(blank=True, null=True)
-    temporada = models.ForeignKey(temporada, on_delete=DO_NOTHING, db_column='id_temporada',related_name='capitulos')
+    id_capitulo = AutoField(primary_key=True,help_text='ID unico del capitulo')
+    numero_cap = models.PositiveIntegerField(help_text='Numero del capitulo')
+    nombre=models.CharField(max_length=50, help_text='Titulo del capitulo')
+    descripcion=models.TextField(blank=True, null=True, help_text='Descripcion de lo que sucede en el capitulo')
+    temporada = models.ForeignKey(temporada, on_delete=DO_NOTHING, db_column='id_temporada',related_name='capitulos', help_text='ID de la temporada a la que pertenece el capitulo')
     created = models.DateTimeField(auto_now_add=True, help_text='Fecha de creacion del registro')
     updated = models.DateTimeField(auto_now_add=True, help_text='Fecha de actualizacion del registro')
     

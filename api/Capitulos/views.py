@@ -58,15 +58,7 @@ class CapitulosViewSet(viewsets.ModelViewSet):
                 description='Token de acceso (Token access_token)'
             ),
         ],
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'numero_cap' : openapi.Schema(type=openapi.TYPE_INTEGER, description='Numero del capitulo'),
-                'nombre': openapi.Schema(type=openapi.TYPE_STRING, description='Nombre real del capitulo'),
-                'descripcion': openapi.Schema(type=openapi.TYPE_STRING, description='Descripcion de la temporada'),
-                #'temporada': openapi.Schema(type=openapi.TYPE_INTEGER, description='Temporada a la que pertenece el capitulo'),              
-            }
-        ),
+        request_body=CapitulosSerializer,
         responses={
             201: 'Capitulo creado exitosamente',
             400: 'Error en los datos enviados',
@@ -90,15 +82,7 @@ class CapitulosViewSet(viewsets.ModelViewSet):
                 description='Token de acceso (Token access_token)'
             ),
         ],
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'numero_cap' : openapi.Schema(type=openapi.TYPE_INTEGER, description='Numero del capitulo'),
-                'nombre': openapi.Schema(type=openapi.TYPE_STRING, description='Nombre real del capitulo'),
-                'descripcion': openapi.Schema(type=openapi.TYPE_STRING, description='Descripcion de la temporada'),
-                #'temporada': openapi.Schema(type=openapi.TYPE_INTEGER, description='Temporada a la que pertenece el capitulo'),              
-            }
-        ),
+        request_body=CapitulosSerializer,
         responses={
             200: 'Actor actualizado exitosamente',
             400: 'Error en los datos enviados',
