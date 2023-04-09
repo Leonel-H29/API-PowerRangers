@@ -59,19 +59,7 @@ class TemporadasViewSet(viewsets.ModelViewSet):
                 description='Token de acceso (Token access_token)'
             ),
         ],
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'numero_temporada' : openapi.Schema(type=openapi.TYPE_INTEGER, description='Numero de temporada'),
-                'nombre' : openapi.Schema(type=openapi.TYPE_STRING, description='Nombre de esa temporada'),
-                'descripcion': openapi.Schema(type=openapi.TYPE_STRING, description='Descripcion de la temporada'),
-                'foto' : openapi.Schema(type=openapi.TYPE_STRING, description='URL de la foto de la temporada'),
-                'anio_estreno': openapi.Schema(type=openapi.TYPE_INTEGER, description='Año de estreno de la temporada'),
-                'cancion' : openapi.Schema(type=openapi.TYPE_STRING, description='Nombre de la cancion de esa temporada'),
-                'basada_en' : openapi.Schema(type=openapi.TYPE_STRING, description='Nombre del serie, novela, libro, etc en que se basa esa temporada'),
-                'tematica' : openapi.Schema(type=openapi.TYPE_STRING, description='La tematica en que se basa esa temporada'),
-            }
-        ),
+        request_body=TemporadaSerializer,
         responses={
             201: 'Temporada creada exitosamente',
             400: 'Error en los datos enviados',
@@ -95,19 +83,7 @@ class TemporadasViewSet(viewsets.ModelViewSet):
                 description='Token de acceso (Token access_token)'
             ),
         ],
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'numero_temporada' : openapi.Schema(type=openapi.TYPE_INTEGER, description='Numero de temporada'),
-                'nombre' : openapi.Schema(type=openapi.TYPE_STRING, description='Nombre de esa temporada'),
-                'descripcion': openapi.Schema(type=openapi.TYPE_STRING, description='Descripcion de la temporada'),
-                'foto' : openapi.Schema(type=openapi.TYPE_STRING, description='URL de la foto de la temporada'),
-                'anio_estreno': openapi.Schema(type=openapi.TYPE_INTEGER, description='Año de estreno de la temporada'),
-                'cancion' : openapi.Schema(type=openapi.TYPE_STRING, description='Nombre de la cancion de esa temporada'),
-                'basada_en' : openapi.Schema(type=openapi.TYPE_STRING, description='Nombre del serie, novela, libro, etc en que se basa esa temporada'),
-                'tematica' : openapi.Schema(type=openapi.TYPE_STRING, description='La tematica en que se basa esa temporada'),
-            }
-        ),
+        request_body=TemporadaSerializer,
         responses={
             200: 'Temporada actualizada exitosamente',
             400: 'Error en los datos enviados',
