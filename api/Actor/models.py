@@ -21,6 +21,7 @@ class actor(models.Model):
         verbose_name='actor'
         verbose_name_plural='actores'
         ordering = ['nombre_actor']
+        unique_together = ('nombre_actor', 'nombre_artistico')
 
 
 class personaje(models.Model):
