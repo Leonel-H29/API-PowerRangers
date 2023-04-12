@@ -32,7 +32,7 @@ class TemporadasViewSet(viewsets.ModelViewSet):
         operation_description="Retorna un temporada con la información completa.",
         responses={
             200: TemporadaSerializer(),
-            400: 'No se ha encontrado el actor solicitado'
+            400: 'No se ha encontrado la temporada solicitada'
         })
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
