@@ -32,7 +32,8 @@ class ActoresViewSet(viewsets.ModelViewSet):
         operation_description="Retorna un actor con la información completa.",
         responses={
             200: ActorSerializer(), 
-            400: 'No se ha encontrado el actor solicitado'
+            400: 'No se ha encontrado el actor solicitado',
+            500: 'Se ha producido un error interno en el servidor'
         })
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
@@ -42,7 +43,8 @@ class ActoresViewSet(viewsets.ModelViewSet):
         operation_description="Retorna una lista con todos los actores.",
         responses={
             200: ActorSerializer(many=True),
-            400: 'No se ha encontrado el listado'
+            400: 'No se ha encontrado el listado',
+            500: 'Se ha producido un error interno en el servidor'
         })
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
@@ -64,7 +66,8 @@ class ActoresViewSet(viewsets.ModelViewSet):
             201: 'Actor creado exitosamente',
             400: 'Error en los datos enviados',
             401: 'No autenticado',
-            403: 'Permiso denegado'
+            403: 'Permiso denegado',
+            500: 'Se ha producido un error interno en el servidor'
         },
         #security=[{'Token de acceso': []}]
         )     
@@ -89,7 +92,8 @@ class ActoresViewSet(viewsets.ModelViewSet):
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado',
-            404: 'No encontrado'
+            404: 'No encontrado',
+            500: 'Se ha producido un error interno en el servidor'
         })
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
@@ -112,7 +116,8 @@ class ActoresViewSet(viewsets.ModelViewSet):
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado',
-            404: 'No encontrado'
+            404: 'No encontrado',
+            500: 'Se ha producido un error interno en el servidor'
         },
         #security=[{'Token de acceso': []}]
     )
@@ -135,7 +140,8 @@ class ActoresViewSet(viewsets.ModelViewSet):
             204: 'Actor eliminado exitosamente',
             401: 'No autenticado',
             403: 'Permiso denegado',
-            404: 'No encontrado'
+            404: 'No encontrado',
+            500: 'Se ha producido un error interno en el servidor'
         },
         #security=[{'Token de acceso': []}]
     )
@@ -160,7 +166,8 @@ class AparecenViewSet(viewsets.ModelViewSet):
         operation_description="Retorna una aparicion con la información completa.",
         responses={
             200: AparecenEnSerializer(), 
-            400: 'No se ha encontrado la aparicion solicitada'
+            400: 'No se ha encontrado la aparicion solicitada',
+            500: 'Se ha producido un error interno en el servidor'
         })
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
@@ -170,7 +177,8 @@ class AparecenViewSet(viewsets.ModelViewSet):
         operation_description="Retorna una lista con todas las apariciones.",
         responses={
             200: AparecenEnSerializer(many=True),
-            400: 'No se ha encontrado el listado'
+            400: 'No se ha encontrado el listado',
+            500: 'Se ha producido un error interno en el servidor'
         })
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
@@ -192,7 +200,8 @@ class AparecenViewSet(viewsets.ModelViewSet):
             201: 'Aparicion creada exitosamente',
             400: 'Error en los datos enviados',
             401: 'No autenticado',
-            403: 'Permiso denegado'
+            403: 'Permiso denegado',
+            500: 'Se ha producido un error interno en el servidor'
         },
         #security=[{'Token de acceso': []}]
         )     
@@ -217,7 +226,8 @@ class AparecenViewSet(viewsets.ModelViewSet):
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado',
-            404: 'No encontrado'
+            404: 'No encontrado',
+            500: 'Se ha producido un error interno en el servidor'
         })
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
@@ -240,7 +250,8 @@ class AparecenViewSet(viewsets.ModelViewSet):
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado',
-            404: 'No encontrado'
+            404: 'No encontrado',
+            500: 'Se ha producido un error interno en el servidor'
         },
         #security=[{'Token de acceso': []}]
     )
@@ -263,7 +274,8 @@ class AparecenViewSet(viewsets.ModelViewSet):
             204: 'Aparicion eliminada exitosamente',
             401: 'No autenticado',
             403: 'Permiso denegado',
-            404: 'No encontrado'
+            404: 'No encontrado',
+            500: 'Se ha producido un error interno en el servidor'
         },
         #security=[{'Token de acceso': []}]
     )
@@ -289,7 +301,8 @@ class PersonajesViewSet(viewsets.ModelViewSet):
         operation_description="Retorna un personaje con la información completa.",
         responses={
             200: PersonajeSerializer(), 
-            400: 'No se ha encontrado el personaje solicitado'
+            400: 'No se ha encontrado el personaje solicitado',
+            500: 'Se ha producido un error interno en el servidor'
         })
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
@@ -299,7 +312,8 @@ class PersonajesViewSet(viewsets.ModelViewSet):
         operation_description="Retorna una lista con todos los personajes.",
         responses={
             200: PersonajeSerializer(many=True),
-            400: 'No se ha encontrado el listado'
+            400: 'No se ha encontrado el listado',
+            500: 'Se ha producido un error interno en el servidor'
         })
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
@@ -321,7 +335,8 @@ class PersonajesViewSet(viewsets.ModelViewSet):
             201: 'Personaje creado exitosamente',
             400: 'Error en los datos enviados',
             401: 'No autenticado',
-            403: 'Permiso denegado'
+            403: 'Permiso denegado',
+            500: 'Se ha producido un error interno en el servidor'
         },
         #security=[{'Token de acceso': []}]
         )     
@@ -346,7 +361,8 @@ class PersonajesViewSet(viewsets.ModelViewSet):
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado',
-            404: 'No encontrado'
+            404: 'No encontrado',
+            500: 'Se ha producido un error interno en el servidor'
         })
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
@@ -369,7 +385,8 @@ class PersonajesViewSet(viewsets.ModelViewSet):
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado',
-            404: 'No encontrado'
+            404: 'No encontrado',
+            500: 'Se ha producido un error interno en el servidor'
         },
         #security=[{'Token de acceso': []}]
     )
@@ -392,7 +409,8 @@ class PersonajesViewSet(viewsets.ModelViewSet):
             204: 'Personaje eliminado exitosamente',
             401: 'No autenticado',
             403: 'Permiso denegado',
-            404: 'No encontrado'
+            404: 'No encontrado',
+            500: 'Se ha producido un error interno en el servidor'
         },
         #security=[{'Token de acceso': []}]
     )

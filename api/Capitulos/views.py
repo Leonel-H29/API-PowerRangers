@@ -31,7 +31,8 @@ class CapitulosViewSet(viewsets.ModelViewSet):
         operation_description="Retorna un capitulo con la información completa.",
         responses={
             200: CapitulosSerializer(),
-            400: 'No se ha encontrado el actor solicitado'
+            400: 'No se ha encontrado el actor solicitado',
+            500: 'Se ha producido un error interno en el servidor'
         })
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
@@ -41,7 +42,8 @@ class CapitulosViewSet(viewsets.ModelViewSet):
         operation_description="Retorna una lista con todos los capitulos.",
         responses={
             200: CapitulosSerializer(many=True),
-            400: 'No se ha encontrado el listado'
+            400: 'No se ha encontrado el listado',
+            500: 'Se ha producido un error interno en el servidor'
         })
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
@@ -63,7 +65,8 @@ class CapitulosViewSet(viewsets.ModelViewSet):
             201: 'Capitulo creado exitosamente',
             400: 'Error en los datos enviados',
             401: 'No autenticado',
-            403: 'Permiso denegado'
+            403: 'Permiso denegado',
+            500: 'Se ha producido un error interno en el servidor'
         },
         #security=[{'Token de acceso': []}]
         )     
@@ -88,7 +91,8 @@ class CapitulosViewSet(viewsets.ModelViewSet):
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado',
-            404: 'No encontrado'
+            404: 'No encontrado',
+            500: 'Se ha producido un error interno en el servidor'
         })
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
@@ -111,7 +115,8 @@ class CapitulosViewSet(viewsets.ModelViewSet):
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado',
-            404: 'No encontrado'
+            404: 'No encontrado',
+            500: 'Se ha producido un error interno en el servidor'
         },
         #security=[{'Token de acceso': []}]
     )
@@ -134,7 +139,8 @@ class CapitulosViewSet(viewsets.ModelViewSet):
             204: 'Actor eliminado exitosamente',
             401: 'No autenticado',
             403: 'Permiso denegado',
-            404: 'No encontrado'
+            404: 'No encontrado',
+            500: 'Se ha producido un error interno en el servidor'
         },
         #security=[{'Token de acceso': []}]
     )

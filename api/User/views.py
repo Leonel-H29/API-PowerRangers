@@ -36,6 +36,7 @@ class UserViewSet(viewsets.GenericViewSet):
             #200: 'Inicio de sesion exitoso',
             201: 'Inicio de sesion exitoso',
             400: 'Usuario o contraseña no validos',
+            500: 'Se ha producido un error interno en el servidor'
     })
     @action(detail=False, methods=['post'])
     def login(self, request):
