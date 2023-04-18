@@ -1,5 +1,5 @@
 from rest_framework import  viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 #from rest_framework.decorators import action
 #from rest_framework.response import Response
@@ -22,6 +22,9 @@ class CapitulosViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     #filterset_fields = ['numero_cap', 'temporada']
     filterset_fields = ['numero_cap']
+    name = 'capitulos'
+    depth = 1
+    authentication_classes = [TokenAuthentication]
     permission_classes = [SuperuserPermission | ReadOnlyPermission]
 
     #Documentacion en Swagger
