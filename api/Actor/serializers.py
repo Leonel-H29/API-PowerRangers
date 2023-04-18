@@ -40,6 +40,6 @@ class AparecenEnSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = aparecen
-        fields = ('id_aparicion', 'personaje', 'temporada', 'rol')
+        fields = ('id_aparicion', 'personaje', 'temporada', 'rol', 'descripcion')
         read_only_fields = ['id_aparicion']
     

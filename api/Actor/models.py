@@ -51,7 +51,7 @@ class aparecen(models.Model):
     personaje= models.ForeignKey(personaje, on_delete=CASCADE, db_column='id_personaje', help_text='Datos del personaje')
     temporada = models.ForeignKey(temporada, on_delete=CASCADE, db_column='id_temporada', help_text='Datos de la temporada')
     rol=models.CharField(max_length=30, help_text='El rol que ocupa el personaje en la temporada')
-    descripcion=models.TextField(blank=True, null=True, help_text='Descripcion del rol del personje en esta temporada')
+    descripcion=models.TextField(blank=True, null=True, help_text='Descripcion del rol del personaje en esta temporada')
     class Meta:
         db_table='aparecen'
         verbose_name='aparece'
