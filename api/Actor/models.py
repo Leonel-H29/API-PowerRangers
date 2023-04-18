@@ -30,7 +30,7 @@ class personaje(models.Model):
     #descripcion=models.TextField(blank=True, null=True)
     foto=models.CharField(max_length=300, help_text='URL de la foto del personaje')
     #id_actor= models.ForeignKey(actor, on_delete=DO_NOTHING, db_column='id_actor')
-    actor= models.ForeignKey(actor, on_delete=DO_NOTHING, db_column='id_actor',related_name='personajes', help_text='Datos del actor que interpreta al personaje')
+    actor= models.ForeignKey(actor, on_delete=DO_NOTHING, db_column='id_actor',related_name='personajes', help_text='Id del actor que interpreta al personaje')
     temporadas=models.ManyToManyField(temporada,through='Aparecen', related_name='personajes')
     created = models.DateTimeField(auto_now_add=True, help_text='Fecha de creacion del registro')
     updated = models.DateTimeField(auto_now_add=True, help_text='Fecha de actualizacion del registro')
