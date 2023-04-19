@@ -7,7 +7,7 @@ from Temporadas.models import temporada
 class actor(models.Model):
     id_actor= AutoField(primary_key=True, help_text='ID unico del actor')
     nombre_actor=models.CharField(max_length=80, help_text='Nombre real del actor')
-    nombre_artistico=models.CharField(max_length=80, blank=True, null=True, help_text='Nombre artistico del actor')
+    nombre_artistico=models.CharField(max_length=80, help_text='Nombre artistico del actor')
     foto=models.CharField(max_length=300, help_text='URL de la foto del actor')
     biografia=models.CharField(max_length=300, help_text='URL de la biografia del actor')
     created = models.DateTimeField(auto_now_add=True, help_text='Fecha de creacion del registro')
