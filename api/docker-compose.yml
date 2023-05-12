@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # Django Backend
+  backend:
+    ports:
+      - 8081:8081
+    environment:
+      - DJANGO_SUPERUSER_PASSWORD=${API_PASSWORD}
+    container_name: api
+    build:
+      context: api
+      dockerfile: api.Dockerfile
+    #depends_on:
+    #  - database
+    volumes:
+      - './api:/usr/src/api'
+    image: api:1.0
+    networks:
+      - api-network
+
+  database:
+    image: postgres:13.3-alpine
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    networks:
+      - api-network
+    ports:
+      - 5430:5432
+
+networks:
+  api-network:
