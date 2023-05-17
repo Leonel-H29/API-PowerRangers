@@ -1,0 +1,40 @@
+version: '3.7'
+services:
+  # Django Backend
+  apirest:
+    ports:
+      - 8000:8000
+    restart: always
+    #environment:
+    #  - DJANGO_SUPERUSER_PASSWORD=admin
+    container_name: apirest_djangorf
+    #build:
+    #context: api
+    #dockerfile: api.Dockerfile
+    depends_on:
+      - database
+    volumes:
+      - '.:/app'
+    image: backend:1.0
+    networks:
+      - apirest-network
+
+  database:
+    image: postgres:13.3-alpine
+    container_name: db_postgres
+    env_file:
+      - .env.prod
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - 5431:5432
+    networks:
+      - apirest-network
+
+networks:
+  apirest-network:
+    driver: bridge
