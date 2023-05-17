@@ -1,4 +1,8 @@
 from .base import *
+import os
+from dotenv import load_dotenv
+
+load_dotenv(Path.joinpath(BASE_DIR, '.env.prod'))
 
 SECRET_KEY = config("SECRET_KEY")
 
