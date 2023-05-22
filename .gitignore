@@ -102,6 +102,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+*.env
 .env
 .env.*
 .venv
@@ -135,6 +136,16 @@ dmypy.json
 
 api/Actor/migrations
 api/Actor/__pycache__
+api/apps/migrations
+api/apps/__pycache__
+api/apps/core/migrations
+api/apps/core/__pycache__
+api/apps/core/migrations
+api/apps/core/__pycache__
+api/apps/core/management/migrations
+api/apps/core/management/__pycache__
+api/apps/core/management/commands/migrations
+api/apps/core/management/commands/__pycache__
 api/Actor/tests*.py
 api/Capitulos/migrations
 api/Capitulos/__pycache__
