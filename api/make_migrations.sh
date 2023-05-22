@@ -5,7 +5,7 @@ dirs_app=$(ls -d */)
 #Delimitador de cadena
 delimiter='/'
 #Array de directorios que no son apps
-no_apps=("api" "data" "venv" "database")
+no_apps=("api" "apps" "data" "venv" "postgres" "init-scripts")
 
 command="manage.py makemigrations"
 config="--settings=api.settings.development"
