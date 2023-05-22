@@ -25,6 +25,7 @@ LOCAL_APPS = [
     'Actor',
     'Capitulos',
     'Temporadas',
+    'apps.core'
     
 ]
 # Django REST framework

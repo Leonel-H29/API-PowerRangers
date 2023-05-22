@@ -6,9 +6,14 @@ ENV PYTHONUNBUFFERED 1
 # Configura el directorio de trabajo
 WORKDIR /app
 
-RUN  apk update \
-	&& apk add --no-cache gcc musl-dev postgresql-dev python3-dev libffi-dev \
-	&& pip install --upgrade pip
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        gcc \
+        musl-dev \
+        postgresql-dev \
+        python3-dev \
+        libffi-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copia el archivo requirements.txt al contenedor
 COPY ./requirements.txt ./
@@ -19,14 +24,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copia el código de la aplicación al contenedor
 COPY ./ ./
 
-# Expone el puerto 8081
-#EXPOSE 8081
+# Copia el archivo docker-entrypoint.sh al contenedor
+COPY docker-entrypoint.sh ./docker-entrypoint.sh
+
+# Otorga permisos de ejecución al archivo docker-entrypoint.sh
+RUN chmod +x docker-entrypoint.sh
 
 # Ejecuta el comando para arrancar el servidor
-#CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000", "--noreload"]
-#ENTRYPOINT [ "/app/docker-entrypoint.sh" ]
-CMD [ "sh", "/app/docker-entrypoint.sh" ]
-
-
-
-
+CMD ["./docker-entrypoint.sh"]

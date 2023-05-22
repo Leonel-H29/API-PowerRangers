@@ -5,7 +5,7 @@ dirs_app=$(ls -d */)
 #Delimitador de cadena
 delimiter='/'
 #Array de directorios que no son apps
-no_apps=("api" "data" "venv" "database")
+no_apps=("api" "data" "venv" "postgres" "init-scripts")
 
 command="manage.py makemigrations"
 config="--settings=api.settings.production"
@@ -35,9 +35,13 @@ echo "Realizo makemigrations ..."
 python3 $command
 sleep 2
 
+#Espero a que la base de datos este lista
+python3 manage.py wait_db --settings=api.settings.production
+sleep 2
+
 #Creamos las tablas
 echo "Realizo migrate ..."
-python3 manage.py migrate $config
+python manage.py migrate $config
 sleep 2
 
 #Inicio el servidor
