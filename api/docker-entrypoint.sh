@@ -36,7 +36,7 @@ python3 $command
 sleep 2
 
 #Espero a que la base de datos este lista
-python3 manage.py wait_db --settings=api.settings.production
+python3 manage.py wait_db $config
 sleep 2
 
 #Creamos las tablas
@@ -46,7 +46,7 @@ sleep 2
 
 #Inicio el servidor
 echo "Inicio el servidor ..."
-python3 manage.py runserver 0.0.0.0:8000 $config
+python3 manage.py runserver 0.0.0.0:$PORT $config
 
 echo "El backend esta listo"
 
