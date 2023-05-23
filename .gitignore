@@ -158,6 +158,9 @@ api/User/migrations
 api/User/__pycache__
 api/User/tests*.py
 
+#Archivos estaticos
+static_files/
+
 
 #Scripts .sh
 api/install_requeriments.sh
