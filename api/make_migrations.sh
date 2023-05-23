@@ -34,7 +34,7 @@ done
 
 #Creo las migraciones para crear la base de datos
 echo "Realizo makemigrations ..."
-python3 $command
+python3 $command $config
 sleep 2
 
 #Creamos las tablas
