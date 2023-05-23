@@ -14,7 +14,7 @@ config="--settings=api.settings.production"
 
 #Creo las migraciones para crear la base de datos
 echo "Realizo makemigrations ..."
-python $command
+python $command $config
 sleep 2
 
 #Espero a que la base de datos este lista
