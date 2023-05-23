@@ -18,7 +18,7 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
+"""
 # LOCAL APPS
 LOCAL_APPS = [
     #'User',
@@ -27,6 +27,7 @@ LOCAL_APPS = [
     'Temporadas',
     
 ]
+
 # Django REST framework
 DRF = [
     "rest_framework",
@@ -49,7 +50,7 @@ INSTALLED_APPS = [
     # CORS
     "corsheaders",
 ] + LOCAL_APPS + DRF
-
+"""
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -121,7 +122,7 @@ DATABASES = {
     },
 }
 
-AUTH_USER_MODEL = "User.User" 
+#AUTH_USER_MODEL = "User.User" 
 
 
 # Password validation
