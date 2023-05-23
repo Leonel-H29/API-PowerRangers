@@ -12,6 +12,11 @@ command="manage.py makemigrations $apps"
 config="--settings=api.settings.production"
 
 
+#Almaceno los archivos estaticos
+echo "Creando los archivos estaticos ..."
+python manage.py collectstatic --no-input $config
+sleep 2
+
 #Creo las migraciones para crear la base de datos
 echo "Realizo makemigrations ..."
 python $command $config

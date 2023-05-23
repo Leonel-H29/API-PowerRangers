@@ -38,3 +38,6 @@ if POSTGRES_READY:
             "DATABASE_PORT": config("DB_PORT"),
         },
 }
+
+STATIC_ROOT=Path.joinpath(BASE_DIR, 'static_files')
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
