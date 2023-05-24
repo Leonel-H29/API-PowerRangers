@@ -11,6 +11,10 @@ command="manage.py makemigrations $apps"
 #Configuracion para el entorno de produccion
 config="--settings=api.settings.production"
 
+#Elimino los directorios de migrations en las apps
+echo "Eliminando migraciones anteriores ..."
+. del_migrate.sh
+sleep 2
 
 #Almaceno los archivos estaticos
 echo "Creando los archivos estaticos ..."

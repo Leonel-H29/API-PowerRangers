@@ -169,3 +169,7 @@ api/install_requeriments.sh
 #Files .txt
 Comandos.txt
 api/docker_logs.txt
+
+
+#Archivos temporales
+*.swp
