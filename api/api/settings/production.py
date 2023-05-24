@@ -25,7 +25,7 @@ POSTGRES_READY = (
     and DB_PORT is not None
 )
 
-print(POSTGRES_READY)
+#print(POSTGRES_READY)
 
 if POSTGRES_READY:
     DATABASES = {
