@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
-
+import time
 # Create your models here.
 
 class User(AbstractUser):
@@ -16,7 +16,9 @@ class User(AbstractUser):
             user=User.objects.create_superuser(username=username, email=email, password=password)
             user.save()
             print('Superusuario creado ...')
+            time.sleep(2)
         else:
             print('El superusuario ya existe')
+            time.sleep(2)
 
             
