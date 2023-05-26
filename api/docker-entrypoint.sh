@@ -1,9 +1,5 @@
 #!/bin/sh
 
-#Hago un listado de todos los directorios y los almaceno en una variable
-dirs_app=$(ls -d */)
-#Delimitador de cadena
-delimiter='/'
 #String de las apps
 apps="Actor Capitulos Temporadas User"
 #String para el comando para hacer las migraciones

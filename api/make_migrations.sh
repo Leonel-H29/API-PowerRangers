@@ -1,36 +1,16 @@
 #!/bin/bash
 
-#Hago un listado de todos los directorios y los almaceno en una variable
-dirs_app=$(ls -d */)
-#Delimitador de cadena
-delimiter='/'
-#Array de directorios que no son apps
-no_apps=("api" "apps" "data" "venv" "postgres" "init-scripts")
-
-command="manage.py makemigrations"
+#String de las apps
+apps="Actor Capitulos Temporadas User"
+#String para el comando para hacer las migraciones
+command="manage.py makemigrations $apps"
+#Configuracion para el entorno de desarrollo
 config="--settings=api.settings.development"
 
-for x in $dirs_app; do
-	#Separo la cadena
-	app=$(echo $x | cut -d$delimiter -f1)
-
-	value=0
-	
-	#Verifico si el nombre de la cadena pertenece al array de no_apps
-	for dir in "${no_apps[@]}"; do
-		if [ "$app" == "$dir" ]; then
-			value=1
-			break
-		fi
-	done
-
-	if [ $value == 0 ]; then
-		#Concateno para formar el resto del comando
-		command="$command $app"
-	fi
-done
-
-#echo $command
+#Elimino los directorios de migrations en las apps
+echo "Eliminando migraciones anteriores ..."
+. del_migrate.sh
+sleep 2
 
 #Creo las migraciones para crear la base de datos
 echo "Realizo makemigrations ..."
