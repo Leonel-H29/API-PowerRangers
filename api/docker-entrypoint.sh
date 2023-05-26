@@ -31,6 +31,10 @@ echo "Realizo migrate ..."
 python manage.py migrate $config
 sleep 2
 
+#Creo y controlo el superusuario del sistema
+python manage.py create_admin $config
+sleep 2
+
 #Inicio el servidor
 echo "Inicio el servidor ..."
 python manage.py runserver 0.0.0.0:8000 $config

@@ -17,9 +17,17 @@ echo "Realizo makemigrations ..."
 python3 $command $config
 sleep 2
 
+#Espero a que la base de datos este lista
+python3 manage.py wait_db $config
+sleep 2
+
 #Creamos las tablas
 echo "Realizo migrate ..."
 python3 manage.py migrate $config
+sleep 2
+
+#Creo y controlo el superusuario del sistema
+python3 manage.py create_admin $config
 sleep 2
 
 #Inicio el servidor
