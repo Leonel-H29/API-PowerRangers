@@ -2,6 +2,7 @@ from pathlib import Path
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+## TODO FILE_ENV= ''
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
@@ -171,3 +172,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ("JWT", "Bearer", "Token"),
 }
+## TODO DJANGO_SUPERUSER_EMAIL= ''
+## TODO DJANGO_SUPERUSER_USERNAME= ''
+## TODO DJANGO_SUPERUSER_PASSWORD= ''

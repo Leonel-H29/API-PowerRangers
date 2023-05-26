@@ -2,7 +2,9 @@ from .base import *
 import os
 from dotenv import load_dotenv
 
-load_dotenv(Path.joinpath(BASE_DIR, '.env'))
+FILE_ENV= '.env'
+
+load_dotenv(Path.joinpath(BASE_DIR, FILE_ENV))
 
 SECRET_KEY = config("SECRET_KEY")
 
@@ -20,3 +22,7 @@ DATABASES = {
         "DATABASE_PORT": config("DB_PORT"),
     },
 }
+
+DJANGO_SUPERUSER_EMAIL=config("DJANGO_SUPERUSER_EMAIL")
+DJANGO_SUPERUSER_USERNAME=config("DJANGO_SUPERUSER_USERNAME")
+DJANGO_SUPERUSER_PASSWORD=config("DJANGO_SUPERUSER_PASSWORD")

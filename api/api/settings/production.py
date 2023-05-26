@@ -2,7 +2,9 @@ from .base import *
 import os
 from dotenv import load_dotenv
 
-load_dotenv(Path.joinpath(BASE_DIR, 'prod.env'))
+FILE_ENV= 'prod.env'
+
+load_dotenv(Path.joinpath(BASE_DIR, FILE_ENV))
 
 SECRET_KEY = config("SECRET_KEY")
 
@@ -41,3 +43,7 @@ if POSTGRES_READY:
 
 STATIC_ROOT=Path.joinpath(BASE_DIR, 'static_files')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+DJANGO_SUPERUSER_EMAIL=config("DJANGO_SUPERUSER_EMAIL")
+DJANGO_SUPERUSER_USERNAME=config("DJANGO_SUPERUSER_USERNAME")
+DJANGO_SUPERUSER_PASSWORD=config("DJANGO_SUPERUSER_PASSWORD")
