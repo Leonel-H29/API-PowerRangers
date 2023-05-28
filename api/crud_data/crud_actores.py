@@ -88,23 +88,6 @@ class CrudActores():
             self.db_table_name, name)
         return self.DB.exists_tuple(query=query)
 
-    # Funcion para obtener el registro del actor por el id
-
-    # def get_actor_by_id(self, id: int):
-        # cursor = self.conn.cursor()
-        # query = "SELECT * FROM {0} WHERE id_actor;".format(self.db_table_name, id)
-        # print(query)
-        # try:
-        # cursor.execute(query)
-        # resultado = cursor.fetchall()
-        # return resultado
-        # except psycopg2.Error as e:
-        # print(Fore.RED + 'Error al realizar la consulta')
-        # return []
-        # finally:
-        # cursor.close()
-        # self.conn.close()
-
     # Funcion para obtener el registro del actor por el nombre artistico
 
     def get_actor_by_nombre_artistico(self, name: str):
