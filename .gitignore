@@ -170,7 +170,10 @@ api/install_requeriments.sh
 #Files .txt
 Comandos.txt
 api/docker_logs.txt
+api/crud_data/Data.xls
 
 
 #Archivos temporales
 *.swp
+*.xls#
+*logs.txt
