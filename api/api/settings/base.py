@@ -2,32 +2,33 @@ from pathlib import Path
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+## TODO FILE_ENV= ''
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY")
+## TODO SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+## TODO DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+## TODO ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-"""
+
 # LOCAL APPS
 LOCAL_APPS = [
     #'User',
     'Actor',
     'Capitulos',
     'Temporadas',
+    'apps.core'
     
 ]
-
 # Django REST framework
 DRF = [
     "rest_framework",
@@ -50,7 +51,7 @@ INSTALLED_APPS = [
     # CORS
     "corsheaders",
 ] + LOCAL_APPS + DRF
-"""
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'api.urls'
@@ -107,22 +109,22 @@ CORS_ORIGIN_WHITELIST = ["http://localhost:8080"]
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
+#DATABASES = {
     #'default': {
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': BASE_DIR / 'db.sqlite3',
     #}
-     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": config("DB_NAME"),
-        "USER": config("DB_USER"),
-        "PASSWORD": config("DB_PASSWORD"),
-        "HOST": config("DB_HOST"),
-        "DATABASE_PORT": config("DB_PORT"),
-    },
-}
+#     "default": {
+#        "ENGINE": "django.db.backends.postgresql_psycopg2",
+#        "NAME": config("DB_NAME"),
+#        "USER": config("DB_USER"),
+#        "PASSWORD": config("DB_PASSWORD"),
+#        "HOST": config("DB_HOST"),
+#        "DATABASE_PORT": config("DB_PORT"),
+#    },
+#}
 
-#AUTH_USER_MODEL = "User.User" 
+AUTH_USER_MODEL = "User.User" 
 
 
 # Password validation
@@ -170,3 +172,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ("JWT", "Bearer", "Token"),
 }
+## TODO DJANGO_SUPERUSER_EMAIL= ''
+## TODO DJANGO_SUPERUSER_USERNAME= ''
+## TODO DJANGO_SUPERUSER_PASSWORD= ''

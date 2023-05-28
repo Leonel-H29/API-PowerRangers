@@ -49,7 +49,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
+    #path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('', include(router.urls)),   
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

@@ -102,13 +102,18 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+*.env
 .env
+.env.*
 .venv
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+
+.vs
+.vscode
 
 # Spyder project settings
 .spyderproject
@@ -128,22 +133,44 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-
 #App directories
 
 api/Actor/migrations
 api/Actor/__pycache__
-api/Actor/tests.py
+api/apps/migrations
+api/apps/__pycache__
+api/apps/core/migrations
+api/apps/core/__pycache__
+api/apps/core/migrations
+api/apps/core/__pycache__
+api/apps/core/management/migrations
+api/apps/core/management/__pycache__
+api/apps/core/management/commands/migrations
+api/apps/core/management/commands/__pycache__
+api/Actor/tests*.py
 api/Capitulos/migrations
 api/Capitulos/__pycache__
-api/Capitulos/tests.py
+api/Capitulos/tests*.py
 api/Temporadas/migrations
 api/Temporadas/__pycache__
-api/Temporadas/tests.py
+api/Temporadas/tests*.py
 api/data
 api/User/migrations
 api/User/__pycache__
-api/User/tests.py
+api/User/tests*.py
+
+#Archivos estaticos
+static_files/
 
 
+#Scripts .sh
+api/install_requeriments.sh
+
+
+#Files .txt
 Comandos.txt
+api/docker_logs.txt
+
+
+#Archivos temporales
+*.swp

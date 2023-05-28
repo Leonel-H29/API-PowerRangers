@@ -1,0 +1,40 @@
+version: '3.7'
+services:
+  # Django Backend
+  apirest:
+    ports:
+      - 8000:8000
+    restart: always
+    env_file:
+      - prod.env
+    container_name: apirest_djangorf
+    build:
+      context: .
+      dockerfile: Dockerfile
+    user: root
+    depends_on:
+      - database
+    volumes:
+      - '.:/app'
+    image: backend:1.0
+    networks:
+      - apirest-network
+
+  database:
+    image: postgres:13.3-alpine
+    container_name: db_postgres
+    restart: unless-stopped
+    env_file:
+      - prod.env
+    volumes:
+      - database:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - 5430:5432
+    networks:
+      - apirest-network
+volumes:
+  database:
+networks:
+  apirest-network:
+    driver: bridge
