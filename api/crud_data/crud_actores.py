@@ -23,21 +23,33 @@ class CrudActores():
 
     def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
         # Extaigo el 'nombre_artistico' del diccionario
-        nombre = dic["nombre_artistico"]
+        try:
+            nombre = dic["nombre_artistico"]
 
-        if len(list_data) == 0:
-            list_data.append(dic)
-        else:
-            for data in list_data:
-                # Verifico que el actor no este cargado en la base de datos
-                if not self.actor_exists(nombre):
-                    # Verifico si el artor ya se encuentra registrado
-                    if nombre == data["nombre_artistico"]:
-                        return list_data
+            # Verifico si el actor esta cargado en la base de datos
+            if self.actor_exists(nombre):
+                return list_data
 
-            list_data.append(dic)
+            if len(list_data) > 0:
+                for data in list_data:
+                    if self.actor_exists(nombre) is False:
+                        # Verifico si el artor ya se encuentra en la lista
+                        if nombre == data["nombre_artistico"]:
+                            return list_data
 
-        return list_data
+                return list_data.append(dic)
+
+            # Verifica si hay datos en la tabla de la DB
+            if self.DB.len_table_db(self.db_table_name) == 0:
+                return list_data.append(dic)
+
+            # En caso de que no se cumplan ningunas de las condiciones retorno la lista
+            return list_data
+        except Exception:
+            print(Fore.RED + "Dictionary not will be null")
+            return list_data
+
+        # return list_data
 
     # Funcion para extraer los datos del archivo
 
@@ -75,7 +87,7 @@ class CrudActores():
 
     # Funcion para saber si el actor existe
 
-    def actor_exists(self, name: str):
+    def actor_exists(self, name: str = None) -> bool:
         cursor = self.conn.cursor()
         query = "SELECT * FROM {0} WHERE nombre_artistico='%s';".format(
             self.db_table_name, name)
@@ -158,7 +170,7 @@ class CrudActores():
             print(list_values)
             # self.post_actores(list_values)
         else:
-            print(Fore.RED + "Lista vacia para insertar datos")
+            print(Fore.YELLOW + "Lista vacia para insertar datos")
 
     # Funcion para hacer un insert en la DB
 
