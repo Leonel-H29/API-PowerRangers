@@ -103,7 +103,7 @@ class CrudTemporadas():
         list_values = []
 
         list_values = [
-            "('{0}','{1}','{2}','{3}','{4}','{5}'),".format(
+            "('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'),".format(
                 temp["numero_temporada"],
                 temp["nombre"],
                 temp["descripcion"],
