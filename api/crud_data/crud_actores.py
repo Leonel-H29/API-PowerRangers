@@ -144,18 +144,6 @@ class CrudActores():
 
         list_values = []
 
-        # for x in range(0, len(actores)):
-
-        #    values = "('{0}','{1}','{2}','{3}','{4}','{5}'),".format(
-        #        actores[x]["nombre_actor"],
-        #        actores[x]["nombre_artistico"],
-        #        actores[x]["foto"],
-        #        actores[x]["biografia"],
-        #        actores[x]["created"],
-        #        actores[x]["updated"]
-        #    )
-        #    list_values.append(values)
-
         list_values = [
             "('{0}','{1}','{2}','{3}','{4}','{5}'),".format(
                 actor["nombre_actor"],
