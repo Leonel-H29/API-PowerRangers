@@ -67,8 +67,6 @@ class CrudActores():
             col2 = sheet.cell_value(i, 1)  # Nombre real del actor
             col3 = sheet.cell_value(i, 2)  # Foto
             col4 = sheet.cell_value(i, 3)  # Link de la biografia
-            fyh = datetime.now()  # Fecha de insercion y actualizacion
-
             # print(type(col1), type(col2), type(col3), type(col4))
 
             dic = {
@@ -76,11 +74,11 @@ class CrudActores():
                 "nombre_actor": col2,
                 "foto": col3,
                 "biografia": col4,
-                "created": fyh,
-                "updated": fyh
+                "created": datetime.now(),
+                "updated": datetime.now()
             }
 
-            # Verifico si el artor ya se encuentra registrado
+            # Verifico si el actor ya se encuentra registrado
             list_insert = self.uniq_data(dic, list_insert)
 
         self.prepare_query_insert(list_insert)
