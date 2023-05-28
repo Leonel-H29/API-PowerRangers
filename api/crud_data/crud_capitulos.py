@@ -73,19 +73,19 @@ class CrudCapitulos():
             # col4 = sheet.cell_value(i,3) #Temporada
             col5 = int(sheet.cell_value(i, 4))  # Numero de temporada
 
-            query = "SELECT * FROM {0} WHERE numero_temporada={1}".format(
+            query = "SELECT id_temporada FROM {0} WHERE numero_temporada={1};".format(
                 self.db_table_name_fk, col5
             )
 
-            temp = self.DB.get_tuple(query=query)
-            if temp:
+            temp = self.DB.get_id(query=query)
+            if temp > 0:
                 dic = {
                     "numero_cap": col1,
                     "nombre": col2,
                     "descripcion": col3,
                     "created": datetime.now(),
                     "updated": datetime.now(),
-                    "id_temporada": int(temp[0][0])
+                    "id_temporada": temp
                 }
 
             # Verifico si el actor ya se encuentra registrado
