@@ -82,4 +82,18 @@ class DBSettings():
         except psycopg2.Error as e:
             print(Fore.RED + f'Error al insertar los datos - {e}')
         finally:
-            self.cursor.close()
+            cursor.close()
+
+    # Exists de una tupla en la base de datos
+
+    def exists_tuple(self, query: str = None) -> bool:
+        cursor = self.conn.cursor()
+        try:
+            cursor.execute(query)
+            resultado = cursor.fetchall()
+            return len(resultado) > 0
+        except psycopg2.Error as e:
+            print(Fore.RED + 'Error al realizar la consulta')
+            return False
+        finally:
+            cursor.close()
