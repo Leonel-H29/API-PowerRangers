@@ -137,13 +137,3 @@ class CrudTemporadas():
 
     def put_temporadas(n, data):
         pass
-        # cursor = conn.cursor()
-        # print(data)
-        # query = "UPDATE temporadas SET {0} WHERE numero_temporada={1}".format(data, n)
-        # print(query)
-        # try:
-        #    cursor.execute(query)
-        #    print(Fore.GREEN + "Datos actualizados")
-        # except:
-        #    print(Fore.RED + 'Error al actualizar los datos')
-        # cursor.close()
