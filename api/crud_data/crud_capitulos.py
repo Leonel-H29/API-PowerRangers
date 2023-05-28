@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 from db_settings import DBSettings
 from colorama import Fore
 from datetime import datetime
-import psycopg2
 
 load_dotenv()
 
@@ -18,22 +17,52 @@ class CrudCapitulos():
         self.conn.autocommit = True
         self.file = os.getenv('FILE_DATA')  # Archivo donde extraigo los datos
         self.db_table_name = 'capitulos'
+        self.db_table_name_fk = 'temporadas'
+
+    # Funcion para retornar una lista con datos unicos
+
+    def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
+        try:
+            ncap = dic["numero_cap"]
+            idtemp = dic["id_temporada"]
+
+            # Verifico si el actor esta cargado en la base de datos
+            if self.capitulo_exist(cap=ncap, temp=idtemp):
+                return list_data
+
+            if len(list_data) > 0:
+                for data in list_data:
+                    if ncap == data["numero_cap"] and idtemp == data["id_temporada"]:
+                        return list_data
+
+                return list_data.append(dic)
+
+            # Verifica si hay datos en la tabla de la DB
+            if self.DB.len_table_db(self.db_table_name) == 0:
+                return list_data.append(dic)
+
+            # En caso de que no se cumplan ningunas de las condiciones retorno la lista
+            return list_data
+        except Exception:
+            print(Fore.RED + "Dictionary not will be null")
+            return list_data
+
+    # Funcion para saber si el capitulo existe
 
     def capitulo_exist(self, cap: int = 0, temp: int = 0) -> bool:
-        subquery = "SELECT id_temporada FROM temporadas WHERE numero_temporada={0}".format(
-            temp)
-        query = "SELECT * FROM capitulos WHERE numero_cap={0} AND id_temporada=({1})".format(
-            cap, subquery)
+        subquery = "SELECT id_temporada FROM {0} WHERE numero_temporada={1}".format(
+            self.db_table_name_fk, temp)
+        query = "SELECT * FROM {0} WHERE numero_cap={1} AND id_temporada=({2})".format(
+            self.db_table_name, cap, subquery)
         return self.DB.exists_tuple(query=query)
 
-    def get_capitulos():
-        file = os.getenv('FILE_DATA')
-        openFile = xlrd.open_workbook(file)
+    # Funcion para extraer los datos del archivo
+
+    def get_capitulos_file(self):
+        # Abro el archivo
+        openFile = xlrd.open_workbook(self.file)
         # Indico con que hoja voy a trabajar
         sheet = openFile.sheet_by_name("Capitulos")
-
-        # Cantidad de filas
-        # print(sheet.nrows)
 
         list_insert = []
 
@@ -43,59 +72,60 @@ class CrudCapitulos():
             col3 = sheet.cell_value(i, 2)  # Descripcion
             # col4 = sheet.cell_value(i,3) #Temporada
             col5 = int(sheet.cell_value(i, 4))  # Numero de temporada
-            fyh = datetime.now()
 
-            exist = existCapitulo(col1, col5)
-            subquery = "SELECT id_temporada FROM temporadas WHERE numero_temporada={0}".format(
-                col5)
-            if exist == True:
-                set = "numero_cap={0},nombre='{1}',descripcion='{2}',updated='{3}',id_temporada=({4}) ".format(
-                    col1, col2, col3, fyh, subquery)
-                put_capitulos(col1, subquery, set)
-            else:
-                values = "({0},'{1}','{2}','{3}','{4}',({5})),".format(
-                    col1, col2, col3, fyh, fyh, subquery)
-                list_insert.append(values)
+            query = "SELECT * FROM {0} WHERE numero_temporada={1}".format(
+                self.db_table_name_fk, col5
+            )
 
-        if len(list_insert) > 0:
-            # Busco el ultimo elemeto de la lista
-            index = len(list_insert) - 1
-            # print(index)
+            temp = self.DB.get_by_id(query=query)
+            if temp:
+                dic = {
+                    "numero_cap": col1,
+                    "nombre": col2,
+                    "descripcion": col3,
+                    "created": datetime.now(),
+                    "updated": datetime.now(),
+                    "id_temporada": int(temp[0][0])
+                }
 
-            # Le quito el ',' al ultimo registro y luego lo reemplazo por ';'
-            list_insert[index] = list_insert[index][0:len(
-                list_insert[index])-1]
-            list_insert[index] += ';'
+            # Verifico si el actor ya se encuentra registrado
+            list_insert = self.uniq_data(dic, list_insert)
+        self.prepare_query_insert()
 
-            # print(list_insert[index])
-            post_capitulos(list_insert)
+    # Funcion para realizar un insert multiple
+
+    def prepare_query_insert(self, capitulos: list = []) -> None:
+
+        list_values = []
+
+        list_values = [
+            "({0},'{1}','{2}','{3}','{4}',{5}),".format(
+                cap["numero_cap"],
+                cap["nombre"],
+                cap["descripcion"],
+                cap["created"],
+                cap["updated"],
+                cap["id_temporada"]
+            )for cap in sorted(capitulos, key=lambda x: (x["id_temporada"], x["numero_cap"]))
+        ]
+
+        if len(list_values) > 0:
+            # Ordeno la lista
+            query = ",".join(list_values)
+            query += ";"
+
+            # print(list_values)
+            self.post_capitulos(capitulos=query)
         else:
-            print(Fore.RED + "Lista vacia para insertar datos")
-        # return list_insert
+            print(Fore.YELLOW + "Lista vacia para insertar datos")
 
-    def post_capitulos(capitulos):
-        cant: int = len(capitulos)
-        cursor = conn.cursor()
+    # Funcion para hacer un insert en la DB
+
+    def post_capitulos(self, capitulos: str = None) -> None:
+
         query = "INSERT INTO capitulos (numero_cap, nombre, descripcion, created, updated, id_temporada) VALUES "
-        try:
-            for i in range(0, cant):
-                query += capitulos[i]
-            cursor.execute(query)
-            print(Fore.GREEN + "Datos insertados")
-        except psycopg2.Error as e:
-            # raise Exception('Error al insertar los datos')
-            print(Fore.RED + f'Error al insertar los datos - {e}')
-        cursor.close()
+        query += capitulos
+        self.DB.insert_table_query(query=query)
 
     def put_capitulos(n, data):
-        cursor = conn.cursor()
-        # print(data)
-        query = "UPDATE capitulos SET {0} WHERE numero_cap={1} AND id_temporada=({2})".format(
-            data, n, temp)
-        # print(query)
-        try:
-            cursor.execute(query)
-            print(Fore.GREEN + "Datos actualizados")
-        except:
-            print(Fore.RED + 'Error al actualizar los datos')
-        cursor.close()
+        pass

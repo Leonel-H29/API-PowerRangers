@@ -97,3 +97,17 @@ class DBSettings():
             return False
         finally:
             cursor.close()
+
+    # Funcion para obtener el registro  por el id
+
+    def get_by_id(self, query: str = None) -> list:
+        cursor = self.conn.cursor()
+        try:
+            cursor.execute(query)
+            resultado = cursor.fetchall()
+            return resultado
+        except psycopg2.Error as e:
+            print(Fore.RED + 'Error al realizar la consulta')
+            return 0
+        finally:
+            cursor.close()

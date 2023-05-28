@@ -4,6 +4,7 @@ from colorama import Fore
 from db_settings import DBSettings
 from crud_actores import CrudActores
 from crud_temporadas import CrudTemporadas
+from crud_capitulos import CrudCapitulos
 from time import sleep
 
 
@@ -12,6 +13,7 @@ if __name__ == "__main__":
     DB = DBSettings()
     Actor = CrudActores()
     Temp = CrudTemporadas()
+    Cap = CrudCapitulos()
 
     if DB.conect_db():
         # print(DB.conect_db())
@@ -28,8 +30,9 @@ if __name__ == "__main__":
         sleep(1)
 
         # Clases dependientes
-        # print(Fore.RESET + "----Capitulos: ")
-        # GetCapitulos()
+        print(Fore.RESET + "----Capitulos: ")
+        Cap.get_capitulos_file()
+        sleep(1)
         # print(Fore.RESET + "----Personajes: ")
         # GetPersonajes()
         # print(Fore.RESET + "----Aparecen: ")
