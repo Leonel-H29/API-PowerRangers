@@ -40,11 +40,11 @@ class DBSettings():
     def close_conect_db(self) -> None: self.conn.close()
 
     # Retorna la cantidad de registros en una tabla especifica
-    def len_table_db(self, table: str) -> int:
+    def len_table_db(self, table: str = None) -> int:
         # pass
         cursor = self.conn.cursor()
         query = "SELECT COUNT(*) FROM {0};".format(table)
-        print(query)
+        # print(query)
         try:
             cursor.execute(query)
             # Extraigo el resultado de la tupla dentro de una lista
