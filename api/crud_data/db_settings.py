@@ -108,6 +108,6 @@ class DBSettings():
             return resultado
         except psycopg2.Error as e:
             print(Fore.RED + 'Error al realizar la consulta')
-            return 0
+            return []
         finally:
             cursor.close()
