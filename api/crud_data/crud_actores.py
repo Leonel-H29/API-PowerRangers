@@ -144,41 +144,45 @@ class CrudActores():
 
         list_values = []
 
-        for x in range(0, len(actores)):
+        # for x in range(0, len(actores)):
 
-            values = "('{0}','{1}','{2}','{3}','{4}','{5}'),".format(
-                actores[x]["nombre_actor"],
-                actores[x]["nombre_artistico"],
-                actores[x]["foto"],
-                actores[x]["biografia"],
-                actores[x]["created"],
-                actores[x]["updated"]
-            )
-            list_values.append(values)
-        # Ordeno la lista
-        list_values = sorted(list_values)
+        #    values = "('{0}','{1}','{2}','{3}','{4}','{5}'),".format(
+        #        actores[x]["nombre_actor"],
+        #        actores[x]["nombre_artistico"],
+        #        actores[x]["foto"],
+        #        actores[x]["biografia"],
+        #        actores[x]["created"],
+        #        actores[x]["updated"]
+        #    )
+        #    list_values.append(values)
+
+        list_values = [
+            "('{0}','{1}','{2}','{3}','{4}','{5}'),".format(
+                actor["nombre_actor"],
+                actor["nombre_artistico"],
+                actor["foto"],
+                actor["biografia"],
+                actor["created"],
+                actor["updated"]
+            )for actor in actores
+        ]
 
         if len(list_values) > 0:
-            # Busco el ultimo elemeto de la lista
-            index = len(list_values) - 1
-
-            # Le quito el ',' al ultimo registro y luego lo reemplazo por ';'
-            list_values[index] = list_values[index][0:len(
-                list_values[index])-1]
-            list_values[index] += ';'
+            # Ordeno la lista
+            list_values = sorted(list_values)
+            query = ",".join(list_values)
+            query += ";"
 
             # print(list_values)
-            self.post_actores(actores=list_values)
+            self.post_actores(actores=query)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")
 
     # Funcion para hacer un insert en la DB
 
-    def post_actores(self, actores: list = []) -> None:
-        cant: int = len(actores)
+    def post_actores(self, actores: str = None) -> None:
         query = "INSERT INTO actor(nombre_actor,nombre_artistico,foto,biografia,created,updated) VALUES "
-        for i in range(0, cant):
-            query += actores[i]
+        query += actores
         self.DB.insert_table_query(query=query)
 
     def put_actores(n, data):
