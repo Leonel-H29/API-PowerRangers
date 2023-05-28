@@ -167,28 +167,19 @@ class CrudActores():
                 list_values[index])-1]
             list_values[index] += ';'
 
-            print(list_values)
-            # self.post_actores(list_values)
+            # print(list_values)
+            self.post_actores(actores=list_values)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")
 
     # Funcion para hacer un insert en la DB
 
-    def post_actores(self, actores: list) -> None:
+    def post_actores(self, actores: list = []) -> None:
         cant: int = len(actores)
-        cursor = self.conn.cursor()
         query = "INSERT INTO actor(nombre_actor,nombre_artistico,foto,biografia,created,updated) VALUES "
-        try:
-            for i in range(0, cant):
-                query += actores[i]
-            # print(query)
-            cursor.execute(query)
-            print(Fore.GREEN + "Datos insertados")
-        except psycopg2.Error as e:
-            print(Fore.RED + f'Error al insertar los datos - {e}')
-        finally:
-            cursor.close()
-            self.conn.close()
+        for i in range(0, cant):
+            query += actores[i]
+        self.DB.insert_table_query(query=query)
 
     def put_actores(n, data):
         pass

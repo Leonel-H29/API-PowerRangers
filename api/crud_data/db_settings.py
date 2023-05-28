@@ -72,3 +72,21 @@ class DBSettings():
         # finally:
         # cursor.close()
         # self.conn.close()
+
+    # Insert en una tabla de la base de datos
+
+    def insert_table_query(self, query: str = None) -> None:
+        # cant: int = len(actores)
+        cursor = self.conn.cursor()
+        # query = "INSERT INTO actor(nombre_actor,nombre_artistico,foto,biografia,created,updated) VALUES "
+        try:
+            # for i in range(0, cant):
+            # query += actores[i]
+            # print(query)
+            cursor.execute(query)
+            print(Fore.GREEN + "Datos insertados")
+        except psycopg2.Error as e:
+            print(Fore.RED + f'Error al insertar los datos - {e}')
+        finally:
+            self.cursor.close()
+            # self.conn.close()
