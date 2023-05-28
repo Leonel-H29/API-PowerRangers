@@ -77,7 +77,7 @@ class CrudCapitulos():
                 self.db_table_name_fk, col5
             )
 
-            temp = self.DB.get_by_id(query=query)
+            temp = self.DB.get_tuple(query=query)
             if temp:
                 dic = {
                     "numero_cap": col1,

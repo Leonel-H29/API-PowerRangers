@@ -98,9 +98,9 @@ class DBSettings():
         finally:
             cursor.close()
 
-    # Funcion para obtener el registro  por el id
+    # Funcion para obtener el registro
 
-    def get_by_id(self, query: str = None) -> list:
+    def get_tuple(self, query: str = None) -> list:
         cursor = self.conn.cursor()
         try:
             cursor.execute(query)
