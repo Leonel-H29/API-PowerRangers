@@ -21,7 +21,7 @@ class CrudTemporadas():
 
     # Funcion para saber si la temporada existe
 
-    def temporada_exist(self, temp: int = 0):
+    def temporada_exist(self, temp: int = 0) -> bool:
         cursor = self.conn.cursor()
         query = "SELECT * FROM {0} WHERE numero_temporada={1}".format(
             self.db_table_name, temp
@@ -137,7 +137,7 @@ class CrudTemporadas():
 
     # Funcion para hacer un insert en la DB
 
-    def post_temporadas(self, temporadas):
+    def post_temporadas(self, temporadas: str = None) -> None:
         query = "INSERT INTO temporadas (numero_temporada, nombre, descripcion, foto, cancion, basada_en, anio_estreno, tematica, created, updated) VALUES "
         query += temporadas
         self.DB.insert_table_query(query=query)
