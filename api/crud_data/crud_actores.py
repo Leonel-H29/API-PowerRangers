@@ -84,19 +84,9 @@ class CrudActores():
     # Funcion para saber si el actor existe
 
     def actor_exists(self, name: str = None) -> bool:
-        cursor = self.conn.cursor()
         query = "SELECT * FROM {0} WHERE nombre_artistico='%s';".format(
             self.db_table_name, name)
-        # print(query)
-        try:
-            cursor.execute(query)
-            resultado = cursor.fetchall()
-            return len(resultado) > 0
-        except psycopg2.Error as e:
-            print(Fore.RED + 'Error al realizar la consulta')
-            return False
-        finally:
-            cursor.close()
+        return self.DB.exists_tuple(query=query)
 
     # Funcion para obtener el registro del actor por el id
 

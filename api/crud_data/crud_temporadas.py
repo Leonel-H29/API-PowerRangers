@@ -22,19 +22,12 @@ class CrudTemporadas():
     # Funcion para saber si la temporada existe
 
     def temporada_exist(self, temp: int = 0) -> bool:
-        cursor = self.conn.cursor()
         query = "SELECT * FROM {0} WHERE numero_temporada={1}".format(
             self.db_table_name, temp
         )
-        try:
-            cursor.execute(query)
-            resultado = cursor.fetchall()
-            return len(resultado) > 0
-        except psycopg2.Error as e:
-            print(Fore.RED + 'Error al realizar la consulta')
-            return False
-        finally:
-            cursor.close()
+        return self.DB.exists_tuple(query=query)
+
+    # Funcion para extraer los datos del archivo
 
     def get_temporadas_file(self):
         # Abro el archivo
