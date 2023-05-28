@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from colorama import Fore
 from db_settings import DBSettings
 from crud_actores import CrudActores
+from crud_temporadas import CrudTemporadas
 from time import sleep
 
 
@@ -10,6 +11,7 @@ if __name__ == "__main__":
     # Inico instancias
     DB = DBSettings()
     Actor = CrudActores()
+    Temp = CrudTemporadas()
 
     if DB.conect_db():
         # print(DB.conect_db())
@@ -18,10 +20,10 @@ if __name__ == "__main__":
         # print(DB.len_table_db('actor'))
 
         # Clases independientes
-        # print(Fore.RESET + "----Temporadas: ")
-        # GetTemporadas()
+        print(Fore.RESET + "----Temporadas: ")
+        Temp.get_temporadas_file()
+        sleep(1)
         print(Fore.RESET + "----Actores: ")
-        # GetActores()
         Actor.get_actores_file()
         sleep(1)
 
