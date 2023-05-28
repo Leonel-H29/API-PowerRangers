@@ -32,10 +32,8 @@ class CrudActores():
 
             if len(list_data) > 0:
                 for data in list_data:
-                    if self.actor_exists(nombre) is False:
-                        # Verifico si el artor ya se encuentra en la lista
-                        if nombre == data["nombre_artistico"]:
-                            return list_data
+                    if nombre == data["nombre_artistico"]:
+                        return list_data
 
                 return list_data.append(dic)
 
