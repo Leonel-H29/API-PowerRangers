@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 import psycopg2
 from colorama import Fore
-import psycopg2
+
 
 # FILE_ENV= '.env'
 # load_dotenv(FILE_ENV)
@@ -114,7 +114,7 @@ class DBSettings():
 
     # Funcion para obtener el registro
 
-    def get_id(self, query: str = None) -> list:
+    def get_id(self, query: str = None) -> int:
         cursor = self.conn.cursor()
         try:
             cursor.execute(query)
