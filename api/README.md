@@ -1,21 +1,21 @@
 # Documentación de la API REST Power Rangers
 
-Este README.md proporciona instrucciones detalladas para clonar el proyecto, levantar el proyecto localmente con Docker Compose, acceder al navegador y realizar consultas a la API REST.
+Este README.md proporciona instrucciones detalladas para clonar el proyecto, levantar el proyecto localmente con Docker o con las herramientas necesarias, acceder al navegador y realizar consultas a la API REST.
 
 ## Clonación del proyecto
 
-1. Clona el repositorio utilizando el siguiente comando:
+- Clona el repositorio utilizando el siguiente comando:
 
 		git clone https://github.com/Leonel-H29/API-PowerRangers.git
-
-2. Acceder al directorio de trabajo
-
-		cd API-PowerRangers/api/
+		
 
 ## Levantar el proyecto localmente con Docker
 
-1. Asegúrate de tener Docker Compose instalado en tu máquina.
+1. Asegúrate de tener Docker instalado en tu máquina, y tener los permisos necesarios.
 2. Abre una terminal y navega hasta el directorio del proyecto clonado.
+
+		cd API-PowerRangers/api/
+		
 3. Ejecuta el siguiente comando para levantar el proyecto utilizando el archivo `docker-compose.yml`:
 
 		docker-compose -f "docker-compose.yml" up -d --build
