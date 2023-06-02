@@ -17,6 +17,8 @@ class DBSettings():
         self.password = os.getenv('DB_PASSWORD'),
         self.database = os.getenv('DB_NAME')
         self.port = os.getenv('DB_PORT')
+        self.table_apps = ['aparecen', 'personajes',
+                           'capitulos', 'actor', 'temporadas']
 
         if self.conect_db():
             self.conn = self.conect_db()
@@ -123,5 +125,27 @@ class DBSettings():
         except psycopg2.Error as e:
             print(Fore.RED + 'Error al realizar la consulta')
             return 0
+        finally:
+            cursor.close()
+
+    # Funcion para lipiar las tablas de las apps
+    def clean_db(self) -> None:
+        cursor = self.conn.cursor()
+        query = ""
+
+        try:
+            for app in self.table_apps:
+                query = "DELETE FROM {0}; ".format(app)
+                # print(query)
+                cursor.execute(query)
+                resultado = self.len_table_db(app)
+                if resultado == 0:
+                    print(Fore.GREEN + "Cantidad de registros en '{0}' :{1}".format(
+                        app, resultado)
+                    )
+                else:
+                    print("Hubo un error al realizar la consulta")
+        except psycopg2.Error as e:
+            print(Fore.RED + "{0}".format(str(e)))
         finally:
             cursor.close()
