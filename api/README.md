@@ -43,3 +43,42 @@ Ejemplo de resultado:
 
 Esto te llevará a la página de inicio de la API REST.
 
+
+
+## Datos a tener en cuenta
+
+### Archivo de variables de entorno
+
+El proyecto utiliza archivos de variables de entorno para configurar ciertos valores específicos del entorno. Asegúrate de tener los siguientes archivos de variables de entorno:
+
+1. `.env`: Este archivo contiene las variables de entorno para el entorno de desarrollo local. Aquí puedes definir variables como claves de API, credenciales de bases de datos locales, etc.
+
+2. `prod.env`: Este archivo contiene las variables de entorno para el entorno de producción. Debes configurar las variables adecuadas para tu entorno de producción, como las claves de API y las credenciales de bases de datos en producción.
+
+Asegúrate de mantener estos archivos de variables de entorno de manera segura y no los compartas públicamente, ya que pueden contener información confidencial.
+
+### Comandos para reiniciar, detener y eliminar contenedores en Docker
+
+A continuación se presentan los comandos para reiniciar, detener y eliminar los contenedores en Docker:
+
+- Para reiniciar los contenedores que se ejecutan en segundo plano:
+
+		docker-compose -f "docker-compose.yml" restart
+
+
+- Para detener los contenedores en ejecución:
+
+		docker-compose -f "docker-compose.yml" stop
+		
+
+- Para eliminar los contenedores detenidos y todos los recursos relacionados, como volúmenes y redes:
+		
+		docker-compose -f "docker-compose.yml" down
+
+
+
+Recuerda utilizar estos comandos según sea necesario, dependiendo de tus requerimientos y del estado actual de los contenedores en Docker.
+
+		
+
+
