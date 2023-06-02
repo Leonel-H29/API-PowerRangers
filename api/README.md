@@ -8,6 +8,10 @@ Este README.md proporciona instrucciones detalladas para clonar el proyecto, lev
 
 		git clone https://github.com/Leonel-H29/API-PowerRangers.git
 
+2. Acceder al directorio de trabajo
+
+		cd API-PowerRangers/api/
+
 ## Levantar el proyecto localmente con Docker
 
 1. Asegúrate de tener Docker Compose instalado en tu máquina.
