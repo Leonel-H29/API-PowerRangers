@@ -90,7 +90,7 @@ class CrudCapitulos():
 
             # Verifico si el actor ya se encuentra registrado
             list_insert = self.uniq_data(dic, list_insert)
-        self.prepare_query_insert()
+        self.prepare_query_insert(capitulos=list_insert)
 
     # Funcion para realizar un insert multiple
 

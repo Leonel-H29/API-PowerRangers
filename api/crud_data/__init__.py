@@ -27,18 +27,20 @@ if __name__ == "__main__":
         # print(Fore.RESET + "----Temporadas: ")
         # Temp.get_temporadas_file()
         # sleep(1)
+
         # print(Fore.RESET + "----Actores: ")
         # Actor.get_actores_file()
         # sleep(1)
 
         # Clases dependientes
-        print(Fore.RESET + "----Capitulos: ")
-        Cap.get_capitulos_file()
-        sleep(1)
+        # print(Fore.RESET + "----Capitulos: ")
+        # Cap.get_capitulos_file()
+        # sleep(1)
+
         print(Fore.RESET + "----Personajes: ")
         Pers.get_personajes_file()
         sleep(1)
-        # GetPersonajes()
+
         # print(Fore.RESET + "----Aparecen: ")
         # GetAparecen()
         DB.close_conect_db()
