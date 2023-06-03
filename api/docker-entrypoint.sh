@@ -37,8 +37,8 @@ sleep 2
 
 #Inicio el servidor
 echo "Inicio el servidor ..."
-python manage.py runserver 0.0.0.0:8000 $config
-
+#python manage.py runserver 0.0.0.0:8000 $config
+gunicorn --env DJANGO_SETTINGS_MODULE=api.settings.production config.wsgi:application --bind 0.0.0.0:8000
 echo "El backend esta listo"
 
 exec "$@"
