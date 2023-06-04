@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     # Djoser
     'djoser',
     # CORS
-    "corsheaders",
+    'corsheaders',
+    # Logger
+    'drf_api_logger'
 ] + LOCAL_APPS + DRF
 
 
@@ -63,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
 ]
 
 ROOT_URLCONF = 'api.urls'
@@ -175,3 +178,6 @@ SIMPLE_JWT = {
 ## TODO DJANGO_SUPERUSER_EMAIL= ''
 ## TODO DJANGO_SUPERUSER_USERNAME= ''
 ## TODO DJANGO_SUPERUSER_PASSWORD= ''
+
+# TODO DRF_API_LOGGER_DATABASE = False 
+# TODO DRF_API_LOGGER_SIGNAL =  False 
