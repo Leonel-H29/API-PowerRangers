@@ -36,7 +36,7 @@ class CrudTemporadas():
         # Indico con que hoja voy a trabajar
         sheet = openFile.sheet_by_name(self.sheet_file)
 
-        list_insert = []
+        list_insert : list = []
 
         for i in range(1, sheet.nrows):
             col1 = int(sheet.cell_value(i, 0))  # Ntemporada
@@ -58,12 +58,12 @@ class CrudTemporadas():
                 "basada_en": col6,
                 "anio_estreno": col7,
                 "tematica": col8,
-                "created": datetime.now(),
-                "updated": datetime.now()
+                #"created": datetime.now(),
+                #"updated": datetime.now()
             }
-
             # Verifico si el artor ya se encuentra registrado
             list_insert = self.uniq_data(dic, list_insert)
+        #print(list_insert)
 
         self.prepare_query_insert(list_insert)
 
@@ -78,33 +78,38 @@ class CrudTemporadas():
             if self.temporada_exist(ntemp):
                 return list_data
 
-            if len(list_data) > 0:
-                for data in list_data:
+            #if len(list_data) > 0:
+            #    for data in list_data:
 
                     # Verifico si la temporada ya se encuentra en la lista
-                    if ntemp == data["numero_temporada"]:
-                        return list_data
+            #        if ntemp == data["numero_temporada"]:
+            #            return list_data
 
-                return list_data.append(dic)
+            #    list_data.append(dic)
+            #    return list_data
+
+            # Verifico si la temporada ya se encuentra en la lista
+            if len(list_data) > 0 and dic not in list_data:
+                list_data.append(dic)
+                return list_data
 
             # Verifica si hay datos en la tabla de la DB
             if self.DB.len_table_db(self.db_table_name) == 0:
-                return list_data.append(dic)
+                list_data.append(dic)
+                return list_data
 
             # En caso de que no se cumplan ningunas de las condiciones retorno la lista
             return list_data
-        except Exception:
-            print(Fore.RED + "Dictionary not will be null")
+        except Exception as e:
+            print(Fore.RED + "{0}".format(e))
             return list_data
 
     # Funcion para realizar un insert multiple
 
     def prepare_query_insert(self, temporadas: list = []) -> None:
 
-        list_values = []
-
         list_values = [
-            "({0},'{1}','{2}','{3}','{4}','{5}',{6},'{7}','{8}','{9}'),".format(
+            "({0},'{1}','{2}','{3}','{4}','{5}',{6},'{7}','{8}','{9}')".format(
                 temp["numero_temporada"],
                 temp["nombre"],
                 temp["descripcion"],
@@ -113,8 +118,8 @@ class CrudTemporadas():
                 temp["basada_en"],
                 temp["anio_estreno"],
                 temp["tematica"],
-                temp["created"],
-                temp["updated"]
+                datetime.now(),
+                datetime.now()
             )for temp in temporadas
         ]
 
@@ -125,6 +130,7 @@ class CrudTemporadas():
             query += ";"
 
             # print(list_values)
+            #print(query)
             self.post_temporadas(temporadas=query)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")
