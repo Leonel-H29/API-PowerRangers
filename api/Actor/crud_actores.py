@@ -22,29 +22,32 @@ class CrudActores():
     # Funcion para retornar una lista con datos unicos
 
     def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
-        # Extaigo el 'nombre_artistico' del diccionario
+        
+        #print(dic)
         try:
-            nombre = dic["nombre_artistico"]
+            # Extaigo el 'nombre_artistico' del diccionario
+            nombre=dic["nombre_artistico"]
+            
 
             # Verifico si el actor esta cargado en la base de datos
             if self.actor_exists(nombre):
                 return list_data
 
-            if len(list_data) > 0:
-                for data in list_data:
-                    if nombre == data["nombre_artistico"]:
-                        return list_data
+            # Verifico si el actor ya se encuentra en la lista
+            if len(list_data) >= 0 and dic not in list_data:
+                list_data.append(dic)
+                return list_data
 
-                return list_data.append(dic)
 
             # Verifica si hay datos en la tabla de la DB
             if self.DB.len_table_db(self.db_table_name) == 0:
-                return list_data.append(dic)
+                list_data.append(dic)
+                return list_data
 
             # En caso de que no se cumplan ningunas de las condiciones retorno la lista
             return list_data
-        except Exception:
-            print(Fore.RED + "Dictionary not will be null")
+        except Exception as e:
+            print(Fore.RED + "{0}".format(e))
             return list_data
 
         # return list_data
@@ -58,7 +61,7 @@ class CrudActores():
         # Indico con que hoja voy a trabajar
         sheet = openFile.sheet_by_name(self.sheet_file)
 
-        list_insert = []
+        list_insert : list = []
 
         for i in range(1, sheet.nrows):
             col1 = sheet.cell_value(i, 0)  # Nombre artistico del actor
@@ -71,20 +74,21 @@ class CrudActores():
                 "nombre_artistico": col1,
                 "nombre_actor": col2,
                 "foto": col3,
-                "biografia": col4,
-                "created": datetime.now(),
-                "updated": datetime.now()
+                "biografia": col4
+                #"created": datetime.now(),
+                #"updated": datetime.now()
             }
-
+            #print(dic)
             # Verifico si el actor ya se encuentra registrado
-            list_insert = self.uniq_data(dic, list_insert)
+            list_insert = self.uniq_data(dic=dic, list_data=list_insert)
+        #print(list_insert)
 
         self.prepare_query_insert(list_insert)
 
     # Funcion para saber si el actor existe
 
     def actor_exists(self, name: str = None) -> bool:
-        query = "SELECT * FROM {0} WHERE nombre_artistico='%s';".format(
+        query = "SELECT * FROM {0} WHERE nombre_artistico='{1}'".format(
             self.db_table_name, name)
         return self.DB.exists_tuple(query=query)
 
@@ -95,13 +99,13 @@ class CrudActores():
         list_values = []
 
         list_values = [
-            "('{0}','{1}','{2}','{3}','{4}','{5}'),".format(
+            "('{0}','{1}','{2}','{3}','{4}','{5}')".format(
                 actor["nombre_actor"],
                 actor["nombre_artistico"],
                 actor["foto"],
                 actor["biografia"],
-                actor["created"],
-                actor["updated"]
+                datetime.now(),
+                datetime.now()
             )for actor in actores
         ]
 

@@ -57,12 +57,10 @@ class CrudTemporadas():
                 "cancion": col5,
                 "basada_en": col6,
                 "anio_estreno": col7,
-                "tematica": col8,
-                #"created": datetime.now(),
-                #"updated": datetime.now()
+                "tematica": col8
             }
-            # Verifico si el artor ya se encuentra registrado
-            list_insert = self.uniq_data(dic, list_insert)
+            # Verifico si la temporada ya se encuentra registrada
+            list_insert = self.uniq_data(dic=dic, list_data=list_insert)
         #print(list_insert)
 
         self.prepare_query_insert(list_insert)
@@ -78,18 +76,8 @@ class CrudTemporadas():
             if self.temporada_exist(ntemp):
                 return list_data
 
-            #if len(list_data) > 0:
-            #    for data in list_data:
-
-                    # Verifico si la temporada ya se encuentra en la lista
-            #        if ntemp == data["numero_temporada"]:
-            #            return list_data
-
-            #    list_data.append(dic)
-            #    return list_data
-
             # Verifico si la temporada ya se encuentra en la lista
-            if len(list_data) > 0 and dic not in list_data:
+            if len(list_data) >= 0 and dic not in list_data:
                 list_data.append(dic)
                 return list_data
 
