@@ -9,7 +9,7 @@ config="--settings=api.settings.development"
 
 #Elimino los directorios de migrations en las apps
 echo "Eliminando migraciones anteriores ..."
-. del_migrate.sh
+. scripts-sh/del_migrate.sh
 sleep 2
 
 #Creo las migraciones para crear la base de datos
