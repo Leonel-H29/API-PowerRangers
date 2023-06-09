@@ -26,34 +26,27 @@ class CrudCapitulos():
             ncap = dic["numero_cap"]
             idtemp = dic["id_temporada"]
 
-            # Verifico si el actor esta cargado en la base de datos
-            if self.capitulo_exist(cap=ncap, temp=idtemp):
+            # Verifico si el capitulo esta cargado en la base de datos
+            if self.capitulo_exist(cap=ncap,temp=idtemp):
                 return list_data
-
-            if len(list_data) > 0:
-                for data in list_data:
-                    if ncap == data["numero_cap"] and idtemp == data["id_temporada"]:
-                        return list_data
-
-                return list_data.append(dic)
-
+            
+            # Verifico si el capitulo ya se encuentra en la lista
             # Verifica si hay datos en la tabla de la DB
-            if self.DB.len_table_db(self.db_table_name) == 0:
-                return list_data.append(dic)
-
-            # En caso de que no se cumplan ningunas de las condiciones retorno la lista
+            if (len(list_data) >= 0 and dic not in list_data) or self.DB.len_table_db(self.db_table_name) == 0:  
+                list_data.append(dic)
+                return list_data
+            
+            #En caso de que no se cumplan ningunas de las condiciones retorno la lista            
             return list_data
-        except Exception:
-            print(Fore.RED + "Dictionary not will be null")
+        except Exception as e:
+            print(Fore.RED + "{0}".format(e))
             return list_data
 
     # Funcion para saber si el capitulo existe
 
     def capitulo_exist(self, cap: int = 0, temp: int = 0) -> bool:
-        subquery = "SELECT id_temporada FROM {0} WHERE numero_temporada={1}".format(
-            self.db_table_name_fk, temp)
-        query = "SELECT * FROM {0} WHERE numero_cap={1} AND id_temporada=({2})".format(
-            self.db_table_name, cap, subquery)
+        query = "SELECT * FROM {0} WHERE numero_cap={1} AND id_temporada={2}".format(
+            self.db_table_name, cap,temp)
         return self.DB.exists_tuple(query=query)
 
     # Funcion para extraer los datos del archivo
@@ -83,28 +76,27 @@ class CrudCapitulos():
                     "numero_cap": col1,
                     "nombre": col2,
                     "descripcion": col3,
-                    "created": datetime.now(),
-                    "updated": datetime.now(),
                     "id_temporada": temp
                 }
 
-            # Verifico si el actor ya se encuentra registrado
+            # Verifico si el capitulo ya se encuentra registrado
             list_insert = self.uniq_data(dic, list_insert)
+        #print(list_insert)
+        #print(len(list_insert))
         self.prepare_query_insert(capitulos=list_insert)
 
     # Funcion para realizar un insert multiple
 
     def prepare_query_insert(self, capitulos: list = []) -> None:
 
-        list_values = []
-
+        
         list_values = [
-            "({0},'{1}','{2}','{3}','{4}',{5}),".format(
+            "({0},'{1}','{2}','{3}','{4}',{5})".format(
                 cap["numero_cap"],
                 cap["nombre"],
                 cap["descripcion"],
-                cap["created"],
-                cap["updated"],
+                datetime.now(),
+                datetime.now(),
                 cap["id_temporada"]
             )for cap in sorted(capitulos, key=lambda x: (x["id_temporada"], x["numero_cap"]))
         ]
@@ -114,7 +106,7 @@ class CrudCapitulos():
             query = ",".join(list_values)
             query += ";"
 
-            # print(list_values)
+            #print(query)
             self.post_capitulos(capitulos=query)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")
@@ -123,8 +115,8 @@ class CrudCapitulos():
 
     def post_capitulos(self, capitulos: str = None) -> None:
 
-        query = "INSERT INTO {0} (numero_cap, nombre, descripcion, created, updated, id_temporada) VALUES ".format(
-            self.db_table_name, capitulos)
+        query = "INSERT INTO {0} (numero_cap, nombre, descripcion, created, updated, id_temporada) VALUES {1}".format(self.db_table_name, capitulos)
+        #print(query)
         self.DB.insert_table_query(query=query)
 
     def put_capitulos(n, data):
