@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+packages="altgraph antiorm asgiref atomicwrites attrs auto-py-to-exe backports.zoneinfo bcrypt beautifulsoup4 blinker bottle bottle-websocket bs4 certifi chardet Click colorama coreapi coreschema cryptography db db-sqlite3 defer defusedxml distro distro-info Django django-cors-headers django-filter django-templated-mail djangorestframework djangorestframework-simplejwt djoser drf-yasg Eel entrypoints Faker fasteners future gevent gevent-websocket greenlet httplib2 idna importlib-metadata inflection iniconfig itypes Jinja2 keyring launchpadlib lazr.restfulclient lazr.uri lockfile louis lxml macaroonbakery Magnus Mako Markdown MarkupSafe monotonic more-itertools netifaces notify2 oauthlib olefile packaging paramiko pbr pexpect Pillow pluggy protobuf psutil psycopg2-binary py pycairo pycups pyinstaller pyinstaller-hooks-contrib PyJWT pymacaroons PyNaCl pyparsing pyRFC3339 pytest python-dateutil python-debian python-decouple python-dotenv python3-openid pytz pyudev pyxattr pyxdg PyYAML reportlab requests requests-oauthlib requests-unixsocket ruamel.yaml ruamel.yaml.clib SecretStorage setproctitle simplejson six social-auth-app-django social-auth-core soupsieve sqlparse ssh-import-id testresources tomli uritemplate urllib3 wadllib wcwidth whichcraft xlrd zipp zope.event zope.interface"
+
+pip install --force-reinstall $packages
