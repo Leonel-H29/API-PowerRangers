@@ -102,9 +102,11 @@ class DBSettings():
     def get_id(self, query: str = None) -> int:
         cursor = self.conn.cursor()
         try:
-            cursor.execute(query)
-            resultado = cursor.fetchall()
-            return int(resultado[0][0])
+            if self.exists_tuple(query=query):
+                cursor.execute(query)
+                resultado = cursor.fetchall()
+                return int(resultado[0][0])
+            return 0
         except psycopg2.Error as e:
             print(Fore.RED + 'Error al realizar la consulta')
             return 0
