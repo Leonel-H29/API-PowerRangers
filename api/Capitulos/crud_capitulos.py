@@ -39,7 +39,7 @@ class CrudCapitulos():
 
             # Verifico si el capitulo ya se encuentra en la lista
             # Verifica si hay datos en la tabla de la DB
-            if (len(list_data) >= 0 and check_element_in_list(capitulo=ncap, temporada=idtemp, list=list_data)) or self.DB.len_table_db(self.db_table_name) == 0:
+            if (len(list_data) >= 0 and not check_element_in_list(capitulo=ncap, temporada=idtemp, list=list_data)) or self.DB.len_table_db(self.db_table_name) == 0:
                 list_data.append(dic)
                 return list_data
 
