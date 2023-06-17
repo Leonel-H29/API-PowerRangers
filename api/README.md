@@ -2,6 +2,17 @@
 
 Este README.md proporciona instrucciones detalladas para clonar el proyecto, levantar el proyecto localmente con Docker o con las herramientas necesarias, acceder al navegador y realizar consultas a la API REST.
 
+
+## Índice
+
+- [Clonación del proyecto](#clonación-del-proyecto)
+- [Levantar el proyecto localmente con Docker](#levantar-el-proyecto-localmente-con-docker)
+- [Ver los contenedores en Docker](#ver-los-contenedores-en-docker)
+- [Acceder a la base de PostgreSQL en Docker](#acceder-a-la-base-de-postgresql-en-docker)
+- [Configuración de pgAdmin 4 para conectar a la base de datos PostgreSQL en Docker](#configuración-de-pgadmin-4-para-conectar-a-la-base-de-datos-postgresql-en-docker)
+- [Datos a tener en cuenta](#datos-a-tener-en-cuenta)
+
+  
 ## Clonación del proyecto
 
 - Clona el repositorio utilizando el siguiente comando:
