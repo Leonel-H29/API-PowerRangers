@@ -7,9 +7,9 @@ Este README.md proporciona instrucciones detalladas para clonar el proyecto, lev
 
 - [Clonación del proyecto](#clonación-del-proyecto)
 - [Levantar el proyecto localmente con Docker](#levantar-el-proyecto-localmente-con-docker)
-- [Ver los contenedores en Docker](#ver-los-contenedores-en-docker)
-- [Acceder a la base de PostgreSQL en Docker](#acceder-a-la-base-de-postgresql-en-docker)
-- [Configuración de pgAdmin 4 para conectar a la base de datos PostgreSQL en Docker](#configuración-de-pgadmin-4-para-conectar-a-la-base-de-datos-postgresql-en-docker)
+	- [Ver los contenedores en Docker](#ver-los-contenedores-en-docker)
+	- [Acceder a la base de PostgreSQL en Docker](#acceder-a-la-base-de-postgresql-en-docker)
+	- [Configuración de pgAdmin 4 para conectar a la base de datos PostgreSQL en Docker](#configuración-de-pgadmin-4-para-conectar-a-la-base-de-datos-postgresql-en-docker)
 - [Datos a tener en cuenta](#datos-a-tener-en-cuenta)
 	 - [Archivo de variables de entorno](#archivo-de-variables-de-entorno)
    	 - [Comandos para reiniciar, detener y eliminar contenedores en Docker](#comandos-para-reiniciar-detener-y-eliminar-contenedores-en-docker)
@@ -45,7 +45,7 @@ En caso no tener 'docker-compose' en tu maquina puedes instalarlo con el siguien
 
 		sudo apt-get install docker-compose
 
-## Ver los contenedores en Docker
+### Ver los contenedores en Docker
 
 1. Para ver los contenedores en ejecución, utiliza el siguiente comando:
 
@@ -71,7 +71,7 @@ Ejemplo de resultado:
 
 Esto te llevará a la página de inicio de la API REST.
 
-## Acceder a la base de PostgreSQL en Docker
+### Acceder a la base de PostgreSQL en Docker
 
 Para acceder a tu base de datos en Docker, necesitarás ejecutar un comando para conectarte al contenedor de la base de datos. En tu caso, parece que estás utilizando un contenedor PostgreSQL.
 
@@ -84,7 +84,7 @@ docker exec -it [CONTAINER ID] | [NAME]  psql -U <username> -d <database_name>
 Reemplaza `[CONTAINER ID]` o `[NAME]` con el ID o su nombre del contenedor de PostgreSQL, para `<username>` y `<database_name>` se deben colocar los valores establecidos en `DB_USER` y `DB_NAME` que se encuentan en el archivo de entorno. 
 Esto te abrirá una sesión interactiva de PostgreSQL en el contenedor, donde podrás ejecutar consultas SQL y realizar acciones en tu base de datos.
 
-## Configuración de pgAdmin 4 para conectar a la base de datos PostgreSQL en Docker
+### Configuración de pgAdmin 4 para conectar a la base de datos PostgreSQL en Docker
 
 1. Asegúrate de que el contenedor de PostgreSQL esté en ejecución y funcionando correctamente. Puedes verificarlo utilizando el comando `docker ps` y asegurándote de que el contenedor `db_postgres` esté en estado "Up".
 
