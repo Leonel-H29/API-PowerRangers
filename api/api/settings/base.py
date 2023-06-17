@@ -2,32 +2,33 @@ from pathlib import Path
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-## TODO FILE_ENV= ''
+# TODO FILE_ENV= ''
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+FILE_DATA = str(BASE_DIR) + '/' + config('FILE_DATA')
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-## TODO SECRET_KEY = config("SECRET_KEY")
+# TODO SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-## TODO DEBUG = True
+# TODO DEBUG = True
 
-## TODO ALLOWED_HOSTS = ['*']
+# TODO ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 # LOCAL APPS
 LOCAL_APPS = [
-    #'User',
+    # 'User',
     'Actor',
     'Capitulos',
     'Temporadas',
     'apps.core'
-    
+
 ]
 # Django REST framework
 DRF = [
@@ -44,12 +45,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
-    #Swagger
+    # Swagger
     'drf_yasg',
     # Djoser
     'djoser',
     # CORS
-    "corsheaders",
+    'corsheaders',
+    # Logger
+    'drf_api_logger'
 ] + LOCAL_APPS + DRF
 
 
@@ -63,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
 ]
 
 ROOT_URLCONF = 'api.urls'
@@ -87,8 +91,8 @@ WSGI_APPLICATION = 'api.wsgi.application'
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-    #     "rest_framework.authentication.BasicAuthentication",
-    #     "rest_framework.authentication.SessionAuthentication",
+        #     "rest_framework.authentication.BasicAuthentication",
+        #     "rest_framework.authentication.SessionAuthentication",
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         "rest_framework.authentication.TokenAuthentication",
     ],
@@ -109,11 +113,11 @@ CORS_ORIGIN_WHITELIST = ["http://localhost:8080"]
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-#DATABASES = {
-    #'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': BASE_DIR / 'db.sqlite3',
-    #}
+# DATABASES = {
+# 'default': {
+# 'ENGINE': 'django.db.backends.sqlite3',
+# 'NAME': BASE_DIR / 'db.sqlite3',
+# }
 #     "default": {
 #        "ENGINE": "django.db.backends.postgresql_psycopg2",
 #        "NAME": config("DB_NAME"),
@@ -122,9 +126,9 @@ CORS_ORIGIN_WHITELIST = ["http://localhost:8080"]
 #        "HOST": config("DB_HOST"),
 #        "DATABASE_PORT": config("DB_PORT"),
 #    },
-#}
+# }
 
-AUTH_USER_MODEL = "User.User" 
+AUTH_USER_MODEL = "User.User"
 
 
 # Password validation
@@ -170,8 +174,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ("JWT", "Bearer", "Token"),
+    'AUTH_HEADER_TYPES': ("JWT", "Bearer", "Token"),
 }
-## TODO DJANGO_SUPERUSER_EMAIL= ''
-## TODO DJANGO_SUPERUSER_USERNAME= ''
-## TODO DJANGO_SUPERUSER_PASSWORD= ''
+# TODO DJANGO_SUPERUSER_EMAIL= ''
+# TODO DJANGO_SUPERUSER_USERNAME= ''
+# TODO DJANGO_SUPERUSER_PASSWORD= ''
+
+# TODO DRF_API_LOGGER_DATABASE = False
+# TODO DRF_API_LOGGER_SIGNAL =  False

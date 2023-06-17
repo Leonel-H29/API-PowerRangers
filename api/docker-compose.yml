@@ -11,7 +11,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    user: root
+    #user: root
     depends_on:
       - database
     volumes:
@@ -20,6 +20,7 @@ services:
     networks:
       - apirest-network
 
+  # Database PostgreSQL
   database:
     image: postgres:13.3-alpine
     container_name: db_postgres
@@ -33,6 +34,21 @@ services:
       - 5430:5432
     networks:
       - apirest-network
+
+  # pgAdmin para administración de PostgreSQL
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: pg_admin
+    env_file:
+      - prod.env
+    ports:
+      - 5050:80
+    depends_on:
+      - database
+    networks:
+      - apirest-network
+
 volumes:
   database:
 networks:
