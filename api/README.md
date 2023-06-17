@@ -11,6 +11,14 @@ Este README.md proporciona instrucciones detalladas para clonar el proyecto, lev
 - [Acceder a la base de PostgreSQL en Docker](#acceder-a-la-base-de-postgresql-en-docker)
 - [Configuración de pgAdmin 4 para conectar a la base de datos PostgreSQL en Docker](#configuración-de-pgadmin-4-para-conectar-a-la-base-de-datos-postgresql-en-docker)
 - [Datos a tener en cuenta](#datos-a-tener-en-cuenta)
+	 - [Archivo de variables de entorno](#archivo-de-variables-de-entorno)
+   	 - [Comandos para reiniciar, detener y eliminar contenedores en Docker](#comandos-para-reiniciar-detener-y-eliminar-contenedores-en-docker)
+
+
+
+
+¡Espero que esto te sea útil! Si tienes alguna otra pregunta, no dudes en hacerla.
+
 
   
 ## Clonación del proyecto
