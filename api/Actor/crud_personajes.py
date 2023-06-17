@@ -22,6 +22,12 @@ class CrudPersonajes():
     # Funcion para retornar una lista con datos unicos
 
     def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
+        # Verifica si existe el personaje en la lista
+        def check_element_in_list(personaje: str = None, actor: int = 0, list: list = []) -> bool:
+            for dictionary in list:
+                if personaje == dictionary["nombre_personaje"] and actor == dictionary["id_actor"]:
+                    return True
+            return False
         try:
             pers = dic["nombre_personaje"]
             idactor = dic["id_actor"]
@@ -32,10 +38,10 @@ class CrudPersonajes():
 
             # Verifico si el personaje ya se encuentra en la lista
             # Verifica si hay datos en la tabla de la DB
-            if (len(list_data) >= 0 and dic not in list_data) or self.DB.len_table_db(self.db_table_name) == 0:  
+            if (len(list_data) >= 0 and check_element_in_list(personaje=pers, actor=idactor, list=list_data)) or self.DB.len_table_db(self.db_table_name) == 0:
                 list_data.append(dic)
                 return list_data
-            
+
             # En caso de que no se cumplan ningunas de las condiciones retorno la lista
             return list_data
         except Exception as e:
@@ -51,44 +57,48 @@ class CrudPersonajes():
 
     # Funcion para extraer los datos del archivo
     def get_personajes_file(self):
-        # Abro el archivo
-        openFile = xlrd.open_workbook(self.file)
-        # Indico con que hoja voy a trabajar
-        sheet = openFile.sheet_by_name(self.sheet_file)
+        if self.DB.len_table_db(table=self.db_table_name_fk) > 0:
+            # Abro el archivo
+            openFile = xlrd.open_workbook(self.file)
+            # Indico con que hoja voy a trabajar
+            sheet = openFile.sheet_by_name(self.sheet_file)
 
-        list_insert: list = []
+            list_insert: list = []
 
-        for i in range(1, sheet.nrows):
-            col1 = sheet.cell_value(i, 0)  # Nombre del Personaje
-            # col2 = int(sheet.cell_value(i, 1))  # Numero de temporada
-            # col3 = sheet.cell_value(i, 2)  # Rol
-            # col4 = sheet.cell_value(i, 3)  # Descripcion
-            col5 = sheet.cell_value(i, 4)  # Foto
-            col6 = sheet.cell_value(i, 5)  # Nombre del actor
+            for i in range(1, sheet.nrows):
+                col1 = sheet.cell_value(i, 0)  # Nombre del Personaje
+                # col2 = int(sheet.cell_value(i, 1))  # Numero de temporada
+                # col3 = sheet.cell_value(i, 2)  # Rol
+                # col4 = sheet.cell_value(i, 3)  # Descripcion
+                col5 = sheet.cell_value(i, 4)  # Foto
+                col6 = sheet.cell_value(i, 5)  # Nombre del actor
 
-            query = "SELECT id_actor FROM {0} WHERE nombre_artistico='{1}';".format(
-                self.db_table_name_fk, col6)
+                query = "SELECT id_actor FROM {0} WHERE nombre_artistico='{1}';".format(
+                    self.db_table_name_fk, col6)
 
-            actor = self.DB.get_id(query=query)
+                actor = self.DB.get_id(query=query)
 
-            if actor > 0:
-                dic = {
-                    "nombre_personaje": col1,
-                    "foto": col5,
-                    "id_actor": actor
-                }
+                if actor > 0:
+                    dic = {
+                        "nombre_personaje": col1,
+                        "foto": col5,
+                        "id_actor": actor
+                    }
 
-                # Verifico si el actor ya se encuentra registrado
-                # print(type(list_insert))
-                list_insert = self.uniq_data(dic=dic, list_data=list_insert)
-        print(list_insert)
-        self.prepare_query_insert(personajes=list_insert)
+                    # Verifico si el actor ya se encuentra registrado
+                    # print(type(list_insert))
+                    list_insert = self.uniq_data(
+                        dic=dic, list_data=list_insert
+                    )
+            # print(list_insert)
+            self.prepare_query_insert(personajes=list_insert)
+        else:
+            print(Fore.RED + "Tabla Forenea vacia")
 
     def put_personajes(personajes):
         pass
 
     def prepare_query_insert(self, personajes: list = []) -> None:
-
 
         list_values = [
             "('{0}','{1}','{2}','{3}',{4})".format(
