@@ -1,2 +1,4 @@
 venv
 .vs
+.devcontainer
+crud_data
