@@ -15,7 +15,7 @@ services:
     depends_on:
       - database
     volumes:
-      - '.:/app'
+      - .:/app
     image: backend:1.0
     networks:
       - apirest-network
@@ -49,8 +49,27 @@ services:
     networks:
       - apirest-network
 
+  # Servidor nginx
+  nginx:
+    image: nginx:1.13
+    container_name: nginx
+    restart: always
+    #build: ./nginx
+    ports:
+      - 10080:80
+      - 10443:443
+    volumes:
+      - .:/app
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static:/static_files
+    depends_on:
+      - apirest
+    networks:
+      - apirest-network
+
 volumes:
   database:
+  static:
 networks:
   apirest-network:
     driver: bridge
