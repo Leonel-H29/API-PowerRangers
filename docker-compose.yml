@@ -61,6 +61,7 @@ services:
       #- 10443:443
     volumes:
       - static:/static_files
+    image: nginx:1.0
     depends_on:
       - apirest
     networks:
