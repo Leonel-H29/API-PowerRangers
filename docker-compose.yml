@@ -16,7 +16,7 @@ services:
       - database
     volumes:
       - .:/app
-      - static:/static_files
+      - ./api/static_files:/static_files
     image: backend:1.0
     networks:
       - apirest-network
@@ -60,7 +60,7 @@ services:
       #- 10080:80
       #- 10443:443
     volumes:
-      - static:/static_files
+       - ./api/static_files:/static_files
     image: nginx:1.0
     depends_on:
       - apirest
@@ -69,7 +69,7 @@ services:
 
 volumes:
   database:
-  static:
+  #static:
 networks:
   apirest-network:
     driver: bridge
