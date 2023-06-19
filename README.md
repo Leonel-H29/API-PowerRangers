@@ -49,6 +49,7 @@ Ejemplo de resultado:
 
 | CONTAINER ID | IMAGE                | COMMAND                | CREATED    | STATUS           | PORTS                                          | NAMES            |
 | ------------ | -------------------- | ---------------------- | ---------- | ---------------- | ---------------------------------------------- | ---------------- |
+|a3e9301472d1  | nginx:1.0            | "/docker-entrypoint.…" | 7 days ago | Up About an hour |  0.0.0.0:1337->80/tcp, :::1337->80/tcp         |    nginx         | 
 | 5c91c9331ea1 | backend:1.0          | "sh docker-entrypoin…" | 7 days ago | Up About an hour | 0.0.0.0:8000->8000/tcp, :::8000->8000/tcp      | apirest_djangorf |
 | 501f88c036cd | dpage/pgadmin4       | "/entrypoint.sh"       | 7 days ago | Up About an hour | 443/tcp, 0.0.0.0:5050->80/tcp, :::5050->80/tcp | pg_admin         |
 | 41ce77e6f37d | postgres:13.3-alpine | "docker-entrypoint.s…" | 7 days ago | Up About an hour | 0.0.0.0:5430->5432/tcp, :::5430->5432/tcp      | db_postgres      |
@@ -129,6 +130,7 @@ A continuación se presentan los comandos para reiniciar, detener y eliminar los
       docker-compose -f "docker-compose.yml" stop
 
 - Para eliminar los contenedores detenidos y todos los recursos relacionados, como volúmenes y redes:
-  docker-compose -f "docker-compose.yml" down
+
+      docker-compose -f "docker-compose.yml" down
 
 Recuerda utilizar estos comandos según sea necesario, dependiendo de tus requerimientos y del estado actual de los contenedores en Docker.
