@@ -7,13 +7,13 @@ command="manage.py makemigrations $apps"
 #Configuracion para el entorno de produccion
 config="--settings=api.settings.production"
 
-
 #Elimino los directorios de migrations en las apps
 echo "Eliminando migraciones anteriores ..."
 . scripts-sh/del_migrate.sh
 #. del_migrate.sh
 sleep 2
 
+cd api/
 
 #Almaceno los archivos estaticos
 echo "Creando los archivos estaticos ..."
@@ -41,8 +41,8 @@ sleep 2
 #Inicio el servidor
 echo "Inicio el servidor ..."
 #python manage.py runserver 0.0.0.0:8000 $config
-config="DJANGO_SETTINGS_MODULE=api.settings.production"
-gunicorn --env $config api.wsgi:application --bind 0.0.0.0:8000
+config="DJANGO_SETTINGS_MODULE=api.settings.production api.wsgi:application "
+gunicorn --env $config --bind 0.0.0.0:8000
 echo "El backend esta listo"
 
 exec "$@"

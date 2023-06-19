@@ -18,8 +18,7 @@ COPY ./requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copia el código de la aplicación al contenedor
-COPY ./ ./
-
+COPY ./api ./
 # Copia el archivo docker-entrypoint.sh al contenedor
 COPY ./scripts-sh/docker-entrypoint.sh ./scripts-sh/docker-entrypoint.sh
 

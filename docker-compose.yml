@@ -15,7 +15,8 @@ services:
     depends_on:
       - database
     volumes:
-      - '.:/app'
+      - .:/app
+      - static:/static_files
     image: backend:1.0
     networks:
       - apirest-network
@@ -29,7 +30,7 @@ services:
       - prod.env
     volumes:
       - database:/var/lib/postgresql/data
-      - ./init-scripts:/docker-entrypoint-initdb.d
+      - ./api/init-scripts:/docker-entrypoint-initdb.d
     ports:
       - 5430:5432
     networks:
@@ -49,8 +50,26 @@ services:
     networks:
       - apirest-network
 
+  # Servidor nginx
+  nginx:
+    container_name: nginx
+    #restart: always
+    build: ./nginx
+    ports:
+      - 1337:80
+      #- 10080:80
+      #- 10443:443
+    volumes:
+      - static:/static_files
+    image: nginx:1.0
+    depends_on:
+      - apirest
+    networks:
+      - apirest-network
+
 volumes:
   database:
+  static:
 networks:
   apirest-network:
     driver: bridge
