@@ -11,7 +11,7 @@ SECRET_KEY = config("SECRET_KEY")
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['192.168.1.13', '127.0.0.1', 'api.power-rangers.com']
 
 # Configuracion de la base de datos Postgres
 DB_NAME = config("DB_NAME")
@@ -41,9 +41,13 @@ if POSTGRES_READY:
             "DATABASE_PORT": DB_PORT,
         },
     }
-
+# Directorio de archivos estaticos
+STATIC_URL = '/static_files/'
 STATIC_ROOT = Path.joinpath(BASE_DIR, 'static_files')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_DIR = [
+# STATIC_ROOT,
+# ]
 
 DJANGO_SUPERUSER_EMAIL = config("DJANGO_SUPERUSER_EMAIL")
 DJANGO_SUPERUSER_USERNAME = config("DJANGO_SUPERUSER_USERNAME")
