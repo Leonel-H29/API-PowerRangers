@@ -4,6 +4,7 @@ Este README.md proporciona instrucciones detalladas para clonar el proyecto, lev
 
 ## Índice
 
+- [¿Qué es API REST POWER RANGERS?](#qué-es-api-rest-power-rangers)
 - [Clonación del proyecto](#clonación-del-proyecto)
 - [Levantar el proyecto localmente con Docker](#levantar-el-proyecto-localmente-con-docker)
   - [Ver los contenedores en Docker](#ver-los-contenedores-en-docker)
@@ -16,7 +17,13 @@ Este README.md proporciona instrucciones detalladas para clonar el proyecto, lev
   - [¿Qué es Swagger?](#qué-es-swagger)
   - [Documentación de la API REST de Django con Swagger](#documentación-de-la-api-rest-de-django-con-swagger)
 
-¡Espero que esto te sea útil! Si tienes alguna otra pregunta, no dudes en hacerla.
+
+## ¿Qué es API REST POWER RANGERS?
+
+El proyecto de la API REST de Power Rangers es una herramienta Open Source creada en Django Rest Framework que contiene una gran cantidad de información relacionada con la popular serie de televisión. El objetivo principal de este proyecto es permitir que cualquier persona interesada pueda consumir esta información y utilizarla para desarrollar su propio proyecto relacionado con Power Rangers.
+
+Esta API REST de Power Rangers está diseñada para ser fácilmente consumible por cualquier persona que tenga un conocimiento básico de programación, lo que la hace ideal para programadores principiantes o desarrolladores experimentados por igual. Además, la API está diseñada para ser altamente escalable, lo que significa que puede ser utilizada en proyectos de cualquier tamaño, desde pequeñas aplicaciones hasta grandes proyectos.
+
 
 ## Clonación del proyecto
 
