@@ -160,7 +160,8 @@ api/User/__pycache__
 api/User/tests*.py
 
 #Archivos estaticos
-static_files/
+*static/
+*static_files/
 
 
 #Scripts .sh
