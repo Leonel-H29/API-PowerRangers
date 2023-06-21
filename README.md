@@ -1,10 +1,15 @@
 # Documentación de la API REST Power Rangers
 
-Este README.md proporciona instrucciones detalladas para clonar el proyecto, levantar el proyecto localmente con Docker o con las herramientas necesarias, acceder al navegador y realizar consultas a la API REST.
-
 ## Índice
-
+- [INTRODUCCIÓN](#introducción)
 - [¿Qué es API REST POWER RANGERS?](#qué-es-api-rest-power-rangers)
+- [Arquitectura de Software](#arquitectura-de-software)
+  - [Cliente](#cliente)
+  - [Servidor web: Nginx](#servidor-web-nginx)
+  - [Backend: API REST de Django con Gunicorn](#backend-api-rest-de-django-con-gunicorn)
+  - [Base de datos: PostgreSQL](#base-de-datos-postgresql)
+  - [Contenedores de Docker](#contenedores-de-docker)
+  - [Diagrama de la arquitectura](#diagrama-de-la-arquitectura)   
 - [Clonación del proyecto](#clonación-del-proyecto)
 - [Levantar el proyecto localmente con Docker](#levantar-el-proyecto-localmente-con-docker)
   - [Ver los contenedores en Docker](#ver-los-contenedores-en-docker)
@@ -17,13 +22,61 @@ Este README.md proporciona instrucciones detalladas para clonar el proyecto, lev
   - [¿Qué es Swagger?](#qué-es-swagger)
   - [Documentación de la API REST de Django con Swagger](#documentación-de-la-api-rest-de-django-con-swagger)
 
+# INTRODUCCIÓN
 
-## ¿Qué es API REST POWER RANGERS?
+Este documento proporciona la informacion necesaria para explicar en que consiste el proyecto, su arquitectura y ademas proporciona instrucciones detalladas para clonar el proyecto, levantarlo localmente con Docker o con las herramientas necesarias, acceder al navegador y realizar consultas a la API REST.
+
+# ¿Qué es API REST POWER RANGERS?
 
 El proyecto de la API REST de Power Rangers es una herramienta Open Source creada en Django Rest Framework que contiene una gran cantidad de información relacionada con la popular serie de televisión. El objetivo principal de este proyecto es permitir que cualquier persona interesada pueda consumir esta información y utilizarla para desarrollar su propio proyecto relacionado con Power Rangers.
 
 Esta API REST de Power Rangers está diseñada para ser fácilmente consumible por cualquier persona que tenga un conocimiento básico de programación, lo que la hace ideal para programadores principiantes o desarrolladores experimentados por igual. Además, la API está diseñada para ser altamente escalable, lo que significa que puede ser utilizada en proyectos de cualquier tamaño, desde pequeñas aplicaciones hasta grandes proyectos.
 
+
+# Arquitectura de Software
+
+En este proyecto, se utiliza una arquitectura de software de tipo cliente-servidor basada en contenedores Docker para implementar una aplicación web. A continuación, se describen los componentes principales de la arquitectura y cómo interactúan entre sí:
+
+### Cliente
+El cliente en este caso son los navegadores web utilizados por los usuarios para acceder a la aplicación. Los navegadores web realizan solicitudes HTTP al servidor web y muestran la interfaz de usuario al usuario final.
+
+### Servidor web: Nginx
+En este proyecto, Nginx actúa como un servidor web y también como un proxy inverso. Un proxy inverso es un tipo de servidor que actúa como intermediario entre los clientes y los servidores de backend. Recibe las solicitudes de los clientes y las redirige a los servidores de backend correspondientes para procesarlas y obtener las respuestas.
+
+Nginx implementa el proxy inverso dirigiendo las solicitudes entrantes a la API REST de Django ejecutada por Gunicorn. Esto significa que Nginx recibe las solicitudes de los clientes y luego las redirige a Gunicorn, que es el servidor de aplicaciones que ejecuta la API REST de Django. Nginx también se encarga de enrutar las respuestas generadas por el backend y devolverlas al cliente.
+
+Esta configuración con un proxy inverso es comúnmente utilizada para mejorar el rendimiento y la seguridad de una aplicación web. Nginx puede manejar eficientemente las solicitudes de los clientes y distribuir la carga de trabajo entre varios servidores de backend, lo que permite escalar la aplicación y proporcionar una mejor experiencia a los usuarios.
+
+### Backend: API REST de Django con Gunicorn
+En el backend de este proyecto, se utiliza una API REST de Django para proporcionar funcionalidad y servicios a los clientes. Gunicorn, que significa "Green Unicorn", es un servidor de aplicaciones compatible con WSGI (Web Server Gateway Interface) que se utiliza para ejecutar la API REST de Django.
+
+El funcionamiento de Gunicorn implica varios pasos:
+
+1.  Cuando se inicia Gunicorn, se configura para manejar una cierta cantidad de procesos de trabajadores (workers) y hilos (threads) para atender las solicitudes de los clientes.
+2.  Cuando se recibe una solicitud HTTP de un cliente, Gunicorn selecciona un proceso de trabajador disponible para manejarla.
+3.  El proceso de trabajador carga la aplicación de la API REST de Django y procesa la solicitud. Esto puede implicar la ejecución de código de la aplicación, acceder a la base de datos, realizar cálculos y generar una respuesta.
+4.  Una vez que se genera la respuesta, el proceso de trabajador la envía de vuelta a través de Gunicorn, que a su vez se encarga de enviarla al cliente que realizó la solicitud.
+5.  Gunicorn es ampliamente utilizado en proyectos de Django debido a su capacidad para manejar múltiples solicitudes concurrentes de manera eficiente, lo que mejora el rendimiento y la escalabilidad de la aplicación.
+
+La API REST de Django proporciona puntos finales (endpoints) que definen las operaciones disponibles en la aplicación. Estos puntos finales permiten a los clientes realizar solicitudes HTTP (como GET, POST, PUT, DELETE) para interactuar con los datos y funcionalidades proporcionados por el backend.
+
+### Base de datos: PostgreSQL
+En este proyecto, se utiliza PostgreSQL como el sistema de gestión de bases de datos. PostgreSQL es un potente sistema de base de datos relacional de código abierto y es ampliamente utilizado en aplicaciones web debido a su capacidad de escalabilidad y características avanzadas.
+
+pgAdmin es una herramienta de administración de bases de datos PostgreSQL que se utiliza para interactuar con el servidor de base de datos y administrar las bases de datos y los objetos relacionados. Proporciona una interfaz gráfica para realizar tareas como crear, modificar y eliminar tablas, consultas SQL, gestionar usuarios y permisos, realizar copias de seguridad y mucho más.
+
+En el contexto de este proyecto, pgAdmin se utiliza como una interfaz de administración conveniente y visual para trabajar con la base de datos PostgreSQL. Permite a los desarrolladores y administradores de bases de datos interactuar con la base de datos de manera eficiente
+
+### Contenedores de Docker
+Cada componente de la arquitectura (servidor web Nginx, backend Django con Gunicorn y base de datos PostgreSQL) se ejecuta dentro de contenedores de Docker. Docker permite la encapsulación de cada componente junto con sus dependencias y configuraciones en un entorno aislado y portátil. Esto facilita la implementación consistente de la aplicación en diferentes entornos y simplifica el proceso de desarrollo, implementación y escalamiento.
+
+Los contenedores de Docker se pueden crear utilizando archivos de configuración llamados Dockerfiles y se ejecutan utilizando imágenes de Docker. Cada contenedor se ejecuta como una instancia aislada y ligera que contiene todos los elementos necesarios para que el componente correspondiente funcione correctamente.
+
+### Diagrama de la arquitectura
+
+![Presentación sin título](https://github.com/Leonel-H29/API-PowerRangers/assets/48606307/c5f62b17-c783-4815-9531-a1d32913ae81)
+
+Esta arquitectura de software de tipo cliente-servidor basada en contenedores Docker proporciona una forma eficiente y escalable de implementar y ejecutar la aplicación web, permitiendo la fácil replicación y distribución de los componentes en diferentes entornos de desarrollo y producción.
 
 ## Clonación del proyecto
 
@@ -57,12 +110,16 @@ En caso no tener 'docker-compose' en tu maquina puedes instalarlo con el siguien
 
 Ejemplo de resultado:
 
+```
+
 | CONTAINER ID | IMAGE                | COMMAND                | CREATED    | STATUS           | PORTS                                          | NAMES            |
 | ------------ | -------------------- | ---------------------- | ---------- | ---------------- | ---------------------------------------------- | ---------------- |
 |a3e9301472d1  | nginx:1.0            | "/docker-entrypoint.…" | 7 days ago | Up About an hour |  0.0.0.0:1337->80/tcp, :::1337->80/tcp         |    nginx         | 
 | 5c91c9331ea1 | backend:1.0          | "sh docker-entrypoin…" | 7 days ago | Up About an hour | 0.0.0.0:8000->8000/tcp, :::8000->8000/tcp      | apirest_djangorf |
 | 501f88c036cd | dpage/pgadmin4       | "/entrypoint.sh"       | 7 days ago | Up About an hour | 443/tcp, 0.0.0.0:5050->80/tcp, :::5050->80/tcp | pg_admin         |
 | 41ce77e6f37d | postgres:13.3-alpine | "docker-entrypoint.s…" | 7 days ago | Up About an hour | 0.0.0.0:5430->5432/tcp, :::5430->5432/tcp      | db_postgres      |
+
+```
 
 2.  En caso de que quiera ver los logs de cada contenedor utiliza el siguiente comando:
 
