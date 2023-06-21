@@ -11,7 +11,10 @@ Este README.md proporciona instrucciones detalladas para clonar el proyecto, lev
   - [Configuración de pgAdmin 4 para conectar a la base de datos PostgreSQL en Docker](#configuración-de-pgadmin-4-para-conectar-a-la-base-de-datos-postgresql-en-docker)
 - [Datos a tener en cuenta](#datos-a-tener-en-cuenta)
   - [Archivo de variables de entorno](#archivo-de-variables-de-entorno)
-    - [Comandos para reiniciar, detener y eliminar contenedores en Docker](#comandos-para-reiniciar-detener-y-eliminar-contenedores-en-docker)
+  - [Comandos para reiniciar, detener y eliminar contenedores en Docker](#comandos-para-reiniciar-detener-y-eliminar-contenedores-en-docker)
+- [Swagger](#swagger)
+  - [¿Qué es Swagger?](#qué-es-swagger)
+  - [Documentación de la API REST de Django con Swagger](#documentación-de-la-api-rest-de-django-con-swagger)
 
 ¡Espero que esto te sea útil! Si tienes alguna otra pregunta, no dudes en hacerla.
 
@@ -104,6 +107,40 @@ Esto te abrirá una sesión interactiva de PostgreSQL en el contenedor, donde po
 Ahora has configurado correctamente pgAdmin 4 para conectarse a la base de datos PostgreSQL dentro del contenedor Docker. Puedes explorar las bases de datos, ejecutar consultas SQL y realizar otras operaciones de administración utilizando la interfaz de pgAdmin 4.
 
 _ACLARACION_: Todas las variables mencionadas deben estar definidas dentro del archivo de entorno correspondiente.
+
+
+## Swagger
+
+### ¿Qué es Swagger?
+
+Swagger es una herramienta que permite describir, diseñar y documentar APIs de forma sencilla y estandarizada. Proporciona una especificación llamada OpenAPI Specification (anteriormente conocida como Swagger Specification) que define el formato de la documentación de la API. Esta especificación describe los endpoints, los parámetros, los esquemas de datos, las respuestas y otra información relevante para utilizar y comprender la API.
+
+La documentación generada con Swagger es altamente legible y visualmente atractiva. Además, Swagger facilita la interacción con la API a través de su interfaz de usuario interactiva, permitiendo probar los endpoints directamente desde el navegador.
+
+### Documentación de la API REST de Django con Swagger
+
+Si estás utilizando Django para construir una API REST y has integrado Swagger en tu proyecto, puedes acceder a la documentación de la API a través de la ruta `/docs` en tu aplicación web.
+
+1. Asegurate tener el contenedor de la API REST de Django levantada.
+
+2. Abre tu navegador web y navega a la siguiente dirección: `http://localhost:8000/docs` (o la URL correspondiente donde se esté ejecutando tu servidor de desarrollo de Django).
+
+3. Verás la interfaz de usuario de Swagger, que muestra la documentación generada automáticamente para tu API REST de Django. Aquí podrás explorar los diferentes endpoints, los parámetros esperados, las respuestas y otros detalles de la API.
+
+4. Puedes probar los endpoints directamente desde la interfaz de Swagger. Simplemente haz clic en un endpoint, proporciona los parámetros requeridos (si los hay) y ejecuta la solicitud para ver la respuesta obtenida.
+
+La documentación generada por Swagger te brinda una visión clara de tu API REST de Django y facilita su comprensión y utilización tanto para ti como para otros desarrolladores que interactúen con ella.
+
+![Captura de pantalla de 2023-04-02 16-07-34](https://github.com/Leonel-H29/API-PowerRangers/assets/48606307/3cff9689-65f0-43cc-93e9-9837905fc240)
+
+
+
+
+
+
+
+
+
 
 ## Datos a tener en cuenta
 
