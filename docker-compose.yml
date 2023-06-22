@@ -11,12 +11,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    #user: root
     depends_on:
       - database
     volumes:
       - .:/app
-      - ./api/static_files:/static_files
+      - static:/api/static_files
     image: backend:1.0
     networks:
       - apirest-network
@@ -56,11 +55,9 @@ services:
     #restart: always
     build: ./nginx
     ports:
-      - 1337:80
-      #- 10080:80
-      #- 10443:443
+      - 80:80
     volumes:
-       - ./api/static_files:/static_files
+      - static:/api/static_files
     image: nginx:1.0
     depends_on:
       - apirest
@@ -69,7 +66,7 @@ services:
 
 volumes:
   database:
-  #static:
+  static:
 networks:
   apirest-network:
     driver: bridge
