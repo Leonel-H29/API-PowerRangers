@@ -38,11 +38,12 @@ services:
   # pgAdmin para administración de PostgreSQL
   pgadmin:
     image: dpage/pgadmin4
-    restart: always
+    #restart: always
     container_name: pg_admin
     env_file:
       - prod.env
     ports:
+      #- 5050:5353
       - 5050:80
     depends_on:
       - database
@@ -52,14 +53,16 @@ services:
   # Servidor nginx
   nginx:
     container_name: nginx
-    #restart: always
+    restart: always
     build: ./nginx
     ports:
       - 80:80
+      - 443:443
     volumes:
       - static:/api/static_files
     image: nginx:1.0
     depends_on:
+      - pgadmin
       - apirest
     networks:
       - apirest-network
