@@ -9,7 +9,7 @@ from Temporadas.urls import router as routerTemp
 from Actor.urls import router as routerAct
 from Capitulos.urls import router as routerCap
 from User.urls import router as routerUser
-#from documentation.urls import router as routerDoc
+# from documentation.urls import router as routerDoc
 from documentation.views import DocumentationViewSet
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -36,7 +36,7 @@ router.extend(routerTemp)
 router.extend(routerAct)
 router.extend(routerCap)
 router.extend(routerUser)
-#router.extend(routerDoc)
+# router.extend(routerDoc)
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -57,7 +57,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('docs/', schema_view.with_ui('swagger',
          cache_timeout=0), name='schema-swagger-ui'),
-    path('documentation/', DocumentationViewSet.as_view(), name='documentation' )
+    path('documentation/', DocumentationViewSet.as_view(), name='documentation')
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -15,7 +15,7 @@ services:
       - database
     volumes:
       - .:/app
-      - static:/api/static_files
+      - static:/app/static_files
     image: backend:1.0
     networks:
       - apirest-network
@@ -38,13 +38,17 @@ services:
   # pgAdmin para administración de PostgreSQL
   pgadmin:
     image: dpage/pgadmin4
-    #restart: always
+    restart: always
     container_name: pg_admin
     env_file:
       - prod.env
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
     ports:
       #- 5050:5353
       - 5050:80
+    links:
+      - database:pgsql-server
     depends_on:
       - database
     networks:
@@ -54,12 +58,14 @@ services:
   nginx:
     container_name: nginx
     restart: always
-    build: ./nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
     ports:
       - 80:80
       - 443:443
     volumes:
-      - static:/api/static_files
+      - static:/etc/nginx/static_files
     image: nginx:1.0
     depends_on:
       - pgadmin
@@ -70,6 +76,7 @@ services:
 volumes:
   database:
   static:
+  pgadmin-data:
 networks:
   apirest-network:
     driver: bridge
