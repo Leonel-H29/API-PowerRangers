@@ -50,14 +50,14 @@ schema_view = get_schema_view(
     public=True,
 )
 
-
+url = 'api/'
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('logout/', LogoutView.as_view(), name='logout'),
-    path('', include(router.urls)),
-    path('docs/', schema_view.with_ui('swagger',
+    path(url + 'admin/', admin.site.urls),
+    path(url + 'logout/', LogoutView.as_view(), name='logout'),
+    path(url, include(router.urls)),
+    path(url + 'docs/', schema_view.with_ui('swagger',
          cache_timeout=0), name='schema-swagger-ui'),
-    path('documentation/', DocumentationViewSet.as_view(), name='documentation')
+    path(url + 'documentation/', DocumentationViewSet.as_view(), name='documentation')
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

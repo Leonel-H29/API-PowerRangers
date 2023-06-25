@@ -11,7 +11,13 @@ SECRET_KEY = config("SECRET_KEY")
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.1.13', '127.0.0.1', 'api.power-rangers.com']
+ALLOWED_HOSTS = [
+    '192.168.1.13',
+    '127.0.0.1',
+    '0.0.0.1',
+    'localhost',
+    'api.power-rangers.com'
+]
 
 # Configuracion de la base de datos Postgres
 DB_NAME = config("DB_NAME")

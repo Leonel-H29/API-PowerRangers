@@ -65,7 +65,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - static:/etc/nginx/static_files
+      - static:/app/static_files
     image: nginx:1.0
     depends_on:
       - pgadmin
