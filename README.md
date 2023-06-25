@@ -15,12 +15,22 @@
   - [Ver los contenedores en Docker](#ver-los-contenedores-en-docker)
   - [Acceder a la base de PostgreSQL en Docker](#acceder-a-la-base-de-postgresql-en-docker)
   - [Configuración de pgAdmin 4 para conectar a la base de datos PostgreSQL en Docker](#configuración-de-pgadmin-4-para-conectar-a-la-base-de-datos-postgresql-en-docker)
-- [Datos a tener en cuenta](#datos-a-tener-en-cuenta)
-  - [Archivo de variables de entorno](#archivo-de-variables-de-entorno)
-  - [Comandos para reiniciar, detener y eliminar contenedores en Docker](#comandos-para-reiniciar-detener-y-eliminar-contenedores-en-docker)
 - [Swagger](#swagger)
   - [¿Qué es Swagger?](#qué-es-swagger)
   - [Documentación de la API REST de Django con Swagger](#documentación-de-la-api-rest-de-django-con-swagger)
+- [Datos a tener en cuenta](#datos-a-tener-en-cuenta)
+  - [Archivo de variables de entorno](#archivo-de-variables-de-entorno)
+  - [Comandos para reiniciar, detener y eliminar contenedores en Docker](#comandos-para-reiniciar-detener-y-eliminar-contenedores-en-docker)
+  - [Variables de entorno](#variables-de-entorno)
+    - [Variables de entorno de la base de datos Postgres](#variables-de-entorno-de-la-base-de-datos-postgres)
+    - [Variables de entorno de Postgres](#variables-de-entorno-de-postgres)
+    - [Variables de entorno de la aplicación Django](#variables-de-entorno-de-la-aplicación-django)
+    - [Variables de entorno de la API REST](#variables-de-entorno-de-la-api-rest)
+    - [Variables de entorno de archivos y datos](#variables-de-entorno-de-archivos-y-datos)
+    - [Variables de entorno para superusuario de Django](#variables-de-entorno-para-superusuario-de-django)
+    - [Variables de entorno para PgAdmin](#variables-de-entorno-para-pgadmin)
+
+/*=============================================================================================================*/
 
 # INTRODUCCIÓN
 
@@ -131,6 +141,9 @@ Ejemplo de resultado:
 
 Esto te llevará a la página de inicio de la API REST.
 
+![Captura de pantalla de 2023-06-24 22-52-10](https://github.com/Leonel-H29/API-PowerRangers/assets/48606307/ae7ec504-013d-4f25-a1ff-e95e35709929)
+
+
 ### Acceder a la base de PostgreSQL en Docker
 
 Para acceder a tu base de datos en Docker, necesitarás ejecutar un comando para conectarte al contenedor de la base de datos. En tu caso, parece que estás utilizando un contenedor PostgreSQL.
@@ -141,7 +154,7 @@ Puedes utilizar el siguiente comando para acceder al contenedor de PostgreSQL:
 docker exec -it [CONTAINER ID] | [NAME]  psql -U <username> -d <database_name>
 ```
 
-Reemplaza `[CONTAINER ID]` o `[NAME]` con el ID o su nombre del contenedor de PostgreSQL, para `<username>` y `<database_name>` se deben colocar los valores establecidos en `DB_USER` y `DB_NAME` que se encuentan en el archivo de entorno.
+Reemplaza `[CONTAINER ID]` o `[NAME]` con el ID o su nombre del contenedor de PostgreSQL, para `<username>` y `<database_name>` se deben colocar los valores establecidos en `POSTGRES_USER` y `POSTGRES_DB` que se encuentan en el archivo de entorno.
 Esto te abrirá una sesión interactiva de PostgreSQL en el contenedor, donde podrás ejecutar consultas SQL y realizar acciones en tu base de datos.
 
 ### Configuración de pgAdmin 4 para conectar a la base de datos PostgreSQL en Docker
@@ -150,13 +163,21 @@ Esto te abrirá una sesión interactiva de PostgreSQL en el contenedor, donde po
 
 2. Abre un navegador web e ingresa la siguiente URL: `http://localhost:5050` | `http://[DIRECCION_IP]:5050` . Esto te llevará a la interfaz de pgAdmin 4.
 
+![Captura de pantalla de 2023-06-24 22-58-35](https://github.com/Leonel-H29/API-PowerRangers/assets/48606307/11478921-ab9b-4e6f-bee7-f7978efc6876)
+
+
 3. Si es la primera vez que usas pgAdmin 4, debes ingresar con el usuario y contraseña establecida en `PGADMIN_DEFAULT_USERNAME` y `PGADMIN_DEFAULT_USERNAME`.
 
 4. Una vez que hayas establecido la contraseña maestra, se te dirigirá a la página de inicio de pgAdmin 4. Haz clic en el botón "Add New Server" (Agregar nuevo servidor) en el panel izquierdo o selecciona "Create" (Crear) > "Server" (Servidor) en la barra de menú superior.
 
-5. En la pestaña "General" (General), ingresa un nombre descriptivo para el servidor en el campo "Name" (Nombre), puede ser el que quieras.
+![Captura de pantalla de 2023-06-24 23-04-42](https://github.com/Leonel-H29/API-PowerRangers/assets/48606307/c9ebd1be-b0bb-42d2-8fcb-5266bef69259)
 
-6. Cambia a la pestaña "Connection" (Conexión). Aquí es donde configurarás los detalles de conexión a la base de datos PostgreSQL en el contenedor Docker.
+
+6. En la pestaña "General" (General), ingresa un nombre descriptivo para el servidor en el campo "Name" (Nombre), puede ser el que quieras.
+
+![Captura de pantalla de 2023-06-24 22-52-36](https://github.com/Leonel-H29/API-PowerRangers/assets/48606307/692919d5-fe17-4a87-984e-171089438f12)
+
+7. Cambia a la pestaña "Connection" (Conexión). Aquí es donde configurarás los detalles de conexión a la base de datos PostgreSQL en el contenedor Docker.
 
    - En el campo "Host name/address" (Nombre/dirección del host), ingresa el `<container_name>` que se seria este caso `db_postgres`
    - En el campo "Port" (Puerto), ingresa `5432` para que coincida con el puerto mapeado en el contenedor Docker.
@@ -164,13 +185,19 @@ Esto te abrirá una sesión interactiva de PostgreSQL en el contenedor, donde po
    - En el campo "Username" (Nombre de usuario), ingresa el nombre de usuario de la base de datos, el valor se encuentra en `DB_USER`.
    - En el campo "Password" (Contraseña), ingresa la contraseña correspondiente al usuario de la base de datos, el valor se encuentra en `DB_PASSWORD`.
 
-7. Haz clic en el botón "Save" (Guardar) para guardar la configuración del servidor.
+![Captura de pantalla de 2023-06-24 22-53-00](https://github.com/Leonel-H29/API-PowerRangers/assets/48606307/826aab91-283d-49f3-80eb-16ca34de372f)
 
-8. En el panel izquierdo, deberías ver el servidor que acabas de agregar. Haz clic en él para expandirlo y mostrar las bases de datos disponibles.
+
+
+8. Haz clic en el botón "Save" (Guardar) para guardar la configuración del servidor.
+
+9. En el panel izquierdo, deberías ver el servidor que acabas de agregar. Haz clic en él para expandirlo y mostrar las bases de datos disponibles.
 
 Ahora has configurado correctamente pgAdmin 4 para conectarse a la base de datos PostgreSQL dentro del contenedor Docker. Puedes explorar las bases de datos, ejecutar consultas SQL y realizar otras operaciones de administración utilizando la interfaz de pgAdmin 4.
 
-_ACLARACION_: Todas las variables mencionadas deben estar definidas dentro del archivo de entorno correspondiente.
+
+
+*_ACLARACION_:* Todas las variables mencionadas deben estar definidas dentro del archivo de entorno correspondiente.
 
 
 ## Swagger
@@ -216,7 +243,56 @@ El proyecto utiliza archivos de variables de entorno para configurar ciertos val
 
 2. `prod.env`: Este archivo contiene las variables de entorno para el entorno de producción. Debes configurar las variables adecuadas para tu entorno de producción, como las claves de API y las credenciales de bases de datos en producción.
 
-Asegúrate de mantener estos archivos de variables de entorno de manera segura y no los compartas públicamente, ya que pueden contener información confidencial.
+- Si deseas no utilizar un archivo de variables de entorno de desarrollo lo puedes hacer sin problema, no es tan necesario ocultar los valores de esas variables ya que estamos trabajando en un entorno controlado, la unica sugerencia es tratar de evitar de utilizar datos personales reales, personales y que deberian ser privados.
+- Asegúrate de mantener el archivo de variables de entorno de produccion de manera segura y no los compartas públicamente, ya que pueden contener información confidencial.
+
+
+### Variables de entorno 
+
+En este proyecto, se utilizan diversas variables de entorno para configurar y personalizar diferentes aspectos del entorno de desarrollo y producción. A continuación, se explican cada una de las variables y para qué se utilizan:
+
+#### Variables de entorno de la base de datos Postgres:
+
+- `DB_NAME`: Nombre de la base de datos utilizada por el proyecto.
+- `DB_USER`: Nombre de usuario para acceder a la base de datos.
+- `DB_PASSWORD`: Contraseña del usuario de la base de datos.
+- `DB_HOST`: Dirección o nombre de host de la base de datos.
+- `DB_PORT`: Puerto en el que se ejecuta la base de datos.
+
+#### Variables de entorno de Postgres:
+
+- `POSTGRES_USER`: Nombre de usuario para acceder al servidor de base de datos PostgreSQL.
+- `POSTGRES_PASSWORD`: Contraseña para el usuario del servidor de base de datos PostgreSQL.
+- `POSTGRES_DB`: Nombre de la base de datos principal de PostgreSQL.
+
+#### Variables de entorno de la aplicación Django:
+
+- `SECRET_KEY`: Clave secreta utilizada por Django para la generación de tokens y la protección de datos sensibles.
+
+#### Variables de entorno de la API REST:
+
+- `API_HOST`: Host o dirección de la API REST.
+- `API_PORT`: Puerto en el que se ejecuta la API REST.
+
+#### Variables de entorno de archivos y datos:
+
+- `FILE_DATA`: Nombre del archivo de datos utilizado por la aplicación.
+
+#### Variables de entorno para superusuario de Django:
+
+- `DJANGO_SUPERUSER_EMAIL`: Correo electrónico del superusuario de Django.
+- `DJANGO_SUPERUSER_USERNAME`: Nombre de usuario del superusuario de Django.
+- `DJANGO_SUPERUSER_PASSWORD`: Contraseña del superusuario de Django.
+
+#### Variables de entorno para PgAdmin:
+
+- `PGADMIN_DEFAULT_EMAIL`: Correo electrónico del usuario administrador de PgAdmin.
+- `PGADMIN_DEFAULT_USERNAME`: Nombre de usuario del usuario administrador de PgAdmin.
+- `PGADMIN_DEFAULT_PASSWORD`: Contraseña del usuario administrador de PgAdmin.
+
+Recuerda que los valores reales para estas variables pueden variar según la configuración específica de tu proyecto y entorno. Asegúrate de establecer los valores correctos para cada variable de entorno según tus necesidades.
+
+
 
 ### Comandos para reiniciar, detener y eliminar contenedores en Docker
 
