@@ -1,4 +1,9 @@
-venv
-.vs
+*venv
+*.vs
 .devcontainer
 crud_data
+#Backups Databases
+*.sql
+#Files test
+readme*.py
+index.html

@@ -180,3 +180,12 @@ api/crud_data
 *.swp
 *.xls#
 *logs.txt
+
+
+#Backups Databases
+*.sql
+
+
+#Files test
+readme*.py
+index.html
