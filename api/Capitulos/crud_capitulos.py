@@ -22,12 +22,6 @@ class CrudCapitulos():
     # Funcion para retornar una lista con datos unicos
 
     def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
-        # Verifica si existe el personaje en la lista
-        def check_element_in_list(capitulo: int = 0, temporada: int = 0, list: list = []) -> bool:
-            for dictionary in list:
-                if capitulo == dictionary["num_cap"] and temporada == dictionary["id_temporada"]:
-                    return True
-            return False
 
         try:
             ncap = dic["numero_cap"]
@@ -38,9 +32,11 @@ class CrudCapitulos():
                 return list_data
 
             # Verifico si el capitulo ya se encuentra en la lista
-            # Verifica si hay datos en la tabla de la DB
-            if (len(list_data) >= 0 and not check_element_in_list(capitulo=ncap, temporada=idtemp, list=list_data)) or self.DB.len_table_db(self.db_table_name) == 0:
+            if (len(list_data) >= 0 and dic not in list_data):
                 list_data.append(dic)
+                return list_data
+            # Verifica si hay datos en la tabla de la DB
+            if self.DB.len_table_db(self.db_table_name) == 0:
                 return list_data
 
             # En caso de que no se cumplan ningunas de las condiciones retorno la lista
@@ -82,7 +78,7 @@ class CrudCapitulos():
                 if temp > 0:
                     dic = {
                         "numero_cap": col1,
-                        "nombre": col2,
+                        "titulo": col2,
                         "descripcion": col3,
                         "id_temporada": temp
                     }
@@ -102,7 +98,7 @@ class CrudCapitulos():
         list_values = [
             "({0},'{1}','{2}','{3}','{4}',{5})".format(
                 cap["numero_cap"],
-                cap["nombre"],
+                cap["titulo"],
                 cap["descripcion"],
                 datetime.now(),
                 datetime.now(),
@@ -124,7 +120,7 @@ class CrudCapitulos():
 
     def post_capitulos(self, capitulos: str = None) -> None:
 
-        query = "INSERT INTO {0} (numero_cap, nombre, descripcion, created, updated, id_temporada) VALUES {1}".format(
+        query = "INSERT INTO {0} (numero_cap, titulo, descripcion, created, updated, id_temporada) VALUES {1}".format(
             self.db_table_name, capitulos)
         # print(query)
         self.DB.insert_table_query(query=query)
