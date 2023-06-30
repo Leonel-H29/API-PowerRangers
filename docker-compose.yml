@@ -15,7 +15,7 @@ services:
       - database
     volumes:
       - .:/app
-      - static:/app/static_files
+      - static:/app/api/static_files
     image: backend:1.0
     networks:
       - apirest-network
@@ -65,7 +65,8 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - static:/app/static_files
+      #- static:/app/api/static_files
+      - static:/etc/nginx/html/static_files
     image: nginx:1.0
     depends_on:
       - pgadmin
