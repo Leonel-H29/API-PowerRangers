@@ -71,8 +71,8 @@ class CrudAparecen(CrudParent):
                 query1 = "SELECT id_temporada FROM {0} WHERE numero_temporada={1};".format(
                     self.db_table_name_fk1, col2
                 )
-                subquery = "SELECT id_temporada FROM {0} WHERE nombre_artistico={1};".format(
-                    self.db_table_name_fk3, col3
+                subquery = "SELECT id_actor FROM {0} WHERE nombre_artistico='{1}';".format(
+                    self.db_table_name_fk3, col6
                 )
                 query2 = "SELECT id_personaje FROM {0} WHERE nombre_personaje='{1}';".format(
                     self.db_table_name_fk2, self.DB.get_id(query=subquery)
@@ -88,8 +88,8 @@ class CrudAparecen(CrudParent):
                         "id_temporada": temp
                     }
 
-                # Verifico si el aparicion ya se encuentra registrado
-                list_insert = self.uniq_data(dic, list_insert)
+                    # Verifico si el aparicion ya se encuentra registrado
+                    list_insert = self.uniq_data(dic, list_insert)
             # print(list_insert)
             # print(len(list_insert))
             self.prepare_query_insert(apariciones=list_insert)
