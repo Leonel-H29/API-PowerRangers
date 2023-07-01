@@ -27,20 +27,20 @@ class CrudCapitulos():
             ncap = dic["numero_cap"]
             idtemp = dic["id_temporada"]
 
+            exists_in_list = any(
+                registro["numero_cap"] == ncap and
+                registro["id_temporada"] == idtemp
+                for registro in list_data
+            )
+
             # Verifico si el capitulo esta cargado en la base de datos
-            if self.capitulo_exist(cap=ncap, temp=idtemp):
-                return list_data
-
             # Verifico si el capitulo ya se encuentra en la lista
-            if (len(list_data) >= 0 and dic not in list_data):
-                list_data.append(dic)
-                return list_data
-            # Verifica si hay datos en la tabla de la DB
-            if self.DB.len_table_db(self.db_table_name) == 0:
+            if self.capitulo_exist(cap=ncap, temp=idtemp) or exists_in_list:
                 return list_data
 
-            # En caso de que no se cumplan ningunas de las condiciones retorno la lista
+            list_data.append(dic)
             return list_data
+
         except Exception as e:
             print(Fore.RED + "{0}".format(e))
             return list_data

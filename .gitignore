@@ -189,3 +189,5 @@ api/crud_data
 #Files test
 readme*.py
 index.html
+text.txt
+nginx/local.conf.save
