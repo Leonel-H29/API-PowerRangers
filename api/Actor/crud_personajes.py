@@ -28,7 +28,7 @@ class CrudPersonajes():
 
             exists_in_list = any(
                 registro["nombre_personaje"] == pers
-                # and registro["id_actor"] == idactor
+                and registro["id_actor"] == idactor
                 for registro in list_data
             )
 

@@ -3,21 +3,18 @@ import xlrd
 # import os
 # from dotenv import load_dotenv
 from api.db_settings import DBSettings
+from api.crud_parent import CrudParent
+
 from colorama import Fore
 from datetime import datetime
 
 
-class CrudAparecen():
-    def __init__(self, DBstt: DBSettings, file_data: str = None) -> None:
-        # pass
-        self.DB = DBstt  # Inicio una instancia de 'DBSettings'
-        self.conn = self.DB.conect_db()
-        self.conn.autocommit = True
-        self.file = file_data  # Archivo donde extraigo los datos
-        self.sheet_file = 'Personajes'
-        self.db_table_name = 'aparecen'
+class CrudAparecen(CrudParent):
+    def __init__(self, DBstt: DBSettings, sheet: str = None, tableName: str = None) -> None:
+        super().__init__(DBstt, sheet, tableName)
         self.db_table_name_fk1 = 'temporadas'
         self.db_table_name_fk2 = 'personajes'
+        self.db_table_name_fk3 = 'actor'
 
     # Funcion para retornar una lista con datos unicos
 
@@ -74,9 +71,11 @@ class CrudAparecen():
                 query1 = "SELECT id_temporada FROM {0} WHERE numero_temporada={1};".format(
                     self.db_table_name_fk1, col2
                 )
-                subquery = ""
+                subquery = "SELECT id_temporada FROM {0} WHERE nombre_artistico={1};".format(
+                    self.db_table_name_fk3, col3
+                )
                 query2 = "SELECT id_personaje FROM {0} WHERE nombre_personaje='{1}';".format(
-                    self.db_table_name_fk2, col1
+                    self.db_table_name_fk2, self.DB.get_id(query=subquery)
                 )
 
                 temp = self.DB.get_id(query=query1)
