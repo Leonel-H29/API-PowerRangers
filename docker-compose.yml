@@ -45,7 +45,6 @@ services:
     volumes:
       - pgadmin-data:/var/lib/pgadmin
     ports:
-      #- 5050:5353
       - 5050:80
     links:
       - database:pgsql-server
@@ -65,7 +64,6 @@ services:
       - 80:80
       - 443:443
     volumes:
-      #- static:/app/api/static_files
       - static:/etc/nginx/html/static_files
     image: nginx:1.0
     depends_on:
