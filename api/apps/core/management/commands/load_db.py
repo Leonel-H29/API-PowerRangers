@@ -28,10 +28,18 @@ class Command(BaseCommand):
         try:
             if DB.conect_db():
 
-                Actor = CrudActores(DBstt=DB, file_data=FILE_DATA)
-                Temp = CrudTemporadas(DBstt=DB, file_data=FILE_DATA)
-                Cap = CrudCapitulos(DBstt=DB, file_data=FILE_DATA)
-                Pers = CrudPersonajes(DBstt=DB, file_data=FILE_DATA)
+                Actor = CrudActores(
+                    DBstt=DB, sheet='Actores', tableName='actor'
+                )
+                Temp = CrudTemporadas(
+                    DBstt=DB, sheet='Temporadas', tableName='temporadas'
+                )
+                Cap = CrudCapitulos(
+                    DBstt=DB, sheet='Capitulos', tableName='capitulos'
+                )
+                Pers = CrudPersonajes(
+                    DBstt=DB, sheet='Personajes', tableName='personajes'
+                )
                 Apar = CrudAparecen(
                     DBstt=DB, sheet='Personajes', tableName='aparecen'
                 )

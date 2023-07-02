@@ -1,22 +1,15 @@
 import xlrd
-# import os
-# from dotenv import load_dotenv
 from api.db_settings import DBSettings
+from api.crud_parent import CrudParent
 from colorama import Fore
 from datetime import datetime
 
 # load_dotenv()
 
 
-class CrudPersonajes():
-    def __init__(self, DBstt: DBSettings, file_data: str = None) -> None:
-        # pass
-        self.DB = DBstt  # Inicio una instancia de 'DBSettings'
-        self.conn = self.DB.conect_db()
-        self.conn.autocommit = True
-        self.file = file_data  # Archivo donde extraigo los datos
-        self.sheet_file = 'Personajes'
-        self.db_table_name = 'personajes'
+class CrudPersonajes(CrudParent):
+    def __init__(self, DBstt: DBSettings, sheet: str = None, tableName: str = None) -> None:
+        super().__init__(DBstt, sheet, tableName)
         self.db_table_name_fk = 'actor'
 
     # Funcion para retornar una lista con datos unicos
@@ -28,7 +21,7 @@ class CrudPersonajes():
 
             exists_in_list = any(
                 registro["nombre_personaje"] == pers
-                and registro["id_actor"] == idactor
+                # and registro["id_actor"] == idactor
                 for registro in list_data
             )
 
