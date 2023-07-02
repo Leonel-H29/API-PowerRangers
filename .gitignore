@@ -160,7 +160,8 @@ api/User/__pycache__
 api/User/tests*.py
 
 #Archivos estaticos
-static_files/
+*static/
+*static_files/
 
 
 #Scripts .sh
@@ -179,3 +180,14 @@ api/crud_data
 *.swp
 *.xls#
 *logs.txt
+
+
+#Backups Databases
+*.sql
+
+
+#Files test
+readme*.py
+index.html
+text.txt
+nginx/local.conf.save

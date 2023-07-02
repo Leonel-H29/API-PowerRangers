@@ -1,24 +1,19 @@
 import xlrd
-# import os
-# from dotenv import load_dotenv
+
 from api.db_settings import DBSettings
+from api.crud_parent import CrudParent
+
 from colorama import Fore
 from datetime import datetime
 
 # load_dotenv()
 
 
-class CrudTemporadas():
+class CrudTemporadas(CrudParent):
 
-    def __init__(self, DBstt: DBSettings, file_data: str = None) -> None:
-        # pass
-        self.DB = DBstt  # Inicio una instancia de 'DBSettings'
-        self.conn = self.DB.conect_db()
-        self.conn.autocommit = True
-        self.file = file_data  # Archivo donde extraigo los datos
-        self.sheet_file = 'Temporadas'
-        self.db_table_name = 'temporadas'
-        print(self.file)
+    def __init__(self, DBstt: DBSettings, sheet: str = None, tableName: str = None) -> None:
+        super().__init__(DBstt, sheet, tableName)
+        # print(self.file)
 
     # Funcion para saber si la temporada existe
 
@@ -36,7 +31,7 @@ class CrudTemporadas():
         # Indico con que hoja voy a trabajar
         sheet = openFile.sheet_by_name(self.sheet_file)
 
-        list_insert : list = []
+        list_insert: list = []
 
         for i in range(1, sheet.nrows):
             col1 = int(sheet.cell_value(i, 0))  # Ntemporada
@@ -61,7 +56,7 @@ class CrudTemporadas():
             }
             # Verifico si la temporada ya se encuentra registrada
             list_insert = self.uniq_data(dic=dic, list_data=list_insert)
-        #print(list_insert)
+        # print(list_insert)
 
         self.prepare_query_insert(list_insert)
 
@@ -71,18 +66,16 @@ class CrudTemporadas():
         # Extaigo el 'numero_temporada' del diccionario
         try:
             ntemp = dic["numero_temporada"]
+            exists_in_list = any(
+                registro["numero_temporada"] == ntemp for registro in list_data
+            )
 
             # Verifico si el actor esta cargado en la base de datos
-            if self.temporada_exist(ntemp):
-                return list_data
-
             # Verifico si la temporada ya se encuentra en la lista
-            # Verifica si hay datos en la tabla de la DB
-            if (len(list_data) >= 0 and dic not in list_data) or self.DB.len_table_db(self.db_table_name) == 0:
-                list_data.append(dic)
+            if self.temporada_exist(ntemp) or exists_in_list:
                 return list_data
 
-            # En caso de que no se cumplan ningunas de las condiciones retorno la lista
+            list_data.append(dic)
             return list_data
         except Exception as e:
             print(Fore.RED + "{0}".format(e))
@@ -114,7 +107,7 @@ class CrudTemporadas():
             query += ";"
 
             # print(list_values)
-            #print(query)
+            # print(query)
             self.post_temporadas(temporadas=query)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")

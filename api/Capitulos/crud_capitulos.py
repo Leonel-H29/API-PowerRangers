@@ -1,50 +1,38 @@
 import xlrd
-# import os
-# from dotenv import load_dotenv
 from api.db_settings import DBSettings
+from api.crud_parent import CrudParent
 from colorama import Fore
 from datetime import datetime
 
-# load_dotenv()
 
+class CrudCapitulos(CrudParent):
 
-class CrudCapitulos():
-
-    def __init__(self, DBstt: DBSettings, file_data: str = None) -> None:
-        # pass
-        self.DB = DBstt  # Inicio una instancia de 'DBSettings'
-        self.conn = self.DB.conect_db()
-        self.conn.autocommit = True
-        self.file = file_data  # Archivo donde extraigo los datos
-        self.db_table_name = 'capitulos'
+    def __init__(self, DBstt: DBSettings, sheet: str = None, tableName: str = None) -> None:
+        super().__init__(DBstt, sheet, tableName)
         self.db_table_name_fk = 'temporadas'
 
     # Funcion para retornar una lista con datos unicos
 
     def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
-        # Verifica si existe el personaje en la lista
-        def check_element_in_list(capitulo: int = 0, temporada: int = 0, list: list = []) -> bool:
-            for dictionary in list:
-                if capitulo == dictionary["num_cap"] and temporada == dictionary["id_temporada"]:
-                    return True
-            return False
 
         try:
             ncap = dic["numero_cap"]
             idtemp = dic["id_temporada"]
 
+            exists_in_list = any(
+                registro["numero_cap"] == ncap and
+                registro["id_temporada"] == idtemp
+                for registro in list_data
+            )
+
             # Verifico si el capitulo esta cargado en la base de datos
-            if self.capitulo_exist(cap=ncap, temp=idtemp):
-                return list_data
-
             # Verifico si el capitulo ya se encuentra en la lista
-            # Verifica si hay datos en la tabla de la DB
-            if (len(list_data) >= 0 and not check_element_in_list(capitulo=ncap, temporada=idtemp, list=list_data)) or self.DB.len_table_db(self.db_table_name) == 0:
-                list_data.append(dic)
+            if self.capitulo_exist(cap=ncap, temp=idtemp) or exists_in_list:
                 return list_data
 
-            # En caso de que no se cumplan ningunas de las condiciones retorno la lista
+            list_data.append(dic)
             return list_data
+
         except Exception as e:
             print(Fore.RED + "{0}".format(e))
             return list_data
@@ -63,7 +51,7 @@ class CrudCapitulos():
             # Abro el archivo
             openFile = xlrd.open_workbook(self.file)
             # Indico con que hoja voy a trabajar
-            sheet = openFile.sheet_by_name("Capitulos")
+            sheet = openFile.sheet_by_name(self.sheet_file)
 
             list_insert = []
 
@@ -82,7 +70,7 @@ class CrudCapitulos():
                 if temp > 0:
                     dic = {
                         "numero_cap": col1,
-                        "nombre": col2,
+                        "titulo": col2,
                         "descripcion": col3,
                         "id_temporada": temp
                     }
@@ -102,7 +90,7 @@ class CrudCapitulos():
         list_values = [
             "({0},'{1}','{2}','{3}','{4}',{5})".format(
                 cap["numero_cap"],
-                cap["nombre"],
+                cap["titulo"],
                 cap["descripcion"],
                 datetime.now(),
                 datetime.now(),
@@ -124,7 +112,7 @@ class CrudCapitulos():
 
     def post_capitulos(self, capitulos: str = None) -> None:
 
-        query = "INSERT INTO {0} (numero_cap, nombre, descripcion, created, updated, id_temporada) VALUES {1}".format(
+        query = "INSERT INTO {0} (numero_cap, titulo, descripcion, created, updated, id_temporada) VALUES {1}".format(
             self.db_table_name, capitulos)
         # print(query)
         self.DB.insert_table_query(query=query)

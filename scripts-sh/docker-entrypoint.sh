@@ -38,6 +38,10 @@ sleep 2
 python manage.py create_admin $config
 sleep 2
 
+#Cargo los registros en la base de datos
+python manage.py load_db $config
+sleep 2
+
 #Inicio el servidor
 echo "Inicio el servidor ..."
 #python manage.py runserver 0.0.0.0:8000 $config

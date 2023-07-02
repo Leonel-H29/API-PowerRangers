@@ -28,11 +28,21 @@ class Command(BaseCommand):
         try:
             if DB.conect_db():
 
-                Actor = CrudActores(DBstt=DB, file_data=FILE_DATA)
-                Temp = CrudTemporadas(DBstt=DB, file_data=FILE_DATA)
-                Cap = CrudCapitulos(DBstt=DB, file_data=FILE_DATA)
-                Pers = CrudPersonajes(DBstt=DB, file_data=FILE_DATA)
-                # Apar = CrudAparecen(DBstt=DB)
+                Actor = CrudActores(
+                    DBstt=DB, sheet='Actores', tableName='actor'
+                )
+                Temp = CrudTemporadas(
+                    DBstt=DB, sheet='Temporadas', tableName='temporadas'
+                )
+                Cap = CrudCapitulos(
+                    DBstt=DB, sheet='Capitulos', tableName='capitulos'
+                )
+                Pers = CrudPersonajes(
+                    DBstt=DB, sheet='Personajes', tableName='personajes'
+                )
+                Apar = CrudAparecen(
+                    DBstt=DB, sheet='Personajes', tableName='aparecen'
+                )
 
                 # print(Fore.GREEN + 'Conexion exitosa')
                 self.stdout.write('Loadding data to database...')
@@ -56,9 +66,9 @@ class Command(BaseCommand):
                 Pers.get_personajes_file()
                 sleep(1)
 
-                # self.stdout.write('----Aparecen: ...')
-                # Apar.get_apariciones()
-                # sleep(1)
+                self.stdout.write('----Aparecen: ...')
+                Apar.get_apariciones_file()
+                sleep(1)
 
             DB.close_conect_db()
 

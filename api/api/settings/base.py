@@ -3,7 +3,7 @@ from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # TODO FILE_ENV= ''
-BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 FILE_DATA = str(BASE_DIR) + '/' + config('FILE_DATA')
 
 
@@ -27,7 +27,8 @@ LOCAL_APPS = [
     'Actor',
     'Capitulos',
     'Temporadas',
-    'apps.core'
+    'apps.core',
+    'documentation'
 
 ]
 # Django REST framework
@@ -166,7 +167,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

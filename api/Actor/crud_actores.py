@@ -2,50 +2,38 @@ import xlrd
 # import os
 # from dotenv import load_dotenv
 from api.db_settings import DBSettings
+from api.crud_parent import CrudParent
 from colorama import Fore
 from datetime import datetime
 
 # load_dotenv()
 
 
-class CrudActores():
+class CrudActores(CrudParent):
 
-    def __init__(self, DBstt: DBSettings, file_data: str = None) -> None:
-        # pass
-        self.DB = DBstt  # Inicio una instancia de 'DBSettings'
-        self.conn = self.DB.conect_db()
-        self.conn.autocommit = True
-        self.file = file_data  # Archivo donde extraigo los datos
-        self.sheet_file = 'Actores'
-        self.db_table_name = 'actor'
+    def __init__(self, DBstt: DBSettings, sheet: str = None, tableName: str = None) -> None:
+        super().__init__(DBstt, sheet, tableName)
 
     # Funcion para retornar una lista con datos unicos
 
     def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
-        
-        #print(dic)
         try:
             # Extaigo el 'nombre_artistico' del diccionario
-            nombre=dic["nombre_artistico"]
-            
+            nombre = dic["nombre_artistico"]
+            exists_in_list = any(
+                registro["nombre_artistico"] == nombre for registro in list_data
+            )
 
             # Verifico si el actor esta cargado en la base de datos
-            if self.actor_exists(nombre):
-                return list_data
-
             # Verifico si el actor ya se encuentra en la lista
-            # Verifica si hay datos en la tabla de la DB
-            if (len(list_data) >= 0 and dic not in list_data) or self.DB.len_table_db(self.db_table_name) == 0:
-                list_data.append(dic)
+            if self.actor_exists(nombre) or exists_in_list:
                 return list_data
 
-            # En caso de que no se cumplan ningunas de las condiciones retorno la lista
+            list_data.append(dic)
             return list_data
         except Exception as e:
             print(Fore.RED + "{0}".format(e))
             return list_data
-
-        # return list_data
 
     # Funcion para extraer los datos del archivo
 
@@ -56,7 +44,7 @@ class CrudActores():
         # Indico con que hoja voy a trabajar
         sheet = openFile.sheet_by_name(self.sheet_file)
 
-        list_insert : list = []
+        list_insert: list = []
 
         for i in range(1, sheet.nrows):
             col1 = sheet.cell_value(i, 0)  # Nombre artistico del actor
@@ -70,13 +58,10 @@ class CrudActores():
                 "nombre_actor": col2,
                 "foto": col3,
                 "biografia": col4
-                #"created": datetime.now(),
-                #"updated": datetime.now()
             }
-            #print(dic)
             # Verifico si el actor ya se encuentra registrado
             list_insert = self.uniq_data(dic=dic, list_data=list_insert)
-        #print(list_insert)
+        # print(list_insert)
 
         self.prepare_query_insert(list_insert)
 
@@ -90,8 +75,6 @@ class CrudActores():
     # Funcion para realizar un insert multiple
 
     def prepare_query_insert(self, actores: list = []) -> None:
-
-        list_values = []
 
         list_values = [
             "('{0}','{1}','{2}','{3}','{4}','{5}')".format(

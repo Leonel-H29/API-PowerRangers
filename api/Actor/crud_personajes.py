@@ -1,49 +1,38 @@
 import xlrd
-# import os
-# from dotenv import load_dotenv
 from api.db_settings import DBSettings
+from api.crud_parent import CrudParent
 from colorama import Fore
 from datetime import datetime
 
 # load_dotenv()
 
 
-class CrudPersonajes():
-    def __init__(self, DBstt: DBSettings, file_data: str = None) -> None:
-        # pass
-        self.DB = DBstt  # Inicio una instancia de 'DBSettings'
-        self.conn = self.DB.conect_db()
-        self.conn.autocommit = True
-        self.file = file_data  # Archivo donde extraigo los datos
-        self.sheet_file = 'Personajes'
-        self.db_table_name = 'personajes'
+class CrudPersonajes(CrudParent):
+    def __init__(self, DBstt: DBSettings, sheet: str = None, tableName: str = None) -> None:
+        super().__init__(DBstt, sheet, tableName)
         self.db_table_name_fk = 'actor'
 
     # Funcion para retornar una lista con datos unicos
 
     def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
-        # Verifica si existe el personaje en la lista
-        def check_element_in_list(personaje: str = None, actor: int = 0, list: list = []) -> bool:
-            for dictionary in list:
-                if personaje == dictionary["nombre_personaje"] and actor == dictionary["id_actor"]:
-                    return True
-            return False
         try:
             pers = dic["nombre_personaje"]
             idactor = dic["id_actor"]
 
+            exists_in_list = any(
+                registro["nombre_personaje"] == pers
+                # and registro["id_actor"] == idactor
+                for registro in list_data
+            )
+
             # Verifico si el personaje esta cargado en la base de datos
-            if self.personaje_exist(pers=pers, actor=idactor):
-                return list_data
-
             # Verifico si el personaje ya se encuentra en la lista
-            # Verifica si hay datos en la tabla de la DB
-            if (len(list_data) >= 0 and not check_element_in_list(personaje=pers, actor=idactor, list=list_data)) or self.DB.len_table_db(self.db_table_name) == 0:
-                list_data.append(dic)
+            if self.personaje_exist(pers=pers, actor=idactor) or exists_in_list:
                 return list_data
 
-            # En caso de que no se cumplan ningunas de las condiciones retorno la lista
+            list_data.append(dic)
             return list_data
+
         except Exception as e:
             print(Fore.RED + "{0}".format(str(e)))
             return list_data
