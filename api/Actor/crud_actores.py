@@ -76,8 +76,6 @@ class CrudActores(CrudParent):
 
     def prepare_query_insert(self, actores: list = []) -> None:
 
-        list_values = []
-
         list_values = [
             "('{0}','{1}','{2}','{3}','{4}','{5}')".format(
                 actor["nombre_actor"],
