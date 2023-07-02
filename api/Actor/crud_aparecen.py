@@ -1,12 +1,9 @@
 
 import xlrd
-# import os
-# from dotenv import load_dotenv
 from api.db_settings import DBSettings
 from api.crud_parent import CrudParent
 
 from colorama import Fore
-from datetime import datetime
 
 
 class CrudAparecen(CrudParent):
@@ -82,7 +79,7 @@ class CrudAparecen(CrudParent):
                 pers = self.DB.get_id(query=query2)
                 if temp > 0 and pers > 0:
                     dic = {
-                        "rol": col2,
+                        "rol": col3,
                         "descripcion": col4,
                         "id_personaje": pers,
                         "id_temporada": temp
