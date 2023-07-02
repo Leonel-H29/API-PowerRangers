@@ -1,4 +1,4 @@
-# import xlrd
+import xlrd
 import os
 # from dotenv import load_dotenv
 from api.settings.production import *
@@ -29,3 +29,9 @@ class CrudParent():
         @db_table_name.setter
         def db_table_name(self, table_name):
             self.db_table_name = table_name
+
+        # def open_file(self):
+            # Abro el archivo
+        #    openFile = xlrd.open_workbook(self.file)
+            # Indico con que hoja voy a trabajar
+        #    return openFile.sheet_by_name(self.sheet_file)
