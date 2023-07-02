@@ -1,22 +1,14 @@
 import xlrd
-# import os
-# from dotenv import load_dotenv
 from api.db_settings import DBSettings
+from api.crud_parent import CrudParent
 from colorama import Fore
 from datetime import datetime
 
-# load_dotenv()
 
+class CrudCapitulos(CrudParent):
 
-class CrudCapitulos():
-
-    def __init__(self, DBstt: DBSettings, file_data: str = None) -> None:
-        # pass
-        self.DB = DBstt  # Inicio una instancia de 'DBSettings'
-        self.conn = self.DB.conect_db()
-        self.conn.autocommit = True
-        self.file = file_data  # Archivo donde extraigo los datos
-        self.db_table_name = 'capitulos'
+    def __init__(self, DBstt: DBSettings, sheet: str = None, tableName: str = None) -> None:
+        super().__init__(DBstt, sheet, tableName)
         self.db_table_name_fk = 'temporadas'
 
     # Funcion para retornar una lista con datos unicos
@@ -59,7 +51,7 @@ class CrudCapitulos():
             # Abro el archivo
             openFile = xlrd.open_workbook(self.file)
             # Indico con que hoja voy a trabajar
-            sheet = openFile.sheet_by_name("Capitulos")
+            sheet = openFile.sheet_by_name(self.sheet_file)
 
             list_insert = []
 
