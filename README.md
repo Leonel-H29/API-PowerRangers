@@ -1,6 +1,15 @@
 # Documentación de la API REST Power Rangers
 
+![alt_text](https://img.shields.io/badge/Docker-24.0.2-2496ED?style=for-the-badge&logo=Docker)
+![alt_text](https://img.shields.io/badge/nginx-1.21-009639?style=for-the-badge&logo=NGINX)
+![alt_text](https://img.shields.io/badge/Python-3.10.4-3776AB?style=for-the-badge&logo=Python)
+![alt_text](https://img.shields.io/badge/Django-4.2.1-092E20?style=for-the-badge&logo=Django)
+![alt_text](https://img.shields.io/badge/DRF-3.14.0-BA0C2F?style=for-the-badge&logo=Django)
+![alt_text](https://img.shields.io/badge/gunicorn-20.1.0-499848?style=for-the-badge&logo=Gunicorn)
+![alt_text](https://img.shields.io/badge/Postgres-12.15-4169E1?style=for-the-badge&logo=Postgresql)
+
 ## Índice
+
 - [INTRODUCCIÓN](#introducción)
 - [¿Qué es API REST POWER RANGERS?](#qué-es-api-rest-power-rangers)
 - [Arquitectura de Software](#arquitectura-de-software)
@@ -9,7 +18,7 @@
   - [Backend: API REST de Django con Gunicorn](#backend-api-rest-de-django-con-gunicorn)
   - [Base de datos: PostgreSQL](#base-de-datos-postgresql)
   - [Contenedores de Docker](#contenedores-de-docker)
-  - [Diagrama de la arquitectura](#diagrama-de-la-arquitectura)   
+  - [Diagrama de la arquitectura](#diagrama-de-la-arquitectura)
 - [Clonación del proyecto](#clonación-del-proyecto)
 - [Levantar el proyecto localmente con Docker](#levantar-el-proyecto-localmente-con-docker)
   - [Ver los contenedores en Docker](#ver-los-contenedores-en-docker)
@@ -30,7 +39,7 @@
     - [Variables de entorno para superusuario de Django](#variables-de-entorno-para-superusuario-de-django)
     - [Variables de entorno para PgAdmin](#variables-de-entorno-para-pgadmin)
 
-/*=============================================================================================================*/
+`/*==================================================================================*/`
 
 # INTRODUCCIÓN
 
@@ -42,15 +51,16 @@ El proyecto de la API REST de Power Rangers es una herramienta Open Source cread
 
 Esta API REST de Power Rangers está diseñada para ser fácilmente consumible por cualquier persona que tenga un conocimiento básico de programación, lo que la hace ideal para programadores principiantes o desarrolladores experimentados por igual. Además, la API está diseñada para ser altamente escalable, lo que significa que puede ser utilizada en proyectos de cualquier tamaño, desde pequeñas aplicaciones hasta grandes proyectos.
 
-
 # Arquitectura de Software
 
 En este proyecto, se utiliza una arquitectura de software de tipo cliente-servidor basada en contenedores Docker para implementar una aplicación web. A continuación, se describen los componentes principales de la arquitectura y cómo interactúan entre sí:
 
 ### Cliente
+
 El cliente en este caso son los navegadores web utilizados por los usuarios para acceder a la aplicación. Los navegadores web realizan solicitudes HTTP al servidor web y muestran la interfaz de usuario al usuario final.
 
 ### Servidor web: Nginx
+
 En este proyecto, Nginx actúa como un servidor web y también como un proxy inverso. Un proxy inverso es un tipo de servidor que actúa como intermediario entre los clientes y los servidores de backend. Recibe las solicitudes de los clientes y las redirige a los servidores de backend correspondientes para procesarlas y obtener las respuestas.
 
 Nginx implementa el proxy inverso dirigiendo las solicitudes entrantes a la API REST de Django ejecutada por Gunicorn. Esto significa que Nginx recibe las solicitudes de los clientes y luego las redirige a Gunicorn, que es el servidor de aplicaciones que ejecuta la API REST de Django. Nginx también se encarga de enrutar las respuestas generadas por el backend y devolverlas al cliente.
@@ -58,6 +68,7 @@ Nginx implementa el proxy inverso dirigiendo las solicitudes entrantes a la API 
 Esta configuración con un proxy inverso es comúnmente utilizada para mejorar el rendimiento y la seguridad de una aplicación web. Nginx puede manejar eficientemente las solicitudes de los clientes y distribuir la carga de trabajo entre varios servidores de backend, lo que permite escalar la aplicación y proporcionar una mejor experiencia a los usuarios.
 
 ### Backend: API REST de Django con Gunicorn
+
 En el backend de este proyecto, se utiliza una API REST de Django para proporcionar funcionalidad y servicios a los clientes. Gunicorn, que significa "Green Unicorn", es un servidor de aplicaciones compatible con WSGI (Web Server Gateway Interface) que se utiliza para ejecutar la API REST de Django.
 
 El funcionamiento de Gunicorn implica varios pasos:
@@ -71,6 +82,7 @@ El funcionamiento de Gunicorn implica varios pasos:
 La API REST de Django proporciona puntos finales (endpoints) que definen las operaciones disponibles en la aplicación. Estos puntos finales permiten a los clientes realizar solicitudes HTTP (como GET, POST, PUT, DELETE) para interactuar con los datos y funcionalidades proporcionados por el backend.
 
 ### Base de datos: PostgreSQL
+
 En este proyecto, se utiliza PostgreSQL como el sistema de gestión de bases de datos. PostgreSQL es un potente sistema de base de datos relacional de código abierto y es ampliamente utilizado en aplicaciones web debido a su capacidad de escalabilidad y características avanzadas.
 
 pgAdmin es una herramienta de administración de bases de datos PostgreSQL que se utiliza para interactuar con el servidor de base de datos y administrar las bases de datos y los objetos relacionados. Proporciona una interfaz gráfica para realizar tareas como crear, modificar y eliminar tablas, consultas SQL, gestionar usuarios y permisos, realizar copias de seguridad y mucho más.
@@ -78,6 +90,7 @@ pgAdmin es una herramienta de administración de bases de datos PostgreSQL que s
 En el contexto de este proyecto, pgAdmin se utiliza como una interfaz de administración conveniente y visual para trabajar con la base de datos PostgreSQL. Permite a los desarrolladores y administradores de bases de datos interactuar con la base de datos de manera eficiente
 
 ### Contenedores de Docker
+
 Cada componente de la arquitectura (servidor web Nginx, backend Django con Gunicorn y base de datos PostgreSQL) se ejecuta dentro de contenedores de Docker. Docker permite la encapsulación de cada componente junto con sus dependencias y configuraciones en un entorno aislado y portátil. Esto facilita la implementación consistente de la aplicación en diferentes entornos y simplifica el proceso de desarrollo, implementación y escalamiento.
 
 Los contenedores de Docker se pueden crear utilizando archivos de configuración llamados Dockerfiles y se ejecutan utilizando imágenes de Docker. Cada contenedor se ejecuta como una instancia aislada y ligera que contiene todos los elementos necesarios para que el componente correspondiente funcione correctamente.
@@ -117,14 +130,13 @@ En caso no tener 'docker-compose' en tu maquina puedes instalarlo con el siguien
 
         docker ps
 
-
 Ejemplo de resultado:
 
 ```
 
 | CONTAINER ID | IMAGE                | COMMAND                | CREATED    | STATUS           | PORTS                                          | NAMES            |
 | ------------ | -------------------- | ---------------------- | ---------- | ---------------- | ---------------------------------------------- | ---------------- |
-|a3e9301472d1  | nginx:1.0            | "/docker-entrypoint.…" | 7 days ago | Up About an hour |  0.0.0.0:1337->80/tcp, :::1337->80/tcp         |    nginx         | 
+|a3e9301472d1  | nginx:1.0            | "/docker-entrypoint.…" | 7 days ago | Up About an hour |  0.0.0.0:1337->80/tcp, :::1337->80/tcp         |    nginx         |
 | 5c91c9331ea1 | backend:1.0          | "sh docker-entrypoin…" | 7 days ago | Up About an hour | 0.0.0.0:8000->8000/tcp, :::8000->8000/tcp      | apirest_djangorf |
 | 501f88c036cd | dpage/pgadmin4       | "/entrypoint.sh"       | 7 days ago | Up About an hour | 443/tcp, 0.0.0.0:5050->80/tcp, :::5050->80/tcp | pg_admin         |
 | 41ce77e6f37d | postgres:13.3-alpine | "docker-entrypoint.s…" | 7 days ago | Up About an hour | 0.0.0.0:5430->5432/tcp, :::5430->5432/tcp      | db_postgres      |
@@ -142,7 +154,6 @@ Ejemplo de resultado:
 Esto te llevará a la página de inicio de la API REST.
 
 ![Captura de pantalla de 2023-06-24 22-52-10](https://github.com/Leonel-H29/API-PowerRangers/assets/48606307/ae7ec504-013d-4f25-a1ff-e95e35709929)
-
 
 ### Acceder a la base de PostgreSQL en Docker
 
@@ -165,13 +176,11 @@ Esto te abrirá una sesión interactiva de PostgreSQL en el contenedor, donde po
 
 ![Captura de pantalla de 2023-06-24 22-58-35](https://github.com/Leonel-H29/API-PowerRangers/assets/48606307/11478921-ab9b-4e6f-bee7-f7978efc6876)
 
-
 3. Si es la primera vez que usas pgAdmin 4, debes ingresar con el usuario y contraseña establecida en `PGADMIN_DEFAULT_USERNAME` y `PGADMIN_DEFAULT_USERNAME`.
 
 4. Una vez que hayas establecido la contraseña maestra, se te dirigirá a la página de inicio de pgAdmin 4. Haz clic en el botón "Add New Server" (Agregar nuevo servidor) en el panel izquierdo o selecciona "Create" (Crear) > "Server" (Servidor) en la barra de menú superior.
 
 ![Captura de pantalla de 2023-06-24 23-04-42](https://github.com/Leonel-H29/API-PowerRangers/assets/48606307/c9ebd1be-b0bb-42d2-8fcb-5266bef69259)
-
 
 6. En la pestaña "General" (General), ingresa un nombre descriptivo para el servidor en el campo "Name" (Nombre), puede ser el que quieras.
 
@@ -187,18 +196,13 @@ Esto te abrirá una sesión interactiva de PostgreSQL en el contenedor, donde po
 
 ![Captura de pantalla de 2023-06-24 22-53-00](https://github.com/Leonel-H29/API-PowerRangers/assets/48606307/826aab91-283d-49f3-80eb-16ca34de372f)
 
-
-
 8. Haz clic en el botón "Save" (Guardar) para guardar la configuración del servidor.
 
 9. En el panel izquierdo, deberías ver el servidor que acabas de agregar. Haz clic en él para expandirlo y mostrar las bases de datos disponibles.
 
 Ahora has configurado correctamente pgAdmin 4 para conectarse a la base de datos PostgreSQL dentro del contenedor Docker. Puedes explorar las bases de datos, ejecutar consultas SQL y realizar otras operaciones de administración utilizando la interfaz de pgAdmin 4.
 
-
-
-*_ACLARACION_:* Todas las variables mencionadas deben estar definidas dentro del archivo de entorno correspondiente.
-
+_*ACLARACION*:_ Todas las variables mencionadas deben estar definidas dentro del archivo de entorno correspondiente.
 
 ## Swagger
 
@@ -224,15 +228,6 @@ La documentación generada por Swagger te brinda una visión clara de tu API RES
 
 ![Captura de pantalla de 2023-04-02 16-07-34](https://github.com/Leonel-H29/API-PowerRangers/assets/48606307/3cff9689-65f0-43cc-93e9-9837905fc240)
 
-
-
-
-
-
-
-
-
-
 ## Datos a tener en cuenta
 
 ### Archivo de variables de entorno
@@ -246,8 +241,7 @@ El proyecto utiliza archivos de variables de entorno para configurar ciertos val
 - Si deseas no utilizar un archivo de variables de entorno de desarrollo lo puedes hacer sin problema, no es tan necesario ocultar los valores de esas variables ya que estamos trabajando en un entorno controlado, la unica sugerencia es tratar de evitar de utilizar datos personales reales, personales y que deberian ser privados.
 - Asegúrate de mantener el archivo de variables de entorno de produccion de manera segura y no los compartas públicamente, ya que pueden contener información confidencial.
 
-
-### Variables de entorno 
+### Variables de entorno
 
 En este proyecto, se utilizan diversas variables de entorno para configurar y personalizar diferentes aspectos del entorno de desarrollo y producción. A continuación, se explican cada una de las variables y para qué se utilizan:
 
@@ -292,8 +286,6 @@ En este proyecto, se utilizan diversas variables de entorno para configurar y pe
 
 Recuerda que los valores reales para estas variables pueden variar según la configuración específica de tu proyecto y entorno. Asegúrate de establecer los valores correctos para cada variable de entorno según tus necesidades.
 
-
-
 ### Comandos para reiniciar, detener y eliminar contenedores en Docker
 
 A continuación se presentan los comandos para reiniciar, detener y eliminar los contenedores en Docker:
@@ -304,7 +296,11 @@ A continuación se presentan los comandos para reiniciar, detener y eliminar los
 
 - Para detener los contenedores en ejecución:
 
-      docker-compose -f "docker-compose.yml" stop
+      docker-compose -f "docker-compose.yml" stop [CONTAINER ID] | [NAME]
+
+- Para iniciar la ejecucion de los contenedores
+
+      docker-compose -f "docker-compose.yml" stop [CONTAINER ID] | [NAME]
 
 - Para eliminar los contenedores detenidos y todos los recursos relacionados, como volúmenes y redes:
 
