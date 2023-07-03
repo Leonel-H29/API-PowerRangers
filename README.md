@@ -11,23 +11,31 @@
 ## Índice
 
 - [INTRODUCCIÓN](#introducción)
+
 - [¿Qué es API REST POWER RANGERS?](#qué-es-api-rest-power-rangers)
+
 - [Arquitectura de Software](#arquitectura-de-software)
+
   - [Cliente](#cliente)
   - [Servidor web: Nginx](#servidor-web-nginx)
   - [Backend: API REST de Django con Gunicorn](#backend-api-rest-de-django-con-gunicorn)
   - [Base de datos: PostgreSQL](#base-de-datos-postgresql)
   - [Contenedores de Docker](#contenedores-de-docker)
   - [Diagrama de la arquitectura](#diagrama-de-la-arquitectura)
+
 - [Clonación del proyecto](#clonación-del-proyecto)
+
 - [Levantar el proyecto localmente con Docker](#levantar-el-proyecto-localmente-con-docker)
+
   - [Ver los contenedores en Docker](#ver-los-contenedores-en-docker)
   - [Acceder a la base de PostgreSQL en Docker](#acceder-a-la-base-de-postgresql-en-docker)
   - [Configuración de pgAdmin 4 para conectar a la base de datos PostgreSQL en Docker](#configuración-de-pgadmin-4-para-conectar-a-la-base-de-datos-postgresql-en-docker)
+
 - [Swagger](#swagger)
   - [¿Qué es Swagger?](#qué-es-swagger)
   - [Documentación de la API REST de Django con Swagger](#documentación-de-la-api-rest-de-django-con-swagger)
 - [Datos a tener en cuenta](#datos-a-tener-en-cuenta)
+
   - [Archivo de variables de entorno](#archivo-de-variables-de-entorno)
   - [Comandos para reiniciar, detener y eliminar contenedores en Docker](#comandos-para-reiniciar-detener-y-eliminar-contenedores-en-docker)
   - [Variables de entorno](#variables-de-entorno)
@@ -38,6 +46,10 @@
     - [Variables de entorno de archivos y datos](#variables-de-entorno-de-archivos-y-datos)
     - [Variables de entorno para superusuario de Django](#variables-de-entorno-para-superusuario-de-django)
     - [Variables de entorno para PgAdmin](#variables-de-entorno-para-pgadmin)
+
+- [Comandos para realizar tareas con Django Rest Framework en Docker](#comandos-para-realizar-tareas-con-django-rest-framework-en-docker)
+
+- [Acceder a un contenedor por terminal](#acceder-a-un-contenedor-por-terminal)
 
 `/*==================================================================================*/`
 
@@ -105,34 +117,44 @@ Esta arquitectura de software de tipo cliente-servidor basada en contenedores Do
 
 - Clona el repositorio utilizando el siguiente comando:
 
-      git clone https://github.com/Leonel-H29/API-PowerRangers.git
+```bash
+git clone https://github.com/Leonel-H29/API-PowerRangers.git
+```
 
 ## Levantar el proyecto localmente con Docker
 
 1.  Asegúrate de tener Docker instalado en tu máquina, y tener los permisos necesarios.
 2.  Abre una terminal y navega hasta el directorio del proyecto clonado.
 
-        cd API-PowerRangers/
+```bash
+cd API-PowerRangers/
+```
 
 3.  Ejecuta el siguiente comando para levantar el proyecto utilizando el archivo `docker-compose.yml`:
 
-        docker-compose -f "docker-compose.yml" up -d --build
+```bash
+docker-compose -f "docker-compose.yml" up -d --build
+```
 
 Esto iniciará los contenedores de Docker necesarios para ejecutar la API REST de Django, el administrador de base de datos pgAdmin y la base de datos de Postgres.
 
 En caso no tener 'docker-compose' en tu maquina puedes instalarlo con el siguiente comando:
 
-    	sudo apt-get install docker-compose
+```bash
+sudo apt-get install docker-compose
+```
 
 ### Ver los contenedores en Docker
 
 1.  Para ver los contenedores en ejecución, utiliza el siguiente comando:
 
-        docker ps
+```bash
+docker ps
+```
 
 Ejemplo de resultado:
 
-```
+```bash
 
 | CONTAINER ID | IMAGE                | COMMAND                | CREATED    | STATUS           | PORTS                                          | NAMES            |
 | ------------ | -------------------- | ---------------------- | ---------- | ---------------- | ---------------------------------------------- | ---------------- |
@@ -145,7 +167,9 @@ Ejemplo de resultado:
 
 2.  En caso de que quiera ver los logs de cada contenedor utiliza el siguiente comando:
 
-        docker logs -f [CONTAINER ID] | [NAME]
+```bash
+docker logs -f [CONTAINER ID] | [NAME]
+```
 
 3.  Valla a su navegador, e ingrese la siguiente direccion:
 
@@ -161,7 +185,7 @@ Para acceder a tu base de datos en Docker, necesitarás ejecutar un comando para
 
 Puedes utilizar el siguiente comando para acceder al contenedor de PostgreSQL:
 
-```
+```bash
 docker exec -it [CONTAINER ID] | [NAME]  psql -U <username> -d <database_name>
 ```
 
@@ -202,7 +226,10 @@ Esto te abrirá una sesión interactiva de PostgreSQL en el contenedor, donde po
 
 Ahora has configurado correctamente pgAdmin 4 para conectarse a la base de datos PostgreSQL dentro del contenedor Docker. Puedes explorar las bases de datos, ejecutar consultas SQL y realizar otras operaciones de administración utilizando la interfaz de pgAdmin 4.
 
-_*ACLARACION*:_ Todas las variables mencionadas deben estar definidas dentro del archivo de entorno correspondiente.
+> _*ACLARACION*:_
+>
+> - Todas las variables mencionadas deben estar definidas dentro del archivo de entorno correspondiente.
+> - Estos pasos tambien son validos en el caso de que tengas instalado PgAdmin 4 instalado localmente en tu computadora sin necesidad de Docker.
 
 ## Swagger
 
@@ -284,26 +311,100 @@ En este proyecto, se utilizan diversas variables de entorno para configurar y pe
 - `PGADMIN_DEFAULT_USERNAME`: Nombre de usuario del usuario administrador de PgAdmin.
 - `PGADMIN_DEFAULT_PASSWORD`: Contraseña del usuario administrador de PgAdmin.
 
-Recuerda que los valores reales para estas variables pueden variar según la configuración específica de tu proyecto y entorno. Asegúrate de establecer los valores correctos para cada variable de entorno según tus necesidades.
+> Recuerda que los valores reales para estas variables pueden variar según la configuración específica de tu proyecto y entorno. Asegúrate de establecer los valores correctos para cada variable de entorno según tus necesidades.
 
 ### Comandos para reiniciar, detener y eliminar contenedores en Docker
 
 A continuación se presentan los comandos para reiniciar, detener y eliminar los contenedores en Docker:
 
-- Para reiniciar los contenedores que se ejecutan en segundo plano:
+- **Para reiniciar los contenedores que se ejecutan en segundo plano:**
 
-      docker-compose -f "docker-compose.yml" restart
+```bash
+docker-compose -f "docker-compose.yml" restart
+```
 
-- Para detener los contenedores en ejecución:
+- **Para detener los contenedores en ejecución:**
 
-      docker-compose -f "docker-compose.yml" stop [CONTAINER ID] | [NAME]
+```bash
+docker-compose -f "docker-compose.yml" stop [CONTAINER ID] | [NAME]
+```
 
-- Para iniciar la ejecucion de los contenedores
+- **Para iniciar la ejecucion de los contenedores:**
 
-      docker-compose -f "docker-compose.yml" stop [CONTAINER ID] | [NAME]
+```bash
+docker-compose -f "docker-compose.yml" start [CONTAINER ID] | [NAME]
+```
 
-- Para eliminar los contenedores detenidos y todos los recursos relacionados, como volúmenes y redes:
+- **Para eliminar los contenedores detenidos y todos los recursos relacionados, como volúmenes y redes:**
 
-      docker-compose -f "docker-compose.yml" down
+```bash
+docker-compose -f "docker-compose.yml" down
+```
 
-Recuerda utilizar estos comandos según sea necesario, dependiendo de tus requerimientos y del estado actual de los contenedores en Docker.
+> Recuerda utilizar estos comandos según sea necesario, dependiendo de tus requerimientos y del estado actual de los contenedores en Docker.
+
+### Comandos para realizar tareas con Django Rest Framework en Docker
+
+Aquí tienes una lista de comandos comunes que puedes utilizar para realizar tareas habituales en un entorno de desarrollo Django dentro del contenedor de Docker llamado 'apirest_djangorf':
+
+1. **Crear y configurar un proyecto Django:**
+
+```bash
+docker exec -it apirest_djangorf python api/manage.py startproject nombre_proyecto
+```
+
+2. **Crear una nueva aplicación Django:**
+
+```bash
+docker exec -it apirest_djangorf python api/manage.py startapp nombre_aplicacion
+```
+
+3. **Ejecutar migraciones de la base de datos:**
+
+```bash
+docker exec -it apirest_djangorf python api/manage.py migrate
+```
+
+4. **Crear un superusuario de Django:**
+
+```bash
+docker exec -it apirest_djangorf python api/manage.py createsuperuser
+```
+
+5. **Iniciar el servidor de desarrollo de Django:**
+
+```bash
+docker exec -it apirest_djangorf python api/manage.py runserver 0.0.0.0:8000
+```
+
+6. **Ejecutar pruebas de unidad en Django:**
+
+```bash
+docker exec -it apirest_djangorf python api/manage.py test
+```
+
+7. **Generar documentación de la API con Swagger:**
+
+```bash
+docker exec -it apirest_djangorf python api/manage.py generateswagger
+```
+
+8. **Recopilar archivos estáticos de Django:**
+
+```bash
+docker exec -it apirest_djangorf python api/manage.py collectstatic
+```
+
+> Estos son solo algunos ejemplos de comandos que puedes utilizar en un proyecto Django dentro del contenedor de Docker 'apirest_djangorf'. Asegúrate de adaptar los nombres de los proyectos y las aplicaciones a tus necesidades específicas, y ten en cuenta que estos comandos pueden requerir ajustes adicionales dependiendo de la configuración de tu proyecto y entorno.
+
+### Acceder a un contenedor por terminal
+
+Si deseas acceder a un contenedor especifico por medio de la terminal, puedes utilizar el siguiente comando de Docker:
+
+```bash
+docker exec -it [CONTAINER ID] | [NAME] bash
+```
+
+Este comando ejecuta un nuevo proceso dentro del contenedor y te proporciona un shell interactivo para interactuar directamente con el entorno del contenedor. Dentro del shell, puedes ejecutar comandos y realizar tareas dentro del contenedor de manera similar a como lo harías en una terminal local.
+
+Una vez que hayas ejecutado el comando anterior, se te colocará dentro del contenedor y podrás trabajar con los archivos, ejecutar comandos u otras acciones necesarias dentro del contexto del contenedor.
