@@ -1,31 +1,26 @@
-name: Docker Containers
+name: 'Docker Containers'
+#description: 'Build & check docker containers'
 on:
   push:
     branches:
       - test # Actualiza esta rama según tus necesidades
+  #Permitir ejecutar las acciones manualmente
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Docker Compose
-        uses: docker/compose-cli@v1
-        with:
-          version: '2.0.0'
-
+      - uses: actions/checkout@v3
       - name: Build and run containers
-        run: |
-          docker-compose -f "docker-compose.yml" up -d --build
-          docker ps
+
+        run: docker-compose -f "docker-compose.yml" up -d --build && docker ps
 
       - name: Check containers
         run: |
-          RUNNING_CONTAINERS=$(docker-compose ps -q)
-          if [ -z "$RUNNING_CONTAINERS" ]; then
+          RUNNING_CONTAINERS=$(docker ps | wc -l)
+          if [ "$RUNNING_CONTAINERS" -eq 0 ] || [ "$RUNNING_CONTAINERS" -lt 5 ]; then
             echo "ERROR: Failed to create containers"
             exit 1
           else
