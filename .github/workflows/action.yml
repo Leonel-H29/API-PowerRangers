@@ -17,24 +17,13 @@ jobs:
       - name: Create 'prod.env' file  y el archivo donde extraigo los datos
         run: |
           touch Data.xls
-          echo "SECRET_KEY=githubaction-django-test" > prod.env
-          echo "DB_NAME=postgres" >> prod.env
-          echo "DB_USER=postgres" >> prod.env
-          echo "DB_PASSWORD=postgres" >> prod.env
-          echo "DB_HOST=database" >> prod.env
-          echo "DB_PORT=5432" >> prod.env
-          echo "POSTGRES_USER=postgres" >> prod.env
-          echo "POSTGRES_PASSWORD=postgres" >> prod.env
-          echo "POSTGRES_DB=postgres" >> prod.env
-          echo "API_HOST=localhost" >> prod.env
-          echo "API_PORT=8000" >> prod.env
-          echo "FILE_DATA=Data.xls" >> prod.env
-          echo "DJANGO_SUPERUSER_EMAIL=admin@admin.com" >> prod.env
-          echo "DJANGO_SUPERUSER_USERNAME=admin" >> prod.env
-          echo "DJANGO_SUPERUSER_PASSWORD=123456" >> prod.env
-          echo "PGADMIN_DEFAULT_EMAIL=admin@admin.com" >> prod.env
-          echo "PGADMIN_DEFAULT_USERNAME=admin" >> prod.env
-          echo "PGADMIN_DEFAULT_PASSWORD=123456" >> prod.env
+          ENV=${{ secrets.PROD }}
+          if [ "$ENV" ]; then
+            echo "$ENV" > prod.env
+          else
+            echo "No found secrets.PROD variable"
+            exit 1
+          fi
 
       - name: Build and run containers
 
