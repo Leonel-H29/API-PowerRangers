@@ -115,11 +115,45 @@ Esta arquitectura de software de tipo cliente-servidor basada en contenedores Do
 
 ## Clonación del proyecto
 
-- Clona el repositorio utilizando el siguiente comando:
+Clonar un repositorio es una forma común de obtener una copia local de un proyecto alojado en un sistema de control de versiones, como Git. A continuación, se explican las diferentes formas de clonar un repositorio en función de las opciones disponibles:
+
+### 1. Clonar con HTTPS:
+
+Puedes clonar un repositorio utilizando la URL HTTPS proporcionada por el servicio de alojamiento. Utiliza el siguiente comando de Git:
 
 ```bash
 git clone https://github.com/Leonel-H29/API-PowerRangers.git
 ```
+
+### 2. Clonar con SSH:
+
+Si has configurado una clave SSH y la has agregado a tu cuenta del servicio de alojamiento, puedes clonar utilizando la URL SSH. Utiliza el siguiente comando de Git:
+
+```bash
+git clone git@github.com:Leonel-H29/API-PowerRangers.git
+```
+
+### 3. Clonar con GitHub CLI:
+
+Si has instalado la CLI de GitHub (GitHub CLI) en tu sistema, puedes utilizar su comando `gh repo clone` para clonar un repositorio de GitHub. Ejecuta el siguiente comando:
+
+```bash
+gh repo clone Leonel-H29/API-PowerRangers
+```
+
+### 4. Clonar desde otro servicio de alojamiento:
+
+Si el repositorio está alojado en un servicio de alojamiento diferente a GitHub, como GitLab o Bitbucket, deberás utilizar la URL y los comandos específicos proporcionados por ese servicio.
+
+### 5. Clonar en una ubicación específica:
+
+Por defecto, Git clonará el repositorio en un directorio con el mismo nombre que el repositorio. Si deseas clonar en una ubicación específica, puedes agregar el nombre del directorio como último argumento en el comando. Por ejemplo:
+
+```bash
+git clone https://github.com/Leonel-H29/API-PowerRangers.git directorio-destino
+```
+
+Estas son algunas de las formas más comunes de clonar un repositorio, dependiendo del servicio de alojamiento y las preferencias de autenticación. Elige el método que mejor se adapte a tu caso y comienza a trabajar con el repositorio en tu entorno local.
 
 ## Levantar el proyecto localmente con Docker
 
