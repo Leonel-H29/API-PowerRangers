@@ -1,12 +1,12 @@
 # Documentación de la API REST Power Rangers
 
-![https://docs.docker.com/get-started/overview/](https://img.shields.io/badge/Docker-24.0.2-2496ED?style=for-the-badge&logo=Docker)
-![https://docs.nginx.com/](https://img.shields.io/badge/nginx-1.21-009639?style=for-the-badge&logo=NGINX)
-![https://www.python.org/](https://img.shields.io/badge/Python-3.10.4-3776AB?style=for-the-badge&logo=Python)
-![https://www.djangoproject.com/](https://img.shields.io/badge/Django-4.2.1-092E20?style=for-the-badge&logo=Django)
-![https://www.django-rest-framework.org/](https://img.shields.io/badge/DRF-3.14.0-BA0C2F?style=for-the-badge&logo=Django)
-![https://gunicorn.org/](https://img.shields.io/badge/gunicorn-20.1.0-499848?style=for-the-badge&logo=Gunicorn)
-![https://www.postgresql.org/](https://img.shields.io/badge/Postgres-12.15-4169E1?style=for-the-badge&logo=Postgresql)
+[![Docker](https://img.shields.io/badge/Docker-24.0.2-2496ED?style=for-the-badge&logo=Docker)](https://docs.docker.com/get-started/overview/)
+[![NGINX](https://img.shields.io/badge/nginx-1.21-009639?style=for-the-badge&logo=NGINX)](https://docs.nginx.com/)
+[![Python](https://img.shields.io/badge/Python-3.10.4-3776AB?style=for-the-badge&logo=Python)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-4.2.1-092E20?style=for-the-badge&logo=Django)](https://www.djangoproject.com/)
+[![DRF](https://img.shields.io/badge/DRF-3.14.0-BA0C2F?style=for-the-badge&logo=Django)](https://www.django-rest-framework.org/)
+[![Gunicorn](https://img.shields.io/badge/gunicorn-20.1.0-499848?style=for-the-badge&logo=Gunicorn)](https://gunicorn.org/)
+[![PostgreSQL](https://img.shields.io/badge/Postgres-12.15-4169E1?style=for-the-badge&logo=Postgresql)](https://www.postgresql.org/)
 
 ## Índice
 
