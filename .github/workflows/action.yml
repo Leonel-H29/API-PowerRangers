@@ -17,7 +17,7 @@ jobs:
       - name: Create 'prod.env' file  y el archivo donde extraigo los datos
         run: |
           touch Data.xls
-          ENV=${{ secrets.PROD }}
+          ENV=${{ env.PROD }}
           if [ "$ENV" ]; then
             echo "$ENV" > prod.env
           else
