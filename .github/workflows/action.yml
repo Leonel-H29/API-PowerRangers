@@ -17,9 +17,8 @@ jobs:
       - name: Create 'prod.env' file  y el archivo donde extraigo los datos
         run: |
           touch Data.xls
-          ENV=${{ secrets.PROD }}
-          if [ "$ENV" ]; then
-            echo "$ENV" > prod.env
+          if [ "${{ secrets.PROD }} ]; then
+            echo "${{ secrets.PROD }}" > prod.env
           else
             echo "No found ENV variable"
             exit 1
