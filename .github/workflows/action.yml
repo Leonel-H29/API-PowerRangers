@@ -17,12 +17,13 @@ jobs:
       - name: Create 'prod.env' file  y el archivo donde extraigo los datos
         run: |
           touch Data.xls
-          if [ "${{ secrets.PROD }} ]; then
-            echo "${{ secrets.PROD }}" > prod.env
-          else
+          if [ -z "$PROD" ]; then
             echo "No found ENV variable"
-            exit 1
+            exit 1      
           fi
+          echo "${{ secrets.PROD_ENVS }}" > prod.env
+        env:
+          PROD: ${{ secrets.PROD_ENVS }}
 
       - name: Build and run containers
 
