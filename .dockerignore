@@ -7,3 +7,12 @@ crud_data
 #Files test
 readme*.py
 index.html
+requirements-back.txt
+text.txt
+
+#README
+README.md
+LICESE
+
+#Jupyter
+jupyter
