@@ -11,11 +11,10 @@ SECRET_KEY = config("SECRET_KEY")
 
 DEBUG = False
 
+API_HOST = config("API_HOST") 
+
 ALLOWED_HOSTS = [
-    '192.168.1.13',
-    '127.0.0.1',
-    '0.0.0.1',
-    'localhost',
+    API_HOST,
     'api.power-rangers.com'
 ]
 
