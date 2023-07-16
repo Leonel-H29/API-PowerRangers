@@ -11,11 +11,10 @@ SECRET_KEY = config("SECRET_KEY")
 
 DEBUG = False
 
-API_HOST = config("API_HOST") 
+API_HOST = config("API_HOST")
 
 ALLOWED_HOSTS = [
     API_HOST,
-    'api.power-rangers.com'
 ]
 
 # Configuracion de la base de datos Postgres
