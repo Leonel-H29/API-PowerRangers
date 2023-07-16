@@ -46,7 +46,7 @@ sleep 2
 echo "Inicio el servidor ..."
 #python manage.py runserver 0.0.0.0:8000 $config
 config="DJANGO_SETTINGS_MODULE=api.settings.production api.wsgi:application "
-gunicorn --env $config --bind 0.0.0.0:8000
+gunicorn --env $config --bind 0.0.0.0:$PORT
 echo "El backend esta listo"
 
 exec "$@"
