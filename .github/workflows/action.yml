@@ -21,6 +21,7 @@ jobs:
             exit 1      
           fi
           echo "$PROD" > prod.env
+          cat prod.env
         env:
           PROD: ${{ secrets.PROD_ENVS }}
 
