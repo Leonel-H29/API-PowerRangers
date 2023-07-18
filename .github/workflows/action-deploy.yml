@@ -29,6 +29,6 @@ jobs:
       #Deploy del proyecto ejecutando el comando especifico para crear los contenedores
       - name: Deploy
         run: |
-          railway run "docker-compose -f "docker-compose.yml" up -d --build "
+          railway run "docker-compose up -d"
         env:
           RAILWAY_TOKEN: ${{ secrets.PROD_TOKEN }}
