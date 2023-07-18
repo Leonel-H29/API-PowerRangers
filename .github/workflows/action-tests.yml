@@ -14,13 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       #Crea el archivo de entorno para el proyecto
-      - name: Create 'prod.env' file  y el archivo donde extraigo los datos
+      - name: Create 'prod.env' file and the file for extract data
         run: |
           if [ -z "$PROD" ]; then
             echo "No found ENV variable"
             exit 1      
           fi
           echo "$PROD" > prod.env
+          cat prod.env
         env:
           PROD: ${{ secrets.PROD_ENVS }}
 
