@@ -1,15 +1,15 @@
-from rest_framework import  viewsets
-from rest_framework.authentication import TokenAuthentication 
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
 from django.contrib.auth.mixins import PermissionRequiredMixin
-#from rest_framework.decorators import action
-#from rest_framework.response import Response
+# from rest_framework.decorators import action
+# from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 
 from Capitulos.models import capitulo
 from Capitulos.serializers import CapitulosSerializer
-#from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
-from rest_framework import permissions 
+from rest_framework import permissions
 from User.permissions import SuperuserPermission, ReadOnlyPermission
 
 from drf_yasg.utils import swagger_auto_schema
@@ -17,18 +17,22 @@ from drf_yasg import openapi
 
 
 class CapitulosViewSet(viewsets.ModelViewSet):
+    """
+    Descripción: Esta vista contiene información sobre los episodios individuales que componen cada temporada de Power Rangers. 
+    Cada episodio, también conocido como capítulo, presenta una parte de la trama y la historia general de la temporada. 
+    """
     queryset = capitulo.objects.all()
     serializer_class = CapitulosSerializer
     filter_backends = [DjangoFilterBackend]
-    #filterset_fields = ['numero_cap', 'temporada']
+    # filterset_fields = ['numero_cap', 'temporada']
     filterset_fields = ['numero_cap']
     name = 'capitulos'
     depth = 1
     authentication_classes = [TokenAuthentication]
     permission_classes = [SuperuserPermission | ReadOnlyPermission]
 
-    #Documentacion en Swagger
-    
+    # Documentacion en Swagger
+
     @swagger_auto_schema(
         operation_summary="Obtener un capitulo por su id",
         operation_description="Retorna un capitulo con la información completa.",
@@ -71,8 +75,8 @@ class CapitulosViewSet(viewsets.ModelViewSet):
             403: 'Permiso denegado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
-        )     
+        # security=[{'Token de acceso': []}]
+    )
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
@@ -99,7 +103,7 @@ class CapitulosViewSet(viewsets.ModelViewSet):
         })
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
-    
+
     @swagger_auto_schema(
         request_body=CapitulosSerializer,
         operation_summary="Actualiza parcialmente un capitulo",
@@ -121,11 +125,11 @@ class CapitulosViewSet(viewsets.ModelViewSet):
             404: 'No encontrado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
+        # security=[{'Token de acceso': []}]
     )
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
-    
+
     @swagger_auto_schema(
         operation_summary="Elimina un capitulo",
         operation_description='Elimina un capitulo existente',
@@ -145,7 +149,7 @@ class CapitulosViewSet(viewsets.ModelViewSet):
             404: 'No encontrado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
+        # security=[{'Token de acceso': []}]
     )
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)

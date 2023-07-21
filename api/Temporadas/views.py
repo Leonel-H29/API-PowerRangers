@@ -1,13 +1,13 @@
 from rest_framework import viewsets, generics
-from rest_framework.authentication import TokenAuthentication 
+from rest_framework.authentication import TokenAuthentication
 from django.contrib.auth.mixins import PermissionRequiredMixin
-#from rest_framework.decorators import action
-#from rest_framework.response import Response
+# from rest_framework.decorators import action
+# from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 
-from Temporadas.models  import temporada
+from Temporadas.models import temporada
 from Temporadas.serializers import TemporadaSerializer
-#from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from User.permissions import SuperuserPermission, ReadOnlyPermission
 
 
@@ -16,6 +16,11 @@ from drf_yasg import openapi
 
 
 class TemporadasViewSet(viewsets.ModelViewSet):
+    """
+    Descripción: Esta vista proporciona información sobre todas las temporadas de Power Rangers disponibles. 
+    Cada temporada representa un conjunto de episodios que conforman una historia específica dentro de la 
+    franquicia Power Rangers. 
+    """
     queryset = temporada.objects.all()
     serializer_class = TemporadaSerializer
     filter_backends = [DjangoFilterBackend]
@@ -25,8 +30,8 @@ class TemporadasViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [SuperuserPermission | ReadOnlyPermission]
 
-    #Documentacion en Swagger
-    
+    # Documentacion en Swagger
+
     @swagger_auto_schema(
         operation_summary="Obtener un temporada por su id",
         operation_description="Retorna un temporada con la información completa.",
@@ -69,8 +74,8 @@ class TemporadasViewSet(viewsets.ModelViewSet):
             403: 'Permiso denegado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
-        )     
+        # security=[{'Token de acceso': []}]
+    )
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
@@ -97,7 +102,7 @@ class TemporadasViewSet(viewsets.ModelViewSet):
         })
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
-    
+
     @swagger_auto_schema(
         request_body=TemporadaSerializer,
         operation_summary="Actualiza parcialmente una temporada",
@@ -119,11 +124,11 @@ class TemporadasViewSet(viewsets.ModelViewSet):
             404: 'No encontrado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
+        # security=[{'Token de acceso': []}]
     )
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
-    
+
     @swagger_auto_schema(
         operation_summary="Elimina una temporada",
         operation_description='Elimina una temporada existente',
@@ -143,7 +148,7 @@ class TemporadasViewSet(viewsets.ModelViewSet):
             404: 'No encontrado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
+        # security=[{'Token de acceso': []}]
     )
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
