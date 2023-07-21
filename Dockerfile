@@ -19,11 +19,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copia el código de la aplicación al contenedor
 COPY ./api ./
-# Copia el archivo docker-entrypoint.sh al contenedor
-COPY ./scripts-sh/docker-entrypoint.sh ./scripts-sh/docker-entrypoint.sh
+# Copia el directirio de scripts
+COPY ./scripts-sh/ ./scripts-sh/
 
-# Otorga permisos de ejecución al archivo docker-entrypoint.sh
-RUN chmod +x ./scripts-sh/docker-entrypoint.sh
+# Otorga permisos de ejecución a todos los .sh
+RUN chmod +x ./scripts-sh/*.sh
 
 # Ejecuta el comando para arrancar el servidor
 CMD ["sh","./scripts-sh/docker-entrypoint.sh"]
