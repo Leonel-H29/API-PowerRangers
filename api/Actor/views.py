@@ -1,14 +1,14 @@
-from rest_framework import  viewsets
-from rest_framework.authentication import TokenAuthentication 
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
 from django.contrib.auth.mixins import PermissionRequiredMixin
-#from rest_framework.decorators import action
-#from rest_framework.response import Response
+# from rest_framework.decorators import action
+# from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 
 from Actor.models import actor, aparecen, personaje
 from Actor.serializers import ActorSerializer, AparecenEnSerializer, PersonajeSerializer
-#from django.contrib.auth.models import User
-from rest_framework import permissions 
+# from django.contrib.auth.models import User
+from rest_framework import permissions
 from User.permissions import SuperuserPermission, ReadOnlyPermission
 
 from drf_yasg.utils import swagger_auto_schema
@@ -16,6 +16,11 @@ from drf_yasg import openapi
 
 
 class ActoresViewSet(viewsets.ModelViewSet):
+    """
+    Descripción: Esta vista contiene información sobre los actores que han interpretado roles 
+    en las diferentes temporadas de Power Rangers. Los actores son quienes dan vida a los personajes 
+    icónicos de la serie.
+    """
     queryset = actor.objects.all()
     serializer_class = ActorSerializer
     filter_backends = [DjangoFilterBackend]
@@ -24,14 +29,14 @@ class ActoresViewSet(viewsets.ModelViewSet):
     depth = 1
     authentication_classes = [TokenAuthentication]
     permission_classes = [SuperuserPermission | ReadOnlyPermission]
-    
-    #Documentacion en Swagger
-    
+
+    # Documentacion en Swagger
+
     @swagger_auto_schema(
         operation_summary="Obtener un actor por su id",
         operation_description="Retorna un actor con la información completa.",
         responses={
-            200: ActorSerializer(), 
+            200: ActorSerializer(),
             400: 'No se ha encontrado el actor solicitado',
             500: 'Se ha producido un error interno en el servidor'
         })
@@ -69,8 +74,8 @@ class ActoresViewSet(viewsets.ModelViewSet):
             403: 'Permiso denegado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
-        )     
+        # security=[{'Token de acceso': []}]
+    )
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
@@ -97,7 +102,7 @@ class ActoresViewSet(viewsets.ModelViewSet):
         })
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
-    
+
     @swagger_auto_schema(
         request_body=ActorSerializer,
         operation_summary="Actualiza parcialmente un actor",
@@ -119,11 +124,11 @@ class ActoresViewSet(viewsets.ModelViewSet):
             404: 'No encontrado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
+        # security=[{'Token de acceso': []}]
     )
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
-    
+
     @swagger_auto_schema(
         operation_summary="Elimina un actor",
         operation_description='Elimina un actor existente',
@@ -134,8 +139,8 @@ class ActoresViewSet(viewsets.ModelViewSet):
                 required=True,
                 type=openapi.TYPE_STRING,
                 description='Token de acceso (Token access_token)'
-        ),
-    ],
+            ),
+        ],
         responses={
             204: 'Actor eliminado exitosamente',
             401: 'No autenticado',
@@ -143,29 +148,31 @@ class ActoresViewSet(viewsets.ModelViewSet):
             404: 'No encontrado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
+        # security=[{'Token de acceso': []}]
     )
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
-    
 
 
-    
 class AparecenViewSet(viewsets.ModelViewSet):
+    """
+    Descripción: Esta vista muestra la relación entre los personajes y las temporadas en las que aparecen en la serie Power Rangers. 
+    Es una relación N:N que vincula los personajes específicos con las temporadas en las que han participado. 
+    """
     queryset = aparecen.objects.all()
     serializer_class = AparecenEnSerializer
     name = 'aparecen'
     depth = 1
     authentication_classes = [TokenAuthentication]
     permission_classes = [SuperuserPermission | ReadOnlyPermission]
-    
-    #Documentacion en Swagger
-    
+
+    # Documentacion en Swagger
+
     @swagger_auto_schema(
         operation_summary="Obtener una aparicion por su id",
         operation_description="Retorna una aparicion con la información completa.",
         responses={
-            200: AparecenEnSerializer(), 
+            200: AparecenEnSerializer(),
             400: 'No se ha encontrado la aparicion solicitada',
             500: 'Se ha producido un error interno en el servidor'
         })
@@ -203,8 +210,8 @@ class AparecenViewSet(viewsets.ModelViewSet):
             403: 'Permiso denegado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
-        )     
+        # security=[{'Token de acceso': []}]
+    )
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
@@ -231,7 +238,7 @@ class AparecenViewSet(viewsets.ModelViewSet):
         })
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
-    
+
     @swagger_auto_schema(
         request_body=AparecenEnSerializer,
         operation_summary="Actualiza parcialmente una aparicion",
@@ -253,11 +260,11 @@ class AparecenViewSet(viewsets.ModelViewSet):
             404: 'No encontrado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
+        # security=[{'Token de acceso': []}]
     )
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
-    
+
     @swagger_auto_schema(
         operation_summary="Elimina una aparicion",
         operation_description='Elimina una aparicion existente',
@@ -268,8 +275,8 @@ class AparecenViewSet(viewsets.ModelViewSet):
                 required=True,
                 type=openapi.TYPE_STRING,
                 description='Token de acceso (Token access_token)'
-        ),
-    ],
+            ),
+        ],
         responses={
             204: 'Aparicion eliminada exitosamente',
             401: 'No autenticado',
@@ -277,14 +284,17 @@ class AparecenViewSet(viewsets.ModelViewSet):
             404: 'No encontrado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
+        # security=[{'Token de acceso': []}]
     )
     def destroy(self, request, *args, **kwargs):
-        return super().destroy(request, *args, **kwargs)    
-
+        return super().destroy(request, *args, **kwargs)
 
 
 class PersonajesViewSet(viewsets.ModelViewSet):
+    """
+    Descripción: En esta vista, encontrarás información sobre los personajes icónicos de Power Rangers. Cada personaje representa 
+    un héroe, villano u otro individuo importante que forma parte de la historia de la serie. 
+    """
     queryset = personaje.objects.all()
     serializer_class = PersonajeSerializer
     filter_backends = [DjangoFilterBackend]
@@ -293,14 +303,14 @@ class PersonajesViewSet(viewsets.ModelViewSet):
     depth = 1
     authentication_classes = [TokenAuthentication]
     permission_classes = [SuperuserPermission | ReadOnlyPermission]
-    
-    #Documentacion en Swagger
-    
+
+    # Documentacion en Swagger
+
     @swagger_auto_schema(
         operation_summary="Obtener un personaje por su id",
         operation_description="Retorna un personaje con la información completa.",
         responses={
-            200: PersonajeSerializer(), 
+            200: PersonajeSerializer(),
             400: 'No se ha encontrado el personaje solicitado',
             500: 'Se ha producido un error interno en el servidor'
         })
@@ -338,8 +348,8 @@ class PersonajesViewSet(viewsets.ModelViewSet):
             403: 'Permiso denegado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
-        )     
+        # security=[{'Token de acceso': []}]
+    )
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
@@ -366,7 +376,7 @@ class PersonajesViewSet(viewsets.ModelViewSet):
         })
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
-    
+
     @swagger_auto_schema(
         request_body=PersonajeSerializer,
         operation_summary="Actualiza parcialmente un personaje",
@@ -388,11 +398,11 @@ class PersonajesViewSet(viewsets.ModelViewSet):
             404: 'No encontrado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
+        # security=[{'Token de acceso': []}]
     )
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
-    
+
     @swagger_auto_schema(
         operation_summary="Elimina un personaje",
         operation_description='Elimina un personaje existente',
@@ -403,8 +413,8 @@ class PersonajesViewSet(viewsets.ModelViewSet):
                 required=True,
                 type=openapi.TYPE_STRING,
                 description='Token de acceso (Token access_token)'
-        ),
-    ],
+            ),
+        ],
         responses={
             204: 'Personaje eliminado exitosamente',
             401: 'No autenticado',
@@ -412,7 +422,7 @@ class PersonajesViewSet(viewsets.ModelViewSet):
             404: 'No encontrado',
             500: 'Se ha producido un error interno en el servidor'
         },
-        #security=[{'Token de acceso': []}]
+        # security=[{'Token de acceso': []}]
     )
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)

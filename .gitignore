@@ -169,11 +169,11 @@ api/install_requeriments.sh
 
 
 #Files .txt
-api/Data.xls
+#api/Data.xls
 Comandos.txt
 api/docker_logs.txt
 #api/crud_data/Data.xls
-api/crud_data
+#api/crud_data
 
 
 #Archivos temporales
