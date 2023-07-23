@@ -46,12 +46,10 @@
     - [Variables de entorno de archivos y datos](#variables-de-entorno-de-archivos-y-datos)
     - [Variables de entorno para superusuario de Django](#variables-de-entorno-para-superusuario-de-django)
     - [Variables de entorno para PgAdmin](#variables-de-entorno-para-pgadmin)
+  - [Comandos para realizar tareas con Django Rest Framework en Docker](#comandos-para-realizar-tareas-con-django-rest-framework-en-docker)
+  - [Acceder a un contenedor por terminal](#acceder-a-un-contenedor-por-terminal)
 
-- [Comandos para realizar tareas con Django Rest Framework en Docker](#comandos-para-realizar-tareas-con-django-rest-framework-en-docker)
-
-- [Acceder a un contenedor por terminal](#acceder-a-un-contenedor-por-terminal)
-
-`/*==================================================================================*/`
+`<!-- ======================================================================= -->`
 
 # INTRODUCCIÓN
 
@@ -155,7 +153,7 @@ git clone https://github.com/Leonel-H29/API-PowerRangers.git directorio-destino
 
 Estas son algunas de las formas más comunes de clonar un repositorio, dependiendo del servicio de alojamiento y las preferencias de autenticación. Elige el método que mejor se adapte a tu caso y comienza a trabajar con el repositorio en tu entorno local.
 
-## Levantar el proyecto localmente con Docker
+# Levantar el proyecto localmente con Docker
 
 1.  Asegúrate de tener Docker instalado en tu máquina, y tener los permisos necesarios.
 2.  Abre una terminal y navega hasta el directorio del proyecto clonado.
@@ -265,7 +263,7 @@ Ahora has configurado correctamente pgAdmin 4 para conectarse a la base de datos
 > - Todas las variables mencionadas deben estar definidas dentro del archivo de entorno correspondiente.
 > - Estos pasos tambien son validos en el caso de que tengas instalado PgAdmin 4 instalado localmente en tu computadora sin necesidad de Docker.
 
-## Swagger
+# Swagger
 
 ### ¿Qué es Swagger?
 
@@ -289,7 +287,7 @@ La documentación generada por Swagger te brinda una visión clara de tu API RES
 
 ![Captura de pantalla de 2023-04-02 16-07-34](https://github.com/Leonel-H29/API-PowerRangers/assets/48606307/3cff9689-65f0-43cc-93e9-9837905fc240)
 
-## Datos a tener en cuenta
+# Datos a tener en cuenta
 
 ### Archivo de variables de entorno
 
