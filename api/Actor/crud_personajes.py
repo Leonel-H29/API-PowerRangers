@@ -101,13 +101,6 @@ class CrudPersonajes(CrudParent):
             query += ";"
 
             # print(list_values)
-            self.post_personajes(personajes=query)
+            self.DB.post_on_table(table=self.db_table_name, values=query)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")
-
-    # Funcion para hacer un insert en la DB
-
-    def post_personajes(self, personajes: str = None) -> None:
-        query = "INSERT INTO {0} (nombre_personaje, foto, created, updated, id_actor) VALUES {1}".format(
-            self.db_table_name, personajes)
-        self.DB.insert_table_query(query=query)

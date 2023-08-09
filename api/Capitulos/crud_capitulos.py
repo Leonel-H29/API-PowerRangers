@@ -97,18 +97,6 @@ class CrudCapitulos(CrudParent):
             query += ";"
 
             # print(query)
-            self.post_capitulos(capitulos=query)
+            self.DB.post_on_table(table=self.db_table_name, values=query)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")
-
-    # Funcion para hacer un insert en la DB
-
-    def post_capitulos(self, capitulos: str = None) -> None:
-
-        query = "INSERT INTO {0} (numero_cap, titulo, descripcion, created, updated, id_temporada) VALUES {1}".format(
-            self.db_table_name, capitulos)
-        # print(query)
-        self.DB.insert_table_query(query=query)
-
-    def put_capitulos(n, data):
-        pass

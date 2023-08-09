@@ -100,17 +100,6 @@ class CrudTemporadas(CrudParent):
 
             # print(list_values)
             # print(query)
-            self.post_temporadas(temporadas=query)
+            self.DB.post_on_table(table=self.db_table_name, values=query)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")
-
-    # Funcion para hacer un insert en la DB
-
-    def post_temporadas(self, temporadas: str = None) -> None:
-        query = "INSERT INTO {0} (numero_temporada, nombre, descripcion, foto, cancion, basada_en, anio_estreno, tematica, created, updated) VALUES {1}".format(
-            self.db_table_name, temporadas)
-
-        self.DB.insert_table_query(query=query)
-
-    def put_temporadas(n, data):
-        pass

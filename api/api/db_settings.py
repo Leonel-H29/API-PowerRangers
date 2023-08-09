@@ -114,7 +114,7 @@ class DBSettings():
             cursor.close()
 
     # Funcion para obtener el id de una tabla en especifico
-    def get_id_db(self, table, params={}) -> int:
+    def get_id_db(self, table: str, params={}) -> int:
         # Valores para obtener el registro por una columna de la tabla
         actor = params.get('nombre_artistico', '')
         temporada = params.get('numero_temporada', 0)
@@ -127,13 +127,25 @@ class DBSettings():
         idactor = params.get('id_actor', 0)
 
         query = {
-            "actor": "SELECT id_actor FROM actor WHERE nombre_artistico='{0}';".format(actor),
-            "temporadas": "SELECT id_temporada FROM temporadas WHERE numero_temporada={0};".format(temporada),
-            "personajes": "SELECT id_personaje FROM personajes WHERE nombre_personaje='{0}' AND id_actor={1};".format(personaje, idactor),
-            "capitulos": "SELECT id_capitulo FROM capitulos WHERE numero_cap={0} AND id_temporada={1}".format(capitulo, idtemp),
-            "aparecen": "SELECT id_aparicion FROM aparecen WHERE id_personaje={0} AND id_temporada={1}".format(idpers, idtemp)
+            "actor": "SELECT id_actor FROM {0} WHERE nombre_artistico='{1}';".format(table, actor),
+            "temporadas": "SELECT id_temporada FROM {0} WHERE numero_temporada={1};".format(table, temporada),
+            "personajes": "SELECT id_personaje FROM {0} WHERE nombre_personaje='{1}' AND id_actor={2};".format(table, personaje, idactor),
+            "capitulos": "SELECT id_capitulo FROM {0} WHERE numero_cap={1} AND id_temporada={2}".format(table, capitulo, idtemp),
+            "aparecen": "SELECT id_aparicion FROM {0} WHERE id_personaje={1} AND id_temporada={2}".format(table, idpers, idtemp)
         }
-        return self.get_id_query(query.get(table, "actor"))
+        return self.get_id_query(query=query.get(table, "actor"))
+
+    # Funcion para hacer un insert en la DB segun la tabla
+    def post_on_table(self, table: str, values: str):
+        # pass
+        query = {
+            "actor": "INSERT INTO {0} (nombre_actor,nombre_artistico,foto,biografia,created,updated) VALUES {1}".format(table, values),
+            "temporadas": "INSERT INTO {0} (numero_temporada, nombre, descripcion, foto, cancion, basada_en, anio_estreno, tematica, created, updated) VALUES {1};".format(table, values),
+            "personajes": "INSERT INTO {0} (nombre_personaje, foto, created, updated, id_actor) VALUES {1}".format(table, values),
+            "capitulos": "INSERT INTO {0} (numero_cap, titulo, descripcion, created, updated, id_temporada) VALUES {1}".format(table, values),
+            "aparecen": "INSERT INTO {0} (rol, descripcion, id_personaje, id_temporada) VALUES {1}".format(table, values),
+        }
+        return self.insert_table_query(query=query.get(table, "actor"))
 
     # Funcion para lipiar las tablas de las apps
     def clean_db(self) -> None:
@@ -145,7 +157,7 @@ class DBSettings():
                 query = "DELETE FROM {0}; ".format(app)
                 # print(query)
                 cursor.execute(query)
-                resultado = self.len_table_db(app)
+                resultado = self.len_table_db_query(app)
                 if resultado == 0:
                     print(Fore.GREEN + "Cantidad de registros en '{0}' :{1}".format(
                         app, resultado)

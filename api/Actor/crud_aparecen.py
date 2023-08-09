@@ -109,18 +109,6 @@ class CrudAparecen(CrudParent):
             query += ";"
 
             # print(query)
-            self.post_apariciones(apariciones=query)
+            self.DB.post_on_table(table=self.db_table_name, values=query)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")
-
-    # Funcion para hacer un insert en la DB
-
-    def post_apariciones(self, apariciones: str = None) -> None:
-
-        query = "INSERT INTO {0} (rol, descripcion, id_personaje, id_temporada) VALUES {1}".format(
-            self.db_table_name, apariciones)
-        # print(query)
-        self.DB.insert_table_query(query=query)
-
-    def put_apariciones(n, data):
-        pass

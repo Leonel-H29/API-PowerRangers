@@ -87,17 +87,6 @@ class CrudActores(CrudParent):
             query += ";"
 
             # print(list_values)
-            self.post_actores(actores=query)
+            self.DB.post_on_table(table=self.db_table_name, values=query)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")
-
-    # Funcion para hacer un insert en la DB
-
-    def post_actores(self, actores: str = None) -> None:
-        query = "INSERT INTO {0} (nombre_actor,nombre_artistico,foto,biografia,created,updated) VALUES {1}".format(
-            self.db_table_name, actores)
-
-        self.DB.insert_table_query(query=query)
-
-    def put_actores(n, data):
-        pass
