@@ -27,7 +27,7 @@ class CrudPersonajes(CrudParent):
 
             # Verifico si el personaje esta cargado en la base de datos
             # Verifico si el personaje ya se encuentra en la lista
-            if self.personaje_exist(pers=pers, actor=idactor) or exists_in_list:
+            if self.DB.get_id_db(self.db_table_name, params={'nombre_personaje': pers, 'id_actor': idactor}) > 0 or exists_in_list:
                 return list_data
 
             list_data.append(dic)
@@ -37,16 +37,10 @@ class CrudPersonajes(CrudParent):
             print(Fore.RED + "{0}".format(str(e)))
             return list_data
 
-    # Funcion para saber si el personaje existe
-
-    def personaje_exist(self, pers: str = None, actor: int = 0) -> bool:
-        query = "SELECT * FROM {0} WHERE nombre_personaje='{1}' AND id_actor={2}".format(
-            self.db_table_name, pers, actor)
-        return self.DB.exists_tuple(query=query)
-
     # Funcion para extraer los datos del archivo
+
     def get_personajes_file(self):
-        if self.DB.len_table_db(table=self.db_table_name_fk) > 0:
+        if self.DB.len_table_db_query(table=self.db_table_name_fk) > 0:
             # Abro el archivo
             openFile = xlrd.open_workbook(self.file)
             # Indico con que hoja voy a trabajar
@@ -62,10 +56,12 @@ class CrudPersonajes(CrudParent):
                 col5 = sheet.cell_value(i, 4)  # Foto
                 col6 = sheet.cell_value(i, 5)  # Nombre del actor
 
-                query = "SELECT id_actor FROM {0} WHERE nombre_artistico='{1}';".format(
-                    self.db_table_name_fk, col6)
-
-                actor = self.DB.get_id(query=query)
+                actor = self.DB.get_id_db(
+                    self.db_table_name_fk,
+                    params={
+                        'nombre_artistico': col6
+                    }
+                )
 
                 if actor > 0:
                     dic = {

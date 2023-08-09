@@ -15,14 +15,6 @@ class CrudTemporadas(CrudParent):
         super().__init__(DBstt, sheet, tableName)
         # print(self.file)
 
-    # Funcion para saber si la temporada existe
-
-    def temporada_exist(self, temp: int = 0) -> bool:
-        query = "SELECT * FROM {0} WHERE numero_temporada={1}".format(
-            self.db_table_name, temp
-        )
-        return self.DB.exists_tuple(query=query)
-
     # Funcion para extraer los datos del archivo
 
     def get_temporadas_file(self):
@@ -70,9 +62,9 @@ class CrudTemporadas(CrudParent):
                 registro["numero_temporada"] == ntemp for registro in list_data
             )
 
-            # Verifico si el actor esta cargado en la base de datos
+            # Verifico si la temporada esta cargada en la base de datos
             # Verifico si la temporada ya se encuentra en la lista
-            if self.temporada_exist(ntemp) or exists_in_list:
+            if self.DB.get_id_db(self.db_table_name, params={'numero_temporada': ntemp}) > 0 or exists_in_list:
                 return list_data
 
             list_data.append(dic)

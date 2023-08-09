@@ -37,7 +37,7 @@ class DBSettings():
     def close_conect_db(self) -> None: self.conn.close()
 
     # Retorna la cantidad de registros en una tabla especifica
-    def len_table_db(self, table: str = None) -> int:
+    def len_table_db_query(self, table: str = None) -> int:
         cursor = self.conn.cursor()
         query = "SELECT COUNT(*) FROM {0};".format(table)
         # print(query)
@@ -71,7 +71,7 @@ class DBSettings():
 
     # Exists de una tupla en la base de datos
 
-    def exists_tuple(self, query: str = None) -> bool:
+    def exists_tuple_query(self, query: str = None) -> bool:
         cursor = self.conn.cursor()
         try:
             cursor.execute(query)
@@ -85,7 +85,7 @@ class DBSettings():
 
     # Funcion para obtener el registro
 
-    def get_tuple(self, query: str = None) -> list:
+    def get_tuple_query(self, query: str = None) -> list:
         cursor = self.conn.cursor()
         try:
             cursor.execute(query)
@@ -99,10 +99,10 @@ class DBSettings():
 
     # Funcion para obtener el registro
 
-    def get_id(self, query: str = None) -> int:
+    def get_id_query(self, query: str = None) -> int:
         cursor = self.conn.cursor()
         try:
-            if self.exists_tuple(query=query):
+            if self.exists_tuple_query(query=query):
                 cursor.execute(query)
                 resultado = cursor.fetchall()
                 return int(resultado[0][0])
@@ -112,6 +112,28 @@ class DBSettings():
             return 0
         finally:
             cursor.close()
+
+    # Funcion para obtener el id de una tabla en especifico
+    def get_id_db(self, table, params={}) -> int:
+        # Valores para obtener el registro por una columna de la tabla
+        actor = params.get('nombre_artistico', '')
+        temporada = params.get('numero_temporada', 0)
+        personaje = params.get('nombre_personaje', '')
+        capitulo = params.get('numero_cap', 0)
+
+        # Valores para obtener el registro por el id de la tabla
+        idtemp = params.get('id_temporada', 0)
+        idpers = params.get('id_personaje', 0)
+        idactor = params.get('id_actor', 0)
+
+        query = {
+            "actor": "SELECT id_actor FROM actor WHERE nombre_artistico='{0}';".format(actor),
+            "temporadas": "SELECT id_temporada FROM temporadas WHERE numero_temporada={0};".format(temporada),
+            "personajes": "SELECT id_personaje FROM personajes WHERE nombre_personaje='{0}' AND id_actor={1};".format(personaje, idactor),
+            "capitulos": "SELECT id_capitulo FROM capitulos WHERE numero_cap={0} AND id_temporada={1}".format(capitulo, idtemp),
+            "aparecen": "SELECT id_aparicion FROM aparecen WHERE id_personaje={0} AND id_temporada={1}".format(idpers, idtemp)
+        }
+        return self.get_id_query(query.get(table, "actor"))
 
     # Funcion para lipiar las tablas de las apps
     def clean_db(self) -> None:

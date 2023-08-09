@@ -26,7 +26,7 @@ class CrudActores(CrudParent):
 
             # Verifico si el actor esta cargado en la base de datos
             # Verifico si el actor ya se encuentra en la lista
-            if self.actor_exists(nombre) or exists_in_list:
+            if self.DB.get_id_db(self.db_table_name, params={'nombre_artistico': nombre}) > 0 or exists_in_list:
                 return list_data
 
             list_data.append(dic)
@@ -64,13 +64,6 @@ class CrudActores(CrudParent):
         # print(list_insert)
 
         self.prepare_query_insert(list_insert)
-
-    # Funcion para saber si el actor existe
-
-    def actor_exists(self, name: str = None) -> bool:
-        query = "SELECT * FROM {0} WHERE nombre_artistico='{1}'".format(
-            self.db_table_name, name)
-        return self.DB.exists_tuple(query=query)
 
     # Funcion para realizar un insert multiple
 

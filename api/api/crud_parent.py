@@ -38,3 +38,5 @@ class CrudParent():
         #    openFile = xlrd.open_workbook(self.file)
         # Indico con que hoja voy a trabajar
         #    return openFile.sheet_by_name(self.sheet_file)
+
+        # @property
