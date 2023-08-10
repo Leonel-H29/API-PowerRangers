@@ -27,7 +27,8 @@ class CrudCapitulos(CrudParent):
 
             # Verifico si el capitulo esta cargado en la base de datos
             # Verifico si el capitulo ya se encuentra en la lista
-            if self.capitulo_exist(cap=ncap, temp=idtemp) or exists_in_list:
+            # if self.capitulo_exist(cap=ncap, temp=idtemp) or exists_in_list:
+            if self.DB.get_id_db(self.db_table_name, params={'numero_cap': ncap, 'id_temporada': idtemp}) > 0 or exists_in_list:
                 return list_data
 
             list_data.append(dic)
@@ -37,17 +38,10 @@ class CrudCapitulos(CrudParent):
             print(Fore.RED + "{0}".format(e))
             return list_data
 
-    # Funcion para saber si el capitulo existe
-
-    def capitulo_exist(self, cap: int = 0, temp: int = 0) -> bool:
-        query = "SELECT * FROM {0} WHERE numero_cap={1} AND id_temporada={2}".format(
-            self.db_table_name, cap, temp)
-        return self.DB.exists_tuple(query=query)
-
     # Funcion para extraer los datos del archivo
 
-    def get_capitulos_file(self):
-        if self.DB.len_table_db(table=self.db_table_name_fk) > 0:
+    def get_data_file(self):
+        if self.DB.len_table_db_query(table=self.db_table_name_fk) > 0:
             # Abro el archivo
             openFile = xlrd.open_workbook(self.file)
             # Indico con que hoja voy a trabajar
@@ -62,11 +56,10 @@ class CrudCapitulos(CrudParent):
                 # col4 = sheet.cell_value(i,3) #Temporada
                 col5 = int(sheet.cell_value(i, 4))  # Numero de temporada
 
-                query = "SELECT id_temporada FROM {0} WHERE numero_temporada={1};".format(
-                    self.db_table_name_fk, col5
+                temp = self.DB.get_id_db(
+                    self.db_table_name_fk,
+                    params={'numero_temporada': col5}
                 )
-
-                temp = self.DB.get_id(query=query)
                 if temp > 0:
                     dic = {
                         "numero_cap": col1,
@@ -104,18 +97,6 @@ class CrudCapitulos(CrudParent):
             query += ";"
 
             # print(query)
-            self.post_capitulos(capitulos=query)
+            self.DB.post_on_table(table=self.db_table_name, values=query)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")
-
-    # Funcion para hacer un insert en la DB
-
-    def post_capitulos(self, capitulos: str = None) -> None:
-
-        query = "INSERT INTO {0} (numero_cap, titulo, descripcion, created, updated, id_temporada) VALUES {1}".format(
-            self.db_table_name, capitulos)
-        # print(query)
-        self.DB.insert_table_query(query=query)
-
-    def put_capitulos(n, data):
-        pass

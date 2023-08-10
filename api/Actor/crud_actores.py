@@ -26,7 +26,7 @@ class CrudActores(CrudParent):
 
             # Verifico si el actor esta cargado en la base de datos
             # Verifico si el actor ya se encuentra en la lista
-            if self.actor_exists(nombre) or exists_in_list:
+            if self.DB.get_id_db(self.db_table_name, params={'nombre_artistico': nombre}) > 0 or exists_in_list:
                 return list_data
 
             list_data.append(dic)
@@ -37,7 +37,7 @@ class CrudActores(CrudParent):
 
     # Funcion para extraer los datos del archivo
 
-    def get_actores_file(self):
+    def get_data_file(self):
 
         # Abro el archivo
         openFile = xlrd.open_workbook(self.file)
@@ -65,13 +65,6 @@ class CrudActores(CrudParent):
 
         self.prepare_query_insert(list_insert)
 
-    # Funcion para saber si el actor existe
-
-    def actor_exists(self, name: str = None) -> bool:
-        query = "SELECT * FROM {0} WHERE nombre_artistico='{1}'".format(
-            self.db_table_name, name)
-        return self.DB.exists_tuple(query=query)
-
     # Funcion para realizar un insert multiple
 
     def prepare_query_insert(self, actores: list = []) -> None:
@@ -94,17 +87,6 @@ class CrudActores(CrudParent):
             query += ";"
 
             # print(list_values)
-            self.post_actores(actores=query)
+            self.DB.post_on_table(table=self.db_table_name, values=query)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")
-
-    # Funcion para hacer un insert en la DB
-
-    def post_actores(self, actores: str = None) -> None:
-        query = "INSERT INTO {0} (nombre_actor,nombre_artistico,foto,biografia,created,updated) VALUES {1}".format(
-            self.db_table_name, actores)
-
-        self.DB.insert_table_query(query=query)
-
-    def put_actores(n, data):
-        pass
