@@ -37,7 +37,7 @@ class CrudActores(CrudParent):
 
     # Funcion para extraer los datos del archivo
 
-    def get_actores_file(self):
+    def get_data_file(self):
 
         # Abro el archivo
         openFile = xlrd.open_workbook(self.file)

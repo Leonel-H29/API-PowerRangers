@@ -17,7 +17,7 @@ class CrudTemporadas(CrudParent):
 
     # Funcion para extraer los datos del archivo
 
-    def get_temporadas_file(self):
+    def get_data_file(self):
         # Abro el archivo
         openFile = xlrd.open_workbook(self.file)
         # Indico con que hoja voy a trabajar

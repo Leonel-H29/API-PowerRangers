@@ -41,7 +41,7 @@ class CrudAparecen(CrudParent):
 
     # Funcion para extraer los datos del archivo
 
-    def get_apariciones_file(self):
+    def get_data_file(self):
         if self.DB.len_table_db_query(table=self.db_table_name_fk1) > 0 and self.DB.len_table_db_query(table=self.db_table_name_fk2) > 0:
             # Abro el archivo
             openFile = xlrd.open_workbook(self.file)
