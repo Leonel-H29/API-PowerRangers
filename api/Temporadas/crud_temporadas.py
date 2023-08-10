@@ -15,17 +15,9 @@ class CrudTemporadas(CrudParent):
         super().__init__(DBstt, sheet, tableName)
         # print(self.file)
 
-    # Funcion para saber si la temporada existe
-
-    def temporada_exist(self, temp: int = 0) -> bool:
-        query = "SELECT * FROM {0} WHERE numero_temporada={1}".format(
-            self.db_table_name, temp
-        )
-        return self.DB.exists_tuple(query=query)
-
     # Funcion para extraer los datos del archivo
 
-    def get_temporadas_file(self):
+    def get_data_file(self):
         # Abro el archivo
         openFile = xlrd.open_workbook(self.file)
         # Indico con que hoja voy a trabajar
@@ -70,9 +62,9 @@ class CrudTemporadas(CrudParent):
                 registro["numero_temporada"] == ntemp for registro in list_data
             )
 
-            # Verifico si el actor esta cargado en la base de datos
+            # Verifico si la temporada esta cargada en la base de datos
             # Verifico si la temporada ya se encuentra en la lista
-            if self.temporada_exist(ntemp) or exists_in_list:
+            if self.DB.get_id_db(self.db_table_name, params={'numero_temporada': ntemp}) > 0 or exists_in_list:
                 return list_data
 
             list_data.append(dic)
@@ -108,17 +100,6 @@ class CrudTemporadas(CrudParent):
 
             # print(list_values)
             # print(query)
-            self.post_temporadas(temporadas=query)
+            self.DB.post_on_table(table=self.db_table_name, values=query)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")
-
-    # Funcion para hacer un insert en la DB
-
-    def post_temporadas(self, temporadas: str = None) -> None:
-        query = "INSERT INTO {0} (numero_temporada, nombre, descripcion, foto, cancion, basada_en, anio_estreno, tematica, created, updated) VALUES {1}".format(
-            self.db_table_name, temporadas)
-
-        self.DB.insert_table_query(query=query)
-
-    def put_temporadas(n, data):
-        pass

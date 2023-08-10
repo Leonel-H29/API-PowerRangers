@@ -27,13 +27,14 @@ class Command(BaseCommand):
 
         try:
             if DB.conect_db():
-
+                # Clases independientes
                 Actor = CrudActores(
                     DBstt=DB, sheet='Actores', tableName='actor'
                 )
                 Temp = CrudTemporadas(
                     DBstt=DB, sheet='Temporadas', tableName='temporadas'
                 )
+                # Clases dependientes
                 Cap = CrudCapitulos(
                     DBstt=DB, sheet='Capitulos', tableName='capitulos'
                 )
@@ -44,31 +45,17 @@ class Command(BaseCommand):
                     DBstt=DB, sheet='Personajes', tableName='aparecen'
                 )
 
+                tablas: list = [Actor, Temp, Cap, Pers, Apar]
+
                 # print(Fore.GREEN + 'Conexion exitosa')
+
                 self.stdout.write('Loadding data to database...')
-
-                # Clases independientes
-                self.stdout.write('----Temporadas: ...')
-                Temp.get_temporadas_file()
-                sleep(1)
-
-                # print(Fore.RESET + "----Actores: ")
-                self.stdout.write('----Actor: ...')
-                Actor.get_actores_file()
-                sleep(1)
-
-                # Clases dependientes
-                self.stdout.write('----Capitulos: ...')
-                Cap.get_capitulos_file()
-                sleep(1)
-
-                self.stdout.write('----Personajes: ...')
-                Pers.get_personajes_file()
-                sleep(1)
-
-                self.stdout.write('----Aparecen: ...')
-                Apar.get_apariciones_file()
-                sleep(1)
+                for x in tablas:
+                    self.stdout.write(
+                        '----{0}: ...'.format(x.db_table_name.capitalize())
+                    )
+                    x.get_data_file()
+                    sleep(1)
 
             DB.close_conect_db()
 

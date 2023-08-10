@@ -33,8 +33,15 @@ class CrudParent():
         @property
         def sheet_file(self): return self.sheet_file
 
-        # def open_file(self):
-        # Abro el archivo
-        #    openFile = xlrd.open_workbook(self.file)
-        # Indico con que hoja voy a trabajar
-        #    return openFile.sheet_by_name(self.sheet_file)
+        # Funcion para realizar un insert multiple
+
+        def prepare_query_insert(self) -> None:
+            pass
+
+        # Funcion para extraer los datos del archivo
+        def get_data_file(self):
+            pass
+
+         # Funcion para retornar una lista con datos unicos
+        def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
+            return list_data

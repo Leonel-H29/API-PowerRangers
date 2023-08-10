@@ -4,7 +4,7 @@ FROM python:3.10.4-alpine3.15
 ENV PYTHONUNBUFFERED 1
 
 # Configura el directorio de trabajo
-WORKDIR /app
+WORKDIR /app/
 
 RUN apk update \
 	&& apk add --no-cache gcc musl-dev postgresql-dev python3-dev libffi-dev \
@@ -18,9 +18,9 @@ COPY ./requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copia el código de la aplicación al contenedor
-COPY ./api ./
-# Copia el directirio de scripts
-COPY ./scripts-sh/ ./scripts-sh/
+COPY ./ ./
+# Copia el archivo docker-entrypoint.sh al contenedor
+#COPY ./scripts-sh/docker-entrypoint.sh ./scripts-sh/docker-entrypoint.sh
 
 # Otorga permisos de ejecución a todos los .sh
 RUN chmod +x ./scripts-sh/*.sh
