@@ -1,0 +1,197 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+#Pipfile.lock
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+*.env
+.env
+.env.*
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+.vs
+.vscode
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+#App directories
+
+api/Actor/migrations
+api/Actor/__pycache__
+api/apps/migrations
+api/apps/__pycache__
+api/apps/core/migrations
+api/apps/core/__pycache__
+api/apps/core/migrations
+api/apps/core/__pycache__
+api/apps/core/management/migrations
+api/apps/core/management/__pycache__
+api/apps/core/management/commands/migrations
+api/apps/core/management/commands/__pycache__
+api/Actor/tests*.py
+api/Capitulos/migrations
+api/Capitulos/__pycache__
+api/Capitulos/tests*.py
+api/Temporadas/migrations
+api/Temporadas/__pycache__
+api/Temporadas/tests*.py
+api/data
+api/User/migrations
+api/User/__pycache__
+api/User/tests*.py
+
+#Archivos estaticos
+*static/
+*static_files/
+
+
+#Scripts .sh
+api/install_requeriments.sh
+
+
+#Files .txt
+#api/Data.xls
+Comandos.txt
+api/docker_logs.txt
+#api/crud_data/Data.xls
+#api/crud_data
+
+
+#Archivos temporales
+*.swp
+*.xls#
+*logs.txt
+
+
+#Backups Databases
+*.sql
+
+
+#Files test
+readme*.py
+index.html
+text.txt
+nginx/local.conf.save
+
+
+#Jupyter
+jupyter/

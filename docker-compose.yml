@@ -1,0 +1,80 @@
+version: '3.7'
+services:
+  # Django Backend
+  apirest:
+    ports:
+      - 8000:8000
+    restart: always
+    env_file:
+      - prod.env
+    container_name: apirest_djangorf
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+    volumes:
+      - static:/app/api/static_files
+    image: backend:1.0
+    networks:
+      - apirest-network
+
+  # Database PostgreSQL
+  database:
+    image: postgres:13.3-alpine
+    container_name: db_postgres
+    restart: unless-stopped
+    env_file:
+      - prod.env
+    volumes:
+      - database:/var/lib/postgresql/data
+      - ./api/init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - 5430:5432
+    networks:
+      - apirest-network
+
+  # pgAdmin para administración de PostgreSQL
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: pg_admin
+    env_file:
+      - prod.env
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - 5050:80
+    links:
+      - database:pgsql-server
+    depends_on:
+      - database
+    networks:
+      - apirest-network
+
+  # Servidor nginx
+  nginx:
+    container_name: nginx
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - static:/etc/nginx/html/static_files
+    image: nginx:1.0
+    depends_on:
+      - pgadmin
+      - apirest
+    networks:
+      - apirest-network
+
+volumes:
+  database:
+  static:
+  pgadmin-data:
+networks:
+  apirest-network:
+    driver: bridge
