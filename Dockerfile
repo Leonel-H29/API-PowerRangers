@@ -22,8 +22,8 @@ COPY ./ ./
 # Copia el archivo docker-entrypoint.sh al contenedor
 #COPY ./scripts-sh/docker-entrypoint.sh ./scripts-sh/docker-entrypoint.sh
 
-# Otorga permisos de ejecución a todos los .sh
-RUN chmod +x ./scripts-sh/*.sh
+# Otorga permisos de ejecución al archivo docker-entrypoint.sh
+RUN chmod +x ./scripts-sh/docker-entrypoint.sh
 
 # Ejecuta el comando para arrancar el servidor
 CMD ["sh","./scripts-sh/docker-entrypoint.sh"]
