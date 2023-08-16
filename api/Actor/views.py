@@ -17,9 +17,14 @@ from drf_yasg import openapi
 
 class ActoresViewSet(viewsets.ModelViewSet):
     """
-    Descripción: Esta vista contiene información sobre los actores que han interpretado roles 
-    en las diferentes temporadas de Power Rangers. Los actores son quienes dan vida a los personajes 
+    ### Actores
+
+    #### Descripción: 
+    
+    Esta vista contiene información sobre los actores que han interpretado roles 
+    en las diferentes temporadas de `Power Rangers`. Los actores son quienes dan vida a los personajes 
     icónicos de la serie.
+    
     """
     queryset = actor.objects.all()
     serializer_class = ActorSerializer
@@ -156,7 +161,11 @@ class ActoresViewSet(viewsets.ModelViewSet):
 
 class AparecenViewSet(viewsets.ModelViewSet):
     """
-    Descripción: Esta vista muestra la relación entre los personajes y las temporadas en las que aparecen en la serie Power Rangers. 
+    ### Aparecen
+
+    #### Descripción: 
+    
+    Esta vista muestra la relación entre los personajes y las temporadas en las que aparecen en la serie `Power Rangers`. 
     Es una relación N:N que vincula los personajes específicos con las temporadas en las que han participado. 
     """
     queryset = aparecen.objects.all()
@@ -292,7 +301,11 @@ class AparecenViewSet(viewsets.ModelViewSet):
 
 class PersonajesViewSet(viewsets.ModelViewSet):
     """
-    Descripción: En esta vista, encontrarás información sobre los personajes icónicos de Power Rangers. Cada personaje representa 
+    ### Aparecen
+
+    #### Descripción: 
+
+    En esta vista, encontrarás información sobre los personajes icónicos de `Power Rangers`. Cada personaje representa 
     un héroe, villano u otro individuo importante que forma parte de la historia de la serie. 
     """
     queryset = personaje.objects.all()

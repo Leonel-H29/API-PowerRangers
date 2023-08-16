@@ -18,8 +18,13 @@ from drf_yasg import openapi
 
 class CapitulosViewSet(viewsets.ModelViewSet):
     """
-    Descripción: Esta vista contiene información sobre los episodios individuales que componen cada temporada de Power Rangers. 
+    ### Capitulos
+
+    #### Descripción: 
+    
+    Esta vista contiene información sobre los episodios individuales que componen cada temporada de `Power Rangers`. 
     Cada episodio, también conocido como capítulo, presenta una parte de la trama y la historia general de la temporada. 
+    
     """
     queryset = capitulo.objects.all()
     serializer_class = CapitulosSerializer

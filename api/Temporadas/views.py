@@ -17,9 +17,14 @@ from drf_yasg import openapi
 
 class TemporadasViewSet(viewsets.ModelViewSet):
     """
-    Descripción: Esta vista proporciona información sobre todas las temporadas de Power Rangers disponibles. 
+    ### Temporadas
+
+    #### Descripción:
+     
+    Esta vista proporciona información sobre todas las temporadas de `Power Rangers` disponibles. 
     Cada temporada representa un conjunto de episodios que conforman una historia específica dentro de la 
-    franquicia Power Rangers. 
+    franquicia `Power Rangers`. 
+    
     """
     queryset = temporada.objects.all()
     serializer_class = TemporadaSerializer
