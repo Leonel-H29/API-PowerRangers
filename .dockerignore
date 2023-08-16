@@ -32,3 +32,38 @@ LICENSE
 
 #Jupyter
 jupyter
+
+#Git
+.gitignore
+.git 
+.github
+
+.env
+*venv
+*.vs
+.devcontainer
+crud_data
+
+#Nginx
+nginx
+
+#Backups Databases
+*.sql
+
+#Files test
+readme*.py
+index.html
+requirements-back.txt
+text.txt
+
+#Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+#README
+README.md
+LICENSE
+
+#Jupyter
+jupyter
