@@ -17,14 +17,30 @@ from drf_yasg import openapi
 
 class TemporadasViewSet(viewsets.ModelViewSet):
     """
-    ### Temporadas
+### Temporadas
 
-    #### Descripción:
-     
-    Esta vista proporciona información sobre todas las temporadas de `Power Rangers` disponibles. 
-    Cada temporada representa un conjunto de episodios que conforman una historia específica dentro de la 
-    franquicia `Power Rangers`. 
-    
+#### Descripción:
+
+Esta vista proporciona información sobre todas las temporadas de `Power Rangers` disponibles. 
+Cada temporada representa un conjunto de episodios que conforman una historia específica dentro de la 
+franquicia `Power Rangers`. 
+
+#### Datos:
+
+    | COLUMNA          | TIPO              | DESCRIPCION                                      |
+    |------------------|-------------------|--------------------------------------------------|
+    | id_temporada     | integer           | ID unico de la temporada                         |
+    | numero_temporada | integer           | Numero de temporada                              |
+    | nombre           | string            | Titulo asignado a la temporada                   |
+    | descripcion      | string            | Descripcion de lo que sucede en la temporada     |
+    | anio_estreno     | integer           | Año de estreno de la temporada                   |
+    | foto             | string            | URL relacionada a la temporada                   |
+    | cancion          | string            | Cancion oficial de la temporada                  |
+    | basada_en        | string            | Serie, Libro, etc en la que se basa la temporada |
+    | tematica         | string            | Tematica que abarca la temporada                 |
+    | capitulos        | list (capitulo)   | Lista de los capitulos emitidos en la temporada  |
+    | updated          | string (datetime) | Fecha de actualizacion del registro              |       
+
     """
     queryset = temporada.objects.all()
     serializer_class = TemporadaSerializer

@@ -16,7 +16,17 @@ class CrudAparecen(CrudParent):
     # Funcion para retornar una lista con datos unicos
 
     def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
+        """
+            La funcion se encarga de controlar que los datos extraidos dentro de la lista `list_data` sean unicos, es decir, datos no repetidos dentro de
+            la lista, como asi que no esten ya cargados en la base de datos
 
+            ### Args:
+                - `dic (dict)`: Diccionario con los valores extraidos en cada fila de la hoja
+                - `list_data`: Lista de datos a cargarse en la base de datos
+
+            ### Returns:
+                `list`: Lista de datos unicos
+        """
         try:
             idpers = dic["id_personaje"]
             idtemp = dic["id_temporada"]
@@ -42,6 +52,9 @@ class CrudAparecen(CrudParent):
     # Funcion para extraer los datos del archivo
 
     def get_data_file(self):
+        """
+            La funcion se encarga de extraer todos los datos de la hoja
+        """
         if self.DB.len_table_db_query(table=self.db_table_name_fk1) > 0 and self.DB.len_table_db_query(table=self.db_table_name_fk2) > 0:
             # Abro el archivo
             openFile = xlrd.open_workbook(self.file)
@@ -85,14 +98,19 @@ class CrudAparecen(CrudParent):
                     list_insert = self.uniq_data(dic, list_insert)
             # print(list_insert)
             # print(len(list_insert))
-            self.prepare_query_insert(apariciones=list_insert)
+            self.prepare_query_insert(list_data=list_insert)
         else:
             print(Fore.RED + "Tabla Forenea vacia")
 
     # Funcion para realizar un insert multiple
 
-    def prepare_query_insert(self, apariciones: list = []) -> None:
+    def prepare_query_insert(self, list_data: list = []) -> None:
+        """
+            La funcion que encarga de ordenar los registros para poder realizar la consulta en la base de datos
 
+            ### Args:
+                `list_data (list)`: Lista de los valores a insertar en la base de datos
+        """
         list_values = [
             "('{0}','{1}',{2},{3})".format(
                 apar["rol"],
@@ -100,12 +118,13 @@ class CrudAparecen(CrudParent):
                 apar["id_personaje"],
                 apar["id_temporada"]
 
-            )for apar in sorted(apariciones, key=lambda x: (x["id_temporada"], x["id_personaje"]))
+            )for apar in sorted(list_data, key=lambda x: (x["id_temporada"], x["id_personaje"]))
         ]
 
         if len(list_values) > 0:
-            # Ordeno la lista
+            # Separo por ',' a cada elemento de la lista
             query = ",".join(list_values)
+            # Despues del ultimo elemento se agrega ';'
             query += ";"
 
             # print(query)

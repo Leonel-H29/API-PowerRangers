@@ -29,7 +29,7 @@ class CrudParent():
             Funcion GETTER para el nombre de la tabla en la base de datos
 
             ### Returns:
-                str: Nombre de la tabla 
+                `str`: Nombre de la tabla 
             """
             return self.db_table_name
 
@@ -39,7 +39,7 @@ class CrudParent():
             Funcion SETTER para el nombre de la tabla en la base de datos
 
             ### Args:
-                table_name (str): Nombre de la tabla 
+                `table_name (str)`: Nombre de la tabla 
             """
             self.db_table_name = table_name
 
@@ -49,15 +49,18 @@ class CrudParent():
             Funcion GETTER para el nombre de la hoja de datos
 
             ### Returns:
-                str: Nombre de la tabla 
-            """ 
+                `str`: Nombre de la tabla 
+            """
             return self.sheet_file
 
         # Funcion para realizar un insert multiple
 
-        def prepare_query_insert(self) -> None:
+        def prepare_query_insert(self, list_data: list = []) -> None:
             """
             La funcion que encarga de ordenar los registros para poder realizar la consulta en la base de datos
+
+            ### Args:
+                `list_data (list)`: Lista de los valores a insertar en la base de datos
             """
             pass
 
@@ -71,14 +74,14 @@ class CrudParent():
          # Funcion para retornar una lista con datos unicos
         def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
             """
-            La funcion se encarga de controlar que los datos extraidos dentro de la lista ´list_data´ sean unicos, es decir, datos no repetidos dentro de
+            La funcion se encarga de controlar que los datos extraidos dentro de la lista `list_data` sean unicos, es decir, datos no repetidos dentro de
             la lista, como asi que no esten ya cargados en la base de datos
 
             ### Args:
-                - ´dic (dict)´: Diccionario con los valores extraidos en cada fila de la hoja
-                - ´list_data´: Lista de datos a cargarse en la base de datos
+                - `dic (dict)`: Diccionario con los valores extraidos en cada fila de la hoja
+                - `list_data`: Lista de datos a cargarse en la base de datos
 
             ### Returns:
-                list: Lista de datos unicos
+                `list`: Lista de datos unicos
             """
             return list_data

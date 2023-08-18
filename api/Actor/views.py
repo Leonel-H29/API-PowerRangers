@@ -17,14 +17,27 @@ from drf_yasg import openapi
 
 class ActoresViewSet(viewsets.ModelViewSet):
     """
-    ### Actores
+### Actores
 
-    #### Descripción: 
-    
-    Esta vista contiene información sobre los actores que han interpretado roles 
-    en las diferentes temporadas de `Power Rangers`. Los actores son quienes dan vida a los personajes 
-    icónicos de la serie.
-    
+#### Descripción: 
+
+Esta vista contiene información sobre los actores que han interpretado roles 
+en las diferentes temporadas de `Power Rangers`. Los actores son quienes dan vida a los personajes 
+icónicos de la serie.
+
+
+#### Datos:
+
+    | COLUMNA          | TIPO               | DESCRIPCION                                                 |
+    |------------------|--------------------|-------------------------------------------------------------|
+    | id_actor	       | integer            | ID unico del actor                                          |
+    | nombre_actor	   | string             | Nombre real del actor                                       |
+    | nombre_artistico | string             | Nombre artistico del actor                                  |
+    | foto	           | string             | URL de la foto del actor                                    |
+    | biografia        | string             | URL de la biografia del actor                               |
+    | personajes	   | list (personaje)   | Lista de los personajes que interpreta el actor en la serie |
+    | updated          | string (datetime)  | Fecha de actualizacion del registro                         | 
+
     """
     queryset = actor.objects.all()
     serializer_class = ActorSerializer
@@ -161,12 +174,23 @@ class ActoresViewSet(viewsets.ModelViewSet):
 
 class AparecenViewSet(viewsets.ModelViewSet):
     """
-    ### Aparecen
+### Aparecen
 
-    #### Descripción: 
-    
-    Esta vista muestra la relación entre los personajes y las temporadas en las que aparecen en la serie `Power Rangers`. 
-    Es una relación N:N que vincula los personajes específicos con las temporadas en las que han participado. 
+#### Descripción: 
+
+Esta vista muestra la relación entre los personajes y las temporadas en las que aparecen en la serie `Power Rangers`. 
+Es una relación N:N que vincula los personajes específicos con las temporadas en las que han participado. 
+
+#### Datos:
+
+    | COLUMNA          | TIPO              | DESCRIPCION                                            |
+    |------------------|-------------------|--------------------------------------------------------|
+    | id_aparicion	   | integer           | ID unico de la aparicion del personaje en la temporada | 
+    | personaje	       | dict(personaje)   | Objeto personaje                                       |
+    | temporada	       | dict (temporada)  | Objeto temporada                                       |
+    | rol              | string            | El rol que ocupa el personaje en la temporada          |
+    | descripcion      | string            | Descripcion del rol del personaje en esta temporada    |
+
     """
     queryset = aparecen.objects.all()
     serializer_class = AparecenEnSerializer
@@ -301,12 +325,23 @@ class AparecenViewSet(viewsets.ModelViewSet):
 
 class PersonajesViewSet(viewsets.ModelViewSet):
     """
-    ### Aparecen
+### Personajes
 
-    #### Descripción: 
+#### Descripción: 
 
-    En esta vista, encontrarás información sobre los personajes icónicos de `Power Rangers`. Cada personaje representa 
-    un héroe, villano u otro individuo importante que forma parte de la historia de la serie. 
+En esta vista, encontrarás información sobre los personajes icónicos de `Power Rangers`. Cada personaje representa 
+un héroe, villano u otro individuo importante que forma parte de la historia de la serie. 
+
+#### Datos:
+
+    | COLUMNA           | TIPO              | DESCRIPCION                              |
+    |-------------------|-------------------|------------------------------------------|
+    | id_personaje	    | integer           | ID unico del personaje                   |
+    | nombre_personaje	| string            | Nombre real del personaje                |
+    | foto	            | string            | URL de la foto del personaje             | 
+    | actor	            | integer           | Id del actor que interpreta al personaje |
+    | updated           | string (datetime) | Fecha de actualizacion del registro      | 
+
     """
     queryset = personaje.objects.all()
     serializer_class = PersonajeSerializer

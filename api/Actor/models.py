@@ -7,6 +7,9 @@ from Temporadas.models import temporada
 
 
 class actor(models.Model):
+    """
+    Modelo para los actores que participaron en la serie 
+    """
     id_actor = AutoField(primary_key=True, help_text='ID unico del actor')
     nombre_actor = models.CharField(
         max_length=80, help_text='Nombre real del actor'
@@ -39,6 +42,9 @@ class actor(models.Model):
 
 
 class personaje(models.Model):
+    """
+    Modelo para los personajes que aparecen en la serie
+    """
     id_personaje = AutoField(
         primary_key=True, help_text='ID unico del personaje'
     )
@@ -49,7 +55,6 @@ class personaje(models.Model):
     foto = models.CharField(
         max_length=300, help_text='URL de la foto del personaje'
     )
-    # id_actor= models.ForeignKey(actor, on_delete=DO_NOTHING, db_column='id_actor')
     actor = models.ForeignKey(
         actor, on_delete=DO_NOTHING, db_column='id_actor',
         related_name='personajes', help_text='Id del actor que interpreta al personaje'
@@ -76,6 +81,11 @@ class personaje(models.Model):
 
 
 class aparecen(models.Model):
+    """
+    Modelo que representa la relacion de N:N entre `temporada` y `personaje`.
+    Es decir, en una temporada hay muchos personajes y un personaje 
+    puede aparecer en varias temporadas 
+    """
     id_aparicion = AutoField(
         primary_key=True, help_text='ID unico de la aparicion del personaje en la temporada'
     )

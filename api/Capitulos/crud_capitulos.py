@@ -14,7 +14,17 @@ class CrudCapitulos(CrudParent):
     # Funcion para retornar una lista con datos unicos
 
     def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
+        """
+            La funcion se encarga de controlar que los datos extraidos dentro de la lista `list_data` sean unicos, es decir, datos no repetidos dentro de
+            la lista, como asi que no esten ya cargados en la base de datos
 
+            ### Args:
+                - `dic (dict)`: Diccionario con los valores extraidos en cada fila de la hoja
+                - `list_data`: Lista de datos a cargarse en la base de datos
+
+            ### Returns:
+                `list`: Lista de datos unicos
+        """
         try:
             ncap = dic["numero_cap"]
             idtemp = dic["id_temporada"]
@@ -41,6 +51,9 @@ class CrudCapitulos(CrudParent):
     # Funcion para extraer los datos del archivo
 
     def get_data_file(self):
+        """
+            La funcion se encarga de extraer todos los datos de la hoja
+        """
         if self.DB.len_table_db_query(table=self.db_table_name_fk) > 0:
             # Abro el archivo
             openFile = xlrd.open_workbook(self.file)
@@ -72,14 +85,21 @@ class CrudCapitulos(CrudParent):
                 list_insert = self.uniq_data(dic, list_insert)
             # print(list_insert)
             # print(len(list_insert))
-            self.prepare_query_insert(capitulos=list_insert)
+            self.prepare_query_insert(list_data=list_insert)
         else:
             print(Fore.RED + "Tabla Forenea vacia")
 
     # Funcion para realizar un insert multiple
 
-    def prepare_query_insert(self, capitulos: list = []) -> None:
+    def prepare_query_insert(self, list_data: list = []) -> None:
+        """
+            La funcion que encarga de ordenar los registros para poder realizar la consulta en la base de datos
 
+            ### Args:
+                `list_data (list)`: Lista de los valores a insertar en la base de datos
+        """
+
+        # Ordeno los valores a insertar en la base de datos
         list_values = [
             "({0},'{1}','{2}','{3}','{4}',{5})".format(
                 cap["numero_cap"],
@@ -88,12 +108,13 @@ class CrudCapitulos(CrudParent):
                 datetime.now(),
                 datetime.now(),
                 cap["id_temporada"]
-            )for cap in sorted(capitulos, key=lambda x: (x["id_temporada"], x["numero_cap"]))
+            )for cap in sorted(list_data, key=lambda x: (x["id_temporada"], x["numero_cap"]))
         ]
 
         if len(list_values) > 0:
-            # Ordeno la lista
+            # Separo por ',' a cada elemento de la lista
             query = ",".join(list_values)
+            # Despues del ultimo elemento se agrega ';'
             query += ";"
 
             # print(query)

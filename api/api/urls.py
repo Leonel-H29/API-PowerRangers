@@ -42,8 +42,8 @@ schema_view = get_schema_view(
     openapi.Info(
         title="Power Rangers API",
         default_version='v1.0',
-        description="Test description",
-        terms_of_service="https://www.google.com/policies/terms/",
+        description="API REST Open Source con la temática de la serie de televisión 'Power Rangers' en Español (Latino)",
+        terms_of_service="https://github.com/Leonel-H29/API-PowerRangers",
         contact=openapi.Contact(email="contact@snippets.local"),
         license=openapi.License(name="BSD License"),
     ),
@@ -57,7 +57,7 @@ urlpatterns = [
     path(url, include(router.urls)),
     path(url + 'docs/', schema_view.with_ui('swagger',
          cache_timeout=0), name='schema-swagger-ui'),
-    path(url + 'documentation/', DocumentationViewSet.as_view(), name='documentation')
+    # path(url + 'documentation/', DocumentationViewSet.as_view(), name='documentation')
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

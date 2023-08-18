@@ -15,6 +15,17 @@ class CrudPersonajes(CrudParent):
     # Funcion para retornar una lista con datos unicos
 
     def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
+        """
+            La funcion se encarga de controlar que los datos extraidos dentro de la lista `list_data` sean unicos, es decir, datos no repetidos dentro de
+            la lista, como asi que no esten ya cargados en la base de datos
+
+            ### Args:
+                - `dic (dict)`: Diccionario con los valores extraidos en cada fila de la hoja
+                - `list_data`: Lista de datos a cargarse en la base de datos
+
+            ### Returns:
+                `list`: Lista de datos unicos
+        """
         try:
             pers = dic["nombre_personaje"]
             idactor = dic["id_actor"]
@@ -40,6 +51,9 @@ class CrudPersonajes(CrudParent):
     # Funcion para extraer los datos del archivo
 
     def get_data_file(self):
+        """
+            La funcion se encarga de extraer todos los datos de la hoja
+        """
         if self.DB.len_table_db_query(table=self.db_table_name_fk) > 0:
             # Abro el archivo
             openFile = xlrd.open_workbook(self.file)
@@ -76,15 +90,20 @@ class CrudPersonajes(CrudParent):
                         dic=dic, list_data=list_insert
                     )
             # print(list_insert)
-            self.prepare_query_insert(personajes=list_insert)
+            self.prepare_query_insert(list_data=list_insert)
         else:
             print(Fore.RED + "Tabla Forenea vacia")
 
     def put_personajes(personajes):
         pass
 
-    def prepare_query_insert(self, personajes: list = []) -> None:
+    def prepare_query_insert(self, list_data: list = []) -> None:
+        """
+            La funcion que encarga de ordenar los registros para poder realizar la consulta en la base de datos
 
+            ### Args:
+                `list_data (list)`: Lista de los valores a insertar en la base de datos
+        """
         list_values = [
             "('{0}','{1}','{2}','{3}',{4})".format(
                 cap["nombre_personaje"],
@@ -92,12 +111,13 @@ class CrudPersonajes(CrudParent):
                 datetime.now(),
                 datetime.now(),
                 cap["id_actor"]
-            )for cap in sorted(personajes, key=lambda x: (x["nombre_personaje"], x["id_actor"]))
+            )for cap in sorted(list_data, key=lambda x: (x["nombre_personaje"], x["id_actor"]))
         ]
 
         if len(list_values) > 0:
-            # Ordeno la lista
+            # Separo por ',' a cada elemento de la lista
             query = ",".join(list_values)
+            # Despues del ultimo elemento se agrega ';'
             query += ";"
 
             # print(list_values)

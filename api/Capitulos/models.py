@@ -7,6 +7,9 @@ from Temporadas.models import temporada
 
 
 class capitulo(models.Model):
+    """
+    Modelo para todos los capitulos que se emitieron en una temporada especifica
+    """
     id_capitulo = AutoField(
         primary_key=True, help_text='ID unico del capitulo'
     )

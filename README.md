@@ -49,6 +49,13 @@
   - [Comandos para realizar tareas con Django Rest Framework en Docker](#comandos-para-realizar-tareas-con-django-rest-framework-en-docker)
   - [Acceder a un contenedor por terminal](#acceder-a-un-contenedor-por-terminal)
 
+- [Datos para consumir](#datos-para-consumir)
+  - [Actores](#actores)
+  - [Temporadas](#temporadas)
+  - [Capitulos](#capitulos)
+  - [Personajes](#personajes)
+  - [Apariciones](#apariciones)
+
 `<!-- ======================================================================= -->`
 
 # INTRODUCCIÓN
@@ -440,3 +447,240 @@ docker exec -it [CONTAINER ID] | [NAME] bash
 Este comando ejecuta un nuevo proceso dentro del contenedor y te proporciona un shell interactivo para interactuar directamente con el entorno del contenedor. Dentro del shell, puedes ejecutar comandos y realizar tareas dentro del contenedor de manera similar a como lo harías en una terminal local.
 
 Una vez que hayas ejecutado el comando anterior, se te colocará dentro del contenedor y podrás trabajar con los archivos, ejecutar comandos u otras acciones necesarias dentro del contexto del contenedor.
+
+# Datos para consumir
+
+### Actores
+
+`/api/actores/`
+
+#### Descripción:
+
+Esta vista contiene información sobre los actores que han interpretado roles
+en las diferentes temporadas de `Power Rangers`. Los actores son quienes dan vida a los personajes
+icónicos de la serie.
+
+#### Datos:
+
+| COLUMNA          | TIPO              | DESCRIPCION                                                 |
+| ---------------- | ----------------- | ----------------------------------------------------------- |
+| id_actor         | integer           | ID unico del actor                                          |
+| nombre_actor     | string            | Nombre real del actor                                       |
+| nombre_artistico | string            | Nombre artistico del actor                                  |
+| foto             | string            | URL de la foto del actor                                    |
+| biografia        | string            | URL de la biografia del actor                               |
+| personajes       | list (personaje)  | Lista de los personajes que interpreta el actor en la serie |
+| updated          | string (datetime) | Fecha de actualizacion del registro                         |
+
+#### Ejemplo
+
+```json
+{
+  "id_actor": 182,
+  "nombre_actor": "Alex Dodd ",
+  "nombre_artistico": "Alex Dodd ",
+  "foto": "https://cdn-icons-png.flaticon.com/512/5987/5987462.png",
+  "biografia": "https://es.wikipedia.org/w/index.php?title=Alex_Dodd",
+  "personajes": [
+    {
+      "id_personaje": 265,
+      "nombre_personaje": "Phantom Ranger",
+      "foto": "https://static.wikia.nocookie.net/powerrangersserie/images/6/6e/Prt-phantom.png",
+      "actor": 182,
+      "updated": "2023-08-18T13:25:43.685094Z"
+    }
+  ],
+  "updated": "2023-08-18T13:25:40.150838Z"
+}
+```
+
+### Temporadas
+
+`/api/temporadas/`
+
+#### Descripción:
+
+Esta vista proporciona información sobre todas las temporadas de `Power Rangers` disponibles.
+Cada temporada representa un conjunto de episodios que conforman una historia específica dentro de la
+franquicia `Power Rangers`.
+
+#### Datos:
+
+| COLUMNA          | TIPO              | DESCRIPCION                                      |
+| ---------------- | ----------------- | ------------------------------------------------ |
+| id_temporada     | integer           | ID unico de la temporada                         |
+| numero_temporada | integer           | Numero de temporada                              |
+| nombre           | string            | Titulo asignado a la temporada                   |
+| descripcion      | string            | Descripcion de lo que sucede en la temporada     |
+| anio_estreno     | integer           | Año de estreno de la temporada                   |
+| foto             | string            | URL relacionada a la temporada                   |
+| cancion          | string            | Cancion oficial de la temporada                  |
+| basada_en        | string            | Serie, Libro, etc en la que se basa la temporada |
+| tematica         | string            | Tematica que abarca la temporada                 |
+| capitulos        | list (capitulo)   | Lista de los capitulos emitidos en la temporada  |
+| updated          | string (datetime) | Fecha de actualizacion del registro              |
+
+#### Ejemplo
+
+```json
+{
+  "id_temporada": 61,
+  "numero_temporada": 1,
+  "nombre": "Mighty Morphin Power Rangers (Temporada 1)",
+  "descripcion": "Dos astronautas liberan por accidente a una bruja alienígena llamada Rita Repulsa de su prision espacial, en la cual llevaba atrapada 10.000 años. Inmediatamente, Rita y sus secuaces establecen un castillo en la luna e inician un ataque contra la Tierra, con la intención de conquistarla. Zordon, un poderoso hechicero atrapado por Rita en un agujero en el tiempo y su asistente robótico Alpha 5, reclutan a \"un equipo de adolescentes con actitud\" para que se conviertan en los Power Rangers y defiendan la Tierra. Estos primeros Power Rangers, a los que más tarde se incorporará un sexto miembro, son unos amigos compañeros de clase en el instituto de la ciudad de Angel Grove, con sus nuevos poderes y la ayuda de los Dinozords, se enfrentarán a Rita, sus patrulleros de masilla y sus hordas de monstruos, tarea que deberán seguir compaginando con su vida cotidiana de estudiantes adolescentes sin que nadie descubra el secreto.",
+  "anio_estreno": 1993,
+  "foto": "https://images.justwatch.com/poster/8619651/s592/temporada-1.webp",
+  "cancion": "\"Go Go Power Rangers\" por Ron Wasserman",
+  "basada_en": "Kyōryū Sentai Zyuranger",
+  "tematica": "Dinosaurios",
+  "capitulos": [
+    {
+      "id_capitulo": 1939,
+      "numero_cap": 1,
+      "titulo": "El Inicio",
+      "descripcion": "",
+      "temporada": 61,
+      "updated": "2023-08-18T13:25:42.512795Z"
+    },
+    {
+      "id_capitulo": 1940,
+      "numero_cap": 2,
+      "titulo": "Para Superar el miedo",
+      "descripcion": "",
+      "temporada": 61,
+      "updated": "2023-08-18T13:25:42.512808Z"
+    }
+  ],
+  "updated": "2023-08-18T13:25:41.216042Z"
+}
+```
+
+### Capitulos
+
+`/api/capitulos/`
+
+#### Descripción:
+
+Esta vista contiene información sobre los episodios individuales que componen cada temporada de `Power Rangers`.
+Cada episodio, también conocido como capítulo, presenta una parte de la trama y la historia general de la temporada.
+
+#### Datos:
+
+| COLUMNA     | TIPO              | DESCRIPCION                                       |
+| ----------- | ----------------- | ------------------------------------------------- |
+| id_capitulo | integer           | ID unico del capitulo                             |
+| numero_cap  | integer           | Numero del capitulo                               |
+| titulo      | string            | Titulo del capitulo                               |
+| descripcion | string            | Descripcion de lo que sucede en el capitulo       |
+| temporada   | integer           | ID de la temporada a la que pertenece el capitulo |
+| updated     | string (datetime) | Fecha de actualizacion del registro               |
+
+#### Ejemplo
+
+```json
+{
+  "id_capitulo": 1939,
+  "numero_cap": 1,
+  "titulo": "El Inicio",
+  "descripcion": "",
+  "temporada": 61,
+  "updated": "2023-08-18T13:25:42.512795Z"
+}
+```
+
+### Personajes
+
+`/api/personajes/`
+
+#### Descripción:
+
+En esta vista, encontrarás información sobre los personajes icónicos de `Power Rangers`. Cada personaje representa
+un héroe, villano u otro individuo importante que forma parte de la historia de la serie.
+
+#### Datos:
+
+| COLUMNA          | TIPO              | DESCRIPCION                              |
+| ---------------- | ----------------- | ---------------------------------------- |
+| id_personaje     | integer           | ID unico del personaje                   |
+| nombre_personaje | string            | Nombre real del personaje                |
+| foto             | string            | URL de la foto del personaje             |
+| actor            | integer           | Id del actor que interpreta al personaje |
+| updated          | string (datetime) | Fecha de actualizacion del registro      |
+
+#### Ejemplo
+
+```json
+{
+  "id_personaje": 204,
+  "nombre_personaje": "Adam Park",
+  "foto": "https://static.wikia.nocookie.net/power-rangers-fanon-wiki-2/images/3/37/Green_Turbo_Ranger.png",
+  "actor": 220,
+  "updated": "2023-08-18T13:25:43.684831Z"
+}
+```
+
+### Apariciones
+
+`/api/aparecen/`
+
+#### Descripción:
+
+Esta vista muestra la relación entre los personajes y las temporadas en las que aparecen en la serie `Power Rangers`.
+Es una relación N:N que vincula los personajes específicos con las temporadas en las que han participado.
+
+#### Datos:
+
+| COLUMNA      | TIPO             | DESCRIPCION                                            |
+| ------------ | ---------------- | ------------------------------------------------------ |
+| id_aparicion | integer          | ID unico de la aparicion del personaje en la temporada |
+| personaje    | dict(personaje)  | Objeto personaje                                       |
+| temporada    | dict (temporada) | Objeto temporada                                       |
+| rol          | string           | El rol que ocupa el personaje en la temporada          |
+| descripcion  | string           | Descripcion del rol del personaje en esta temporada    |
+
+#### Ejemplo
+
+```json
+{
+  "id_aparicion": 272,
+  "personaje": {
+    "id_personaje": 286,
+    "nombre_personaje": "Alpha 6",
+    "foto": "https://static.wikia.nocookie.net/powerrangers/images/e/e2/Alpha6.jpg",
+    "actor": 193,
+    "updated": "2023-08-18T14:13:55.375723Z"
+  },
+  "temporada": {
+    "id_temporada": 65,
+    "numero_temporada": 5,
+    "nombre": "Power Rangers Turbo",
+    "descripcion": "La serie comienza en el mismo punto donde concluye Turbo: A Power Rangers Movie. Rocky sigue resintiéndose de su lesión en la espalda, y decide abandonar para siempre el equipo y dejarle su puesto a Justin. Mientras que los chicos se enfrentan a su graduación y abandonan el instituto de Angel Grove, Divatox, clamando venganza contra los Rangers por estropear sus planes con Maligore, se dirige a la Tierra dispuesta a acabar con ellos y conquistar la Tierra de paso. Poco después de la graduación, Zordon anuncia que Lerigot ha regresado para darle por fin la libertad de su prisión en el agujero temporal, y junto con Alpha 5 se marcha a su planeta natal de Eldar. No tienen tiempo de lamentarse de la despedida cuando un nuevo robot, Alpha 6 y una nueva mentora, Dimitria, llegan para ayudarles a enfrentarse a Divatox y sus ataques de monstruos. Los Rangers veteranos, sin embargo, ya no son unos adolescentes, y deben con el tiempo dejar sus poderes de Power Rangers para seguir adelante con sus vidas, escogiendo ellos mismos a quienes serán sus sucesores, una nueva generación de Power Rangers, también estudiantes de Angel Grove, que proseguirá la lucha contra Divatox.",
+    "anio_estreno": 1997,
+    "foto": "https://images.justwatch.com/poster/250908819/s592/temporada-5.webp",
+    "cancion": "\"Turbo: A Power Rangers Movie\" por Power Rangers",
+    "basada_en": "Gekisou Sentai Carranger",
+    "tematica": "Automóviles de carreras y tecnología",
+    "capitulos": [
+      {
+        "id_capitulo": 2144,
+        "numero_cap": 1,
+        "titulo": "Cambio a Turbo Parte 1",
+        "descripcion": "",
+        "temporada": 65,
+        "updated": "2023-08-18T13:25:42.513648Z"
+      },
+      {
+        "id_capitulo": 2145,
+        "numero_cap": 2,
+        "titulo": "Cambio a Turbo Parte 2",
+        "descripcion": "",
+        "temporada": 65,
+        "updated": "2023-08-18T13:25:42.513652Z"
+      }
+    ],
+    "updated": "2023-08-18T13:25:41.216069Z"
+  },
+  "rol": "Aliado",
+  "descripcion": "Es \"el siguiente en una larga línea de Alphas\", como él mismo se define al aparecer de una cabina de la Power Cámara tras la marcha de Zordon y Alpha 5. Posee un carácter muy diferente al de este último, y una voz completamente distinta también, más grave y enérgica, aunque de apariencia es similar a Alpha 5."
+}
+```

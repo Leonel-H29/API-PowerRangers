@@ -175,18 +175,20 @@ class DBSettings():
             - `table (str)`: Nombre de una tabla de la DB
             - `params (dict)`: Los parametros para realizar la consulta en base a la tabla
 
+                ```
                 Ejs:
 
-                table = actor -> params = { 'nombre_artistico': 'Juan Perez' }
+                get_id_db(table = 'actor', params = { 'nombre_artistico': 'Juan Perez' })
 
-                table = temporada -> params = { 'numero_temporada': 10 }
+                get_id_db(table = 'temporada', params = { 'numero_temporada': 10 })
 
-                table = personaje -> params = { 'nombre_personaje': 'Alpha', 'id_actor': 1 }
+                get_id_db(table = 'personaje', params = { 'nombre_personaje': 'Alpha', 'id_actor': 1 })
 
-                table = capitulos -> params = { 'numero_cap': 10 }
+                get_id_db(table = 'capitulos', params = { 'numero_cap': 10 })
 
-                table = aparecen -> params = { 'id_personaje': 1 , 'id_temporada': 2 }
+                get_id_db(table = 'aparecen', params = { 'id_personaje': 1 , 'id_temporada': 2 })
 
+                ```
 
         ### Returns:
             `int`: El ID de la tabla enviada por parametro
