@@ -1,5 +1,7 @@
 # Documentación de la API REST Power Rangers
 
+<div class="technologies">
+
 [![Docker](https://img.shields.io/badge/Docker-24.0.2-2496ED?style=for-the-badge&logo=Docker)](https://docs.docker.com/get-started/overview/)
 [![NGINX](https://img.shields.io/badge/nginx-1.21-009639?style=for-the-badge&logo=NGINX)](https://docs.nginx.com/)
 [![Python](https://img.shields.io/badge/Python-3.10.4-3776AB?style=for-the-badge&logo=Python)](https://www.python.org/)
@@ -8,7 +10,13 @@
 [![Gunicorn](https://img.shields.io/badge/gunicorn-20.1.0-499848?style=for-the-badge&logo=Gunicorn)](https://gunicorn.org/)
 [![PostgreSQL](https://img.shields.io/badge/Postgres-12.15-4169E1?style=for-the-badge&logo=Postgresql)](https://www.postgresql.org/)
 
+</div>
+
+<div>
+
 ## Índice
+
+<nav class="menu-docs">
 
 - [INTRODUCCIÓN](#introducción)
 
@@ -56,17 +64,31 @@
   - [Personajes](#personajes)
   - [Apariciones](#apariciones)
 
+</nav>
+
+</div>
+
 `<!-- ======================================================================= -->`
+
+<div class="introduccion">
 
 # INTRODUCCIÓN
 
 Este documento proporciona la informacion necesaria para explicar en que consiste el proyecto, su arquitectura y ademas proporciona instrucciones detalladas para clonar el proyecto, levantarlo localmente con Docker o con las herramientas necesarias, acceder al navegador y realizar consultas a la API REST.
+
+</div>
+
+<div class="que-es">
 
 # ¿Qué es API REST POWER RANGERS?
 
 El proyecto de la API REST de Power Rangers es una herramienta Open Source creada en Django Rest Framework que contiene una gran cantidad de información relacionada con la popular serie de televisión. El objetivo principal de este proyecto es permitir que cualquier persona interesada pueda consumir esta información y utilizarla para desarrollar su propio proyecto relacionado con Power Rangers.
 
 Esta API REST de Power Rangers está diseñada para ser fácilmente consumible por cualquier persona que tenga un conocimiento básico de programación, lo que la hace ideal para programadores principiantes o desarrolladores experimentados por igual. Además, la API está diseñada para ser altamente escalable, lo que significa que puede ser utilizada en proyectos de cualquier tamaño, desde pequeñas aplicaciones hasta grandes proyectos.
+
+</div>
+
+<div class="arquitectura">
 
 # Arquitectura de Software
 
@@ -118,6 +140,10 @@ Los contenedores de Docker se pueden crear utilizando archivos de configuración
 
 Esta arquitectura de software de tipo cliente-servidor basada en contenedores Docker proporciona una forma eficiente y escalable de implementar y ejecutar la aplicación web, permitiendo la fácil replicación y distribución de los componentes en diferentes entornos de desarrollo y producción.
 
+</div>
+
+<div class="clonacion">
+
 ## Clonación del proyecto
 
 Clonar un repositorio es una forma común de obtener una copia local de un proyecto alojado en un sistema de control de versiones, como Git. A continuación, se explican las diferentes formas de clonar un repositorio en función de las opciones disponibles:
@@ -159,6 +185,10 @@ git clone https://github.com/Leonel-H29/API-PowerRangers.git directorio-destino
 ```
 
 Estas son algunas de las formas más comunes de clonar un repositorio, dependiendo del servicio de alojamiento y las preferencias de autenticación. Elige el método que mejor se adapte a tu caso y comienza a trabajar con el repositorio en tu entorno local.
+
+</div>
+
+<div class="levantar-proyecto">
 
 # Levantar el proyecto localmente con Docker
 
@@ -269,6 +299,10 @@ Ahora has configurado correctamente pgAdmin 4 para conectarse a la base de datos
 >
 > - Todas las variables mencionadas deben estar definidas dentro del archivo de entorno correspondiente.
 > - Estos pasos tambien son validos en el caso de que tengas instalado PgAdmin 4 instalado localmente en tu computadora sin necesidad de Docker.
+
+</div>
+
+<div>
 
 # Swagger
 
@@ -447,6 +481,10 @@ docker exec -it [CONTAINER ID] | [NAME] bash
 Este comando ejecuta un nuevo proceso dentro del contenedor y te proporciona un shell interactivo para interactuar directamente con el entorno del contenedor. Dentro del shell, puedes ejecutar comandos y realizar tareas dentro del contenedor de manera similar a como lo harías en una terminal local.
 
 Una vez que hayas ejecutado el comando anterior, se te colocará dentro del contenedor y podrás trabajar con los archivos, ejecutar comandos u otras acciones necesarias dentro del contexto del contenedor.
+
+</div>
+
+<div class='data'>
 
 # Datos para consumir
 
@@ -684,3 +722,5 @@ Es una relación N:N que vincula los personajes específicos con las temporadas 
   "descripcion": "Es \"el siguiente en una larga línea de Alphas\", como él mismo se define al aparecer de una cabina de la Power Cámara tras la marcha de Zordon y Alpha 5. Posee un carácter muy diferente al de este último, y una voz completamente distinta también, más grave y enérgica, aunque de apariencia es similar a Alpha 5."
 }
 ```
+
+</div>
