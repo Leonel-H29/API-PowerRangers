@@ -1,14 +1,49 @@
 <html>
   <head>
-    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <title>ERROR 404 | API POWER RANGERS</title>
+    <style>
+      html {
+        background-image: url('/img/background.jpg');
+        background-size: cover;
+        background-position: 50% 50%;
+      }
+
+      body > div.overlay {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(20, 20, 20, 0.5);
+      }
+
+      body > div.overlay > .error-middle {
+        position: relative;
+      }
+
+      body {
+        color: #fefefe;
+      }
+    </style>
   </head>
   <body>
-    <center><h1>Not Found</h1></center>
-    <hr />
-    <center>nginx/1.21.6</center>
-
-    <ul>
-      <li><a title="API REST DRF" href="/api/">Back</a></li>
-    </ul>
+    <div class="overlay">
+      <div class="error-middle">
+        <h1>ERROR 404 | Not Found</h1>
+        <p>Vuelva al inicio</p>
+        <div class="navbar">
+          <a title="Home" href="/">Home</a>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>nginx/1.21.6</p>
+    </footer>
   </body>
 </html>
