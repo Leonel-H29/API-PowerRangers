@@ -114,20 +114,21 @@ class DBSettings():
 
     # Funcion para obtener el registro
 
-    def get_tuple_query(self, query: str = None) -> list:
+    def get_tuple_query(self, query: str = None, params:tuple=()) -> list:
         """
         La función realiza una consulta a la base de datos y
         retorna un registro especifico
 
         ### Args:
-            `query (str)`: Consulta SQL para obtener el registro
+            - `query (str)` : Consulta SQL para obtener el registro
+            - `params (tuple)` : Tupla para los valores de la consulta
 
         ### Returns:
             `list`: Las tuplas que cumplan con las condiciones de la consulta
         """
         cursor = self.conn.cursor()
         try:
-            cursor.execute(query)
+            cursor.execute(query,params)
             resultado = cursor.fetchall()
             return resultado
         except psycopg2.Error as e:
