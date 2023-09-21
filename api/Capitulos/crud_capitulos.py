@@ -98,26 +98,19 @@ class CrudCapitulos(CrudParent):
             ### Args:
                 `list_data (list)`: Lista de los valores a insertar en la base de datos
         """
-
-        # Ordeno los valores a insertar en la base de datos
-        list_values = [
-            "({0},'{1}','{2}','{3}','{4}',{5})".format(
-                cap["numero_cap"],
-                cap["titulo"],
-                cap["descripcion"],
-                datetime.now(),
-                datetime.now(),
-                cap["id_temporada"]
-            )for cap in sorted(list_data, key=lambda x: (x["id_temporada"], x["numero_cap"]))
-        ]
-
-        if len(list_values) > 0:
-            # Separo por ',' a cada elemento de la lista
-            query = ",".join(list_values)
-            # Despues del ultimo elemento se agrega ';'
-            query += ";"
-
-            # print(query)
-            self.DB.post_on_table(table=self.db_table_name, values=query)
+        # Controlo si hay datos para insertar
+        if len(list_data) > 0:
+            # Ordeno los valores a insertar en la base de datos
+            list_values = [
+                (
+                    cap["numero_cap"],
+                    cap["titulo"],
+                    cap["descripcion"],
+                    datetime.now(),
+                    datetime.now(),
+                    cap["id_temporada"]
+                )for cap in sorted(list_data, key=lambda x: (x["id_temporada"], x["numero_cap"]))
+            ]
+            self.DB.post_on_table(table=self.db_table_name, values=list_values)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")

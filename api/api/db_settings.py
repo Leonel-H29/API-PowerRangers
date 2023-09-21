@@ -53,14 +53,15 @@ class DBSettings():
 
         """
         cursor = self.conn.cursor()
-        query = "SELECT COUNT(*) FROM %s;"
+        query = "SELECT COUNT(*) FROM %s;" % (table)
         try:
-            cursor.execute(query, table)
+            cursor.execute(query)
             # Extraigo el resultado de la tupla dentro de una lista
             resultado = cursor.fetchall()[0][0]
             return resultado
         except psycopg2.Error as e:
-            print(Fore.RED + 'Error al realizar la consulta')
+            # print(Fore.RED + 'Error al realizar la consulta')
+            print(Fore.RED + f'Error al realizar la consulta: {e}')
             return 0
         finally:
             cursor.close()
@@ -210,36 +211,21 @@ class DBSettings():
         idpers = params.get('id_personaje', 0)
         idactor = params.get('id_actor', 0)
 
-        query = {
-            "actor": "SELECT id_actor FROM {0} WHERE nombre_artistico='{1}';".format(table, actor),
-            "temporadas": "SELECT id_temporada FROM {0} WHERE numero_temporada={1};".format(table, temporada),
-            "personajes": "SELECT id_personaje FROM {0} WHERE nombre_personaje='{1}' AND id_actor={2};".format(table, personaje, idactor),
-            "capitulos": "SELECT id_capitulo FROM {0} WHERE numero_cap={1} AND id_temporada={2}".format(table, capitulo, idtemp),
-            "aparecen": "SELECT id_aparicion FROM {0} WHERE id_personaje={1} AND id_temporada={2}".format(table, idpers, idtemp)
+        queries = {
+            "actor": ["SELECT id_actor FROM {0} WHERE nombre_artistico=%s;".format(table), (actor,)],
+            "temporadas": ["SELECT id_temporada FROM {0} WHERE numero_temporada=%s;".format(table), (temporada,)],
+            "personajes": ["SELECT id_personaje FROM {0} WHERE nombre_personaje=%s AND id_actor=%s;".format(table), (personaje, idactor,)],
+            "capitulos": ["SELECT id_capitulo FROM {0} WHERE numero_cap=%s AND id_temporada=%s;".format(table), (capitulo, idtemp,)],
+            "aparecen": ["SELECT id_aparicion FROM {0} WHERE id_personaje=%s AND id_temporada=%s".format(table), (idpers, idtemp,)]
         }
-        return self.get_id_query(query=query.get(table, "actor"))
+
+        # Obtener la consulta correspondiente
+        query = queries.get(table, "actor")
+
+        # Ejecutar la consulta con la lista de valores
+        return self.get_id_query(query=query[0], params=query[1])
 
     # Funcion para hacer un insert en la DB segun la tabla
-    # def post_on_table(self, table: str, values: list) -> None:
-        """
-        La función se encarga de verificar en base a la tabla enviada por el parametro `table` cual es la consulta
-        adecuada para realizar la insercion de los datos en dicha tabla, tambien se debe tener en cosideracion 
-        los valores de `values` que indican los valores que se insertan.
-
-        En caso de que la tabla no exista, se realiza por defecto la consulta a la tabla `actor`
-
-        ### Args:
-            - `table (str)`: Nombre de una tabla de la DB
-            - `values (str)`: Los valores que se insertaran en la base a la tabla
-        """
-    #    query = {
-    #        "actor": "INSERT INTO {0} (nombre_actor,nombre_artistico,foto,biografia,created,updated) VALUES {1}".format(table, values),
-    #        "temporadas": "INSERT INTO {0} (numero_temporada, nombre, descripcion, foto, cancion, basada_en, anio_estreno, tematica, created, updated) VALUES {1};".format(table, values),
-    #        "personajes": "INSERT INTO {0} (nombre_personaje, foto, created, updated, id_actor) VALUES {1}".format(table, values),
-    #        "capitulos": "INSERT INTO {0} (numero_cap, titulo, descripcion, created, updated, id_temporada) VALUES {1}".format(table, values),
-    #        "aparecen": "INSERT INTO {0} (rol, descripcion, id_personaje, id_temporada) VALUES {1}".format(table, values),
-    #    }
-    #    self.insert_table_query(query=query.get(table, "actor"))
 
     def post_on_table(self, table: str, values: list) -> None:
         """
@@ -280,7 +266,7 @@ class DBSettings():
 
         try:
             for app in self.table_apps:
-                query = "DELETE FROM %s;"
+                query = "DELETE FROM %s;" % (app)
                 # print(query)
                 cursor.execute(query, app)
                 resultado = self.len_table_db_query(app)

@@ -96,31 +96,23 @@ class CrudTemporadas(CrudParent):
             ### Args:
                 `list_data (list)`: Lista de los valores a insertar en la base de datos
         """
-
-        # Ordeno los valores a insertar en la base de datos
-        list_values = [
-            "({0},'{1}','{2}','{3}','{4}','{5}',{6},'{7}','{8}','{9}')".format(
-                temp["numero_temporada"],
-                temp["nombre"],
-                temp["descripcion"],
-                temp["foto"],
-                temp["cancion"],
-                temp["basada_en"],
-                temp["anio_estreno"],
-                temp["tematica"],
-                datetime.now(),
-                datetime.now()
-            )for temp in sorted(list_data, key=lambda x: (x["anio_estreno"]))
-        ]
-
-        if len(list_values) > 0:
-            # Separo por ',' a cada elemento de la lista
-            query = ",".join(list_values)
-            # Despues del ultimo elemento se agrega ';'
-            query += ";"
-
-            # print(list_values)
-            # print(query)
-            self.DB.post_on_table(table=self.db_table_name, values=query)
+        # Controlo si hay datos para insertar
+        if len(list_data) > 0:
+            # Ordeno los valores a insertar en la base de datos
+            list_values = [
+                (
+                    temp["numero_temporada"],
+                    temp["nombre"],
+                    temp["descripcion"],
+                    temp["foto"],
+                    temp["cancion"],
+                    temp["basada_en"],
+                    temp["anio_estreno"],
+                    temp["tematica"],
+                    datetime.now(),
+                    datetime.now()
+                )for temp in sorted(list_data, key=lambda x: (x["anio_estreno"]))
+            ]
+            self.DB.post_on_table(table=self.db_table_name, values=list_values)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")
