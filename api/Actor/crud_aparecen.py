@@ -111,23 +111,17 @@ class CrudAparecen(CrudParent):
             ### Args:
                 `list_data (list)`: Lista de los valores a insertar en la base de datos
         """
-        list_values = [
-            "('{0}','{1}',{2},{3})".format(
-                apar["rol"],
-                apar["descripcion"],
-                apar["id_personaje"],
-                apar["id_temporada"]
+        # Controlo si hay datos para insertar
+        if len(list_data) > 0:
+            list_values = [
+                (
+                    apar["rol"],
+                    apar["descripcion"],
+                    apar["id_personaje"],
+                    apar["id_temporada"]
 
-            )for apar in sorted(list_data, key=lambda x: (x["id_temporada"], x["id_personaje"]))
-        ]
-
-        if len(list_values) > 0:
-            # Separo por ',' a cada elemento de la lista
-            query = ",".join(list_values)
-            # Despues del ultimo elemento se agrega ';'
-            query += ";"
-
-            # print(query)
-            self.DB.post_on_table(table=self.db_table_name, values=query)
+                )for apar in sorted(list_data, key=lambda x: (x["id_temporada"], x["id_personaje"]))
+            ]
+            self.DB.post_on_table(table=self.db_table_name, values=list_values)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")
