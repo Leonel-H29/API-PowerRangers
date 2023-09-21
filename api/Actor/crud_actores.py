@@ -87,26 +87,19 @@ class CrudActores(CrudParent):
             ### Args:
                 `list_data (list)`: Lista de los valores a insertar en la base de datos
         """
-
-        # Ordeno los valores a insertar en la base de datos
-        list_values = [
-            "('{0}','{1}','{2}','{3}','{4}','{5}')".format(
-                actor["nombre_actor"],
-                actor["nombre_artistico"],
-                actor["foto"],
-                actor["biografia"],
-                datetime.now(),
-                datetime.now()
-            )for actor in sorted(list_data, key=lambda x: (x["nombre_actor"]))
-        ]
-
-        if len(list_values) > 0:
-            # Separo por ',' a cada elemento de la lista
-            query = ",".join(list_values)
-            # Despues del ultimo elemento se agrega ';'
-            query += ";"
-
-            # print(list_values)
-            self.DB.post_on_table(table=self.db_table_name, values=query)
+        # Controlo si hay datos para insertar
+        if len(list_data) > 0:
+            # Ordeno los valores a insertar en la base de datos
+            list_values = [
+                (
+                    actor["nombre_actor"],
+                    actor["nombre_artistico"],
+                    actor["foto"],
+                    actor["biografia"],
+                    datetime.now(),
+                    datetime.now()
+                )for actor in sorted(list_data, key=lambda x: (x["nombre_actor"]))
+            ]
+            self.DB.post_on_table(table=self.db_table_name, values=list_values)
         else:
             print(Fore.YELLOW + "Lista vacia para insertar datos")

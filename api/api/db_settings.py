@@ -53,9 +53,9 @@ class DBSettings():
 
         """
         cursor = self.conn.cursor()
-        query = "SELECT COUNT(*) FROM {0};".format(table)
+        query = "SELECT COUNT(*) FROM %s;"
         try:
-            cursor.execute(query)
+            cursor.execute(query, table)
             # Extraigo el resultado de la tupla dentro de una lista
             resultado = cursor.fetchall()[0][0]
             return resultado
@@ -72,16 +72,18 @@ class DBSettings():
 
     # Insert en una tabla de la base de datos
 
-    def insert_table_query(self, query: str = None) -> None:
+    def insert_table_query(self, query: str = None, params: list = []) -> None:
         """
         La función se encarga de insertar un registro en la base de datos mediante una consulta
 
         ### Args:
-            `query (str)`: Consulta SQL para realizar la insercion de los datos
+            - `query (str)`: Consulta SQL para realizar la insercion de los datos
+            - `params (list)` : Lista de tupla para los valores de la consulta
         """
         cursor = self.conn.cursor()
         try:
-            cursor.execute(query)
+            # cursor.execute(query, params)
+            cursor.executemany(query, params)
             print(Fore.GREEN + "Datos insertados")
         except psycopg2.Error as e:
             print(Fore.RED + f'Error al insertar los datos - {e}')
@@ -90,20 +92,21 @@ class DBSettings():
 
     # Exists de una tupla en la base de datos
 
-    def exists_tuple_query(self, query: str = None) -> bool:
+    def exists_tuple_query(self, query: str = None, params: tuple = ()) -> bool:
         """
         La función realiza una consulta a la base de datos y
         retorna un valor de verdad que determina la existencia o no de una tupla en la base de datos
 
         ### Args:
-            `query (str)`: Consulta SQL para obtener el registro
+            - `query (str)`: Consulta SQL para obtener el registro
+            - `params (tuple)` : Tupla para los valores de la consulta
 
         ### Returns:
             `bool`: True | False
         """
         cursor = self.conn.cursor()
         try:
-            cursor.execute(query)
+            cursor.execute(query, params)
             resultado = cursor.fetchall()
             return len(resultado) > 0
         except psycopg2.Error as e:
@@ -114,7 +117,7 @@ class DBSettings():
 
     # Funcion para obtener el registro
 
-    def get_tuple_query(self, query: str = None, params:tuple=()) -> list:
+    def get_tuple_query(self, query: str = None, params: tuple = ()) -> list:
         """
         La función realiza una consulta a la base de datos y
         retorna un registro especifico
@@ -128,7 +131,7 @@ class DBSettings():
         """
         cursor = self.conn.cursor()
         try:
-            cursor.execute(query,params)
+            cursor.execute(query, params)
             resultado = cursor.fetchall()
             return resultado
         except psycopg2.Error as e:
@@ -139,21 +142,23 @@ class DBSettings():
 
     # Funcion para obtener el ID del registro
 
-    def get_id_query(self, query: str = None) -> int:
+    def get_id_query(self, query: str = None, params: tuple = ()) -> int:
         """
         La función realiza una consulta a la base de datos y
         retorna el ID de un registro especifico
 
         ### Args:
-            `query (str)`: Consulta SQL para obtener el ID del registro
+            - `query (str)`: Consulta SQL para obtener el ID del registro
+            - `params (tuple)` : Tupla para los valores de la consulta
+
 
         ### Returns:
             `int`: ID del registro
         """
         cursor = self.conn.cursor()
         try:
-            if self.exists_tuple_query(query=query):
-                cursor.execute(query)
+            if self.exists_tuple_query(query=query, params=params):
+                cursor.execute(query, params)
                 resultado = cursor.fetchall()
                 return int(resultado[0][0])
             return 0
@@ -215,7 +220,7 @@ class DBSettings():
         return self.get_id_query(query=query.get(table, "actor"))
 
     # Funcion para hacer un insert en la DB segun la tabla
-    def post_on_table(self, table: str, values: str) -> None:
+    # def post_on_table(self, table: str, values: list) -> None:
         """
         La función se encarga de verificar en base a la tabla enviada por el parametro `table` cual es la consulta
         adecuada para realizar la insercion de los datos en dicha tabla, tambien se debe tener en cosideracion 
@@ -227,16 +232,43 @@ class DBSettings():
             - `table (str)`: Nombre de una tabla de la DB
             - `values (str)`: Los valores que se insertaran en la base a la tabla
         """
-        query = {
-            "actor": "INSERT INTO {0} (nombre_actor,nombre_artistico,foto,biografia,created,updated) VALUES {1}".format(table, values),
-            "temporadas": "INSERT INTO {0} (numero_temporada, nombre, descripcion, foto, cancion, basada_en, anio_estreno, tematica, created, updated) VALUES {1};".format(table, values),
-            "personajes": "INSERT INTO {0} (nombre_personaje, foto, created, updated, id_actor) VALUES {1}".format(table, values),
-            "capitulos": "INSERT INTO {0} (numero_cap, titulo, descripcion, created, updated, id_temporada) VALUES {1}".format(table, values),
-            "aparecen": "INSERT INTO {0} (rol, descripcion, id_personaje, id_temporada) VALUES {1}".format(table, values),
+    #    query = {
+    #        "actor": "INSERT INTO {0} (nombre_actor,nombre_artistico,foto,biografia,created,updated) VALUES {1}".format(table, values),
+    #        "temporadas": "INSERT INTO {0} (numero_temporada, nombre, descripcion, foto, cancion, basada_en, anio_estreno, tematica, created, updated) VALUES {1};".format(table, values),
+    #        "personajes": "INSERT INTO {0} (nombre_personaje, foto, created, updated, id_actor) VALUES {1}".format(table, values),
+    #        "capitulos": "INSERT INTO {0} (numero_cap, titulo, descripcion, created, updated, id_temporada) VALUES {1}".format(table, values),
+    #        "aparecen": "INSERT INTO {0} (rol, descripcion, id_personaje, id_temporada) VALUES {1}".format(table, values),
+    #    }
+    #    self.insert_table_query(query=query.get(table, "actor"))
+
+    def post_on_table(self, table: str, values: list) -> None:
+        """
+        La función se encarga de verificar en base a la tabla enviada por el parametro `table` cual es la consulta
+        adecuada para realizar la insercion de los datos en dicha tabla, tambien se debe tener en cosideracion 
+        los valores de `values` que indican los valores que se insertan.
+
+        En caso de que la tabla no exista, se realiza por defecto la consulta a la tabla `actor`
+
+        ### Args:
+        - `table (str)`: Nombre de una tabla de la DB
+        - `values (list)`: Lista de tuplas con los valores que se insertarán en la base de datos
+        """
+        queries = {
+            "actor": "INSERT INTO {0} (nombre_actor, nombre_artistico, foto, biografia, created, updated) VALUES (%s,%s,%s,%s,%s,%s)".format(table),
+            "temporadas": "INSERT INTO {0} (numero_temporada, nombre, descripcion, foto, cancion, basada_en, anio_estreno, tematica, created, updated) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)".format(table),
+            "personajes": "INSERT INTO {0} (nombre_personaje, foto, created, updated, id_actor) VALUES (%s,%s,%s,%s,%s)".format(table),
+            "capitulos": "INSERT INTO {0} (numero_cap, titulo, descripcion, created, updated, id_temporada) VALUES (%s,%s,%s,%s,%s,%s)".format(table),
+            "aparecen": "INSERT INTO {0} (rol, descripcion, id_personaje, id_temporada) VALUES (%s,%s,%s,%s)".format(table),
         }
-        self.insert_table_query(query=query.get(table, "actor"))
+
+        # Obtener la consulta correspondiente
+        query = queries.get(table,  "actor")
+
+        # Ejecutar la consulta con la lista de valores
+        self.insert_table_query(query=query, params=values)
 
     # Funcion para lipiar las tablas de las apps
+
     def clean_db(self) -> None:
         """
         La función realiza una consulta a la base de datos para eliminar los datos
@@ -248,9 +280,9 @@ class DBSettings():
 
         try:
             for app in self.table_apps:
-                query = "DELETE FROM {0}; ".format(app)
+                query = "DELETE FROM %s;"
                 # print(query)
-                cursor.execute(query)
+                cursor.execute(query, app)
                 resultado = self.len_table_db_query(app)
                 if resultado == 0:
                     print(Fore.GREEN + "Cantidad de registros en '{0}' :{1}".format(
