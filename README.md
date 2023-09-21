@@ -86,6 +86,18 @@ El proyecto de la API REST de Power Rangers es una herramienta Open Source cread
 
 Esta API REST de Power Rangers está diseñada para ser fácilmente consumible por cualquier persona que tenga un conocimiento básico de programación, lo que la hace ideal para programadores principiantes o desarrolladores experimentados por igual. Además, la API está diseñada para ser altamente escalable, lo que significa que puede ser utilizada en proyectos de cualquier tamaño, desde pequeñas aplicaciones hasta grandes proyectos.
 
+Esta API incluye las siguientes caracteristicas:
+
+- ✅ Paginación
+- ✅ Autenticación con JWT
+- ✅ Filtros por campos
+
+Para administracion:
+
+- ✅ Auditoria (Quien consume la API, Operaciones realizadas, etc)
+- ✅ Crear usuarios y grupos de usuarios, y asignación de permisos
+- ✅ Backups para la base de datos
+
 </div>
 
 <div class="arquitectura">
@@ -512,6 +524,14 @@ icónicos de la serie.
 
 #### Ejemplo
 
+`Request:`
+
+```json
+[GET] http://$URL/api/actores/
+```
+
+`Response:`
+
 ```json
 {
   "id_actor": 182,
@@ -559,6 +579,14 @@ franquicia `Power Rangers`.
 | updated          | string (datetime) | Fecha de actualizacion del registro              |
 
 #### Ejemplo
+
+`Request:`
+
+```json
+[GET] http://$URL/api/temporadas/
+```
+
+`Response:`
 
 ```json
 {
@@ -615,6 +643,14 @@ Cada episodio, también conocido como capítulo, presenta una parte de la trama 
 
 #### Ejemplo
 
+`Request:`
+
+```json
+[GET] http://$URL/api/capitulos/
+```
+
+`Response:`
+
 ```json
 {
   "id_capitulo": 1939,
@@ -647,6 +683,14 @@ un héroe, villano u otro individuo importante que forma parte de la historia de
 
 #### Ejemplo
 
+`Request:`
+
+```json
+[GET] http://$URL/api/personajes/
+```
+
+`Response:`
+
 ```json
 {
   "id_personaje": 204,
@@ -677,6 +721,14 @@ Es una relación N:N que vincula los personajes específicos con las temporadas 
 | descripcion  | string           | Descripcion del rol del personaje en esta temporada    |
 
 #### Ejemplo
+
+`Request:`
+
+```json
+[GET] http://$URL/api/aparecen/
+```
+
+`Response:`
 
 ```json
 {

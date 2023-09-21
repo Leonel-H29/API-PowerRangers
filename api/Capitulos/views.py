@@ -40,8 +40,7 @@ Cada episodio, también conocido como capítulo, presenta una parte de la trama 
     queryset = capitulo.objects.all()
     serializer_class = CapitulosSerializer
     filter_backends = [DjangoFilterBackend]
-    # filterset_fields = ['numero_cap', 'temporada']
-    filterset_fields = ['numero_cap']
+    filterset_fields = ['numero_cap', 'titulo', 'temporada']
     name = 'capitulos'
     depth = 1
     authentication_classes = [TokenAuthentication]
