@@ -39,7 +39,16 @@ franquicia `Power Rangers`.
     | basada_en        | string            | Serie, Libro, etc en la que se basa la temporada |
     | tematica         | string            | Tematica que abarca la temporada                 |
     | capitulos        | list (capitulo)   | Lista de los capitulos emitidos en la temporada  |
-    | updated          | string (datetime) | Fecha de actualizacion del registro              |       
+    | updated          | string (datetime) | Fecha de actualizacion del registro              |
+
+
+#### Filtros:
+
+    | COLUMNA          | TIPO              |
+    |------------------|-------------------|
+    | numero_temporada | integer           |
+    | nombre           | string            |
+    | anio_estreno     | integer           |
 
     """
     queryset = temporada.objects.all()
@@ -59,7 +68,9 @@ franquicia `Power Rangers`.
         responses={
             200: TemporadaSerializer(),
             400: 'No se ha encontrado la temporada solicitada',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
+
         })
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
@@ -70,7 +81,9 @@ franquicia `Power Rangers`.
         responses={
             200: TemporadaSerializer(many=True),
             400: 'No se ha encontrado el listado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
+
         })
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
@@ -93,7 +106,9 @@ franquicia `Power Rangers`.
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
+
         },
         # security=[{'Token de acceso': []}]
     )
@@ -119,7 +134,9 @@ franquicia `Power Rangers`.
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
+
         })
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
@@ -143,7 +160,9 @@ franquicia `Power Rangers`.
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
+
         },
         # security=[{'Token de acceso': []}]
     )
@@ -167,7 +186,9 @@ franquicia `Power Rangers`.
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
+
         },
         # security=[{'Token de acceso': []}]
     )

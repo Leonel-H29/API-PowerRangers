@@ -38,6 +38,14 @@ icónicos de la serie.
     | personajes	   | list (personaje)   | Lista de los personajes que interpreta el actor en la serie |
     | updated          | string (datetime)  | Fecha de actualizacion del registro                         | 
 
+
+#### Filtros:
+
+    | COLUMNA          | TIPO               |
+    |------------------|--------------------|
+    | nombre_actor	   | string             |
+    | nombre_artistico | string             |
+
     """
     queryset = actor.objects.all()
     serializer_class = ActorSerializer
@@ -56,6 +64,7 @@ icónicos de la serie.
         responses={
             200: ActorSerializer(),
             400: 'No se ha encontrado el actor solicitado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         })
     def retrieve(self, request, *args, **kwargs):
@@ -67,6 +76,7 @@ icónicos de la serie.
         responses={
             200: ActorSerializer(many=True),
             400: 'No se ha encontrado el listado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         })
     def list(self, request, *args, **kwargs):
@@ -90,6 +100,7 @@ icónicos de la serie.
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         },
         # security=[{'Token de acceso': []}]
@@ -116,6 +127,7 @@ icónicos de la serie.
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         })
     def update(self, request, *args, **kwargs):
@@ -140,6 +152,7 @@ icónicos de la serie.
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         },
         # security=[{'Token de acceso': []}]
@@ -164,6 +177,7 @@ icónicos de la serie.
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         },
         # security=[{'Token de acceso': []}]
@@ -207,6 +221,7 @@ Es una relación N:N que vincula los personajes específicos con las temporadas 
         responses={
             200: AparecenEnSerializer(),
             400: 'No se ha encontrado la aparicion solicitada',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         })
     def retrieve(self, request, *args, **kwargs):
@@ -218,6 +233,7 @@ Es una relación N:N que vincula los personajes específicos con las temporadas 
         responses={
             200: AparecenEnSerializer(many=True),
             400: 'No se ha encontrado el listado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         })
     def list(self, request, *args, **kwargs):
@@ -241,6 +257,7 @@ Es una relación N:N que vincula los personajes específicos con las temporadas 
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         },
         # security=[{'Token de acceso': []}]
@@ -267,6 +284,7 @@ Es una relación N:N que vincula los personajes específicos con las temporadas 
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         })
     def update(self, request, *args, **kwargs):
@@ -291,6 +309,7 @@ Es una relación N:N que vincula los personajes específicos con las temporadas 
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         },
         # security=[{'Token de acceso': []}]
@@ -315,6 +334,7 @@ Es una relación N:N que vincula los personajes específicos con las temporadas 
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         },
         # security=[{'Token de acceso': []}]
@@ -342,7 +362,15 @@ un héroe, villano u otro individuo importante que forma parte de la historia de
     | actor	            | integer           | Id del actor que interpreta al personaje |
     | updated           | string (datetime) | Fecha de actualizacion del registro      | 
 
-    """
+
+#### Filtros:
+
+    | COLUMNA           | TIPO              |
+    |-------------------|-------------------|
+    | nombre_personaje	| string            | 
+    | actor	            | integer           |
+
+"""
     queryset = personaje.objects.all()
     serializer_class = PersonajeSerializer
     filter_backends = [DjangoFilterBackend]
@@ -360,6 +388,7 @@ un héroe, villano u otro individuo importante que forma parte de la historia de
         responses={
             200: PersonajeSerializer(),
             400: 'No se ha encontrado el personaje solicitado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         })
     def retrieve(self, request, *args, **kwargs):
@@ -371,6 +400,7 @@ un héroe, villano u otro individuo importante que forma parte de la historia de
         responses={
             200: PersonajeSerializer(many=True),
             400: 'No se ha encontrado el listado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         })
     def list(self, request, *args, **kwargs):
@@ -394,6 +424,7 @@ un héroe, villano u otro individuo importante que forma parte de la historia de
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         },
         # security=[{'Token de acceso': []}]
@@ -420,6 +451,7 @@ un héroe, villano u otro individuo importante que forma parte de la historia de
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         })
     def update(self, request, *args, **kwargs):
@@ -444,6 +476,7 @@ un héroe, villano u otro individuo importante que forma parte de la historia de
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         },
         # security=[{'Token de acceso': []}]
@@ -468,6 +501,7 @@ un héroe, villano u otro individuo importante que forma parte de la historia de
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         },
         # security=[{'Token de acceso': []}]

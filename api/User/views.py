@@ -11,9 +11,10 @@ from User.serializers import UserLoginSerializer, UserModelSerializer
 # Models
 from User.models import User
 
-#API SWAGGER
+# API SWAGGER
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+
 
 class UserViewSet(viewsets.GenericViewSet):
 
@@ -24,20 +25,21 @@ class UserViewSet(viewsets.GenericViewSet):
     @swagger_auto_schema(
         operation_summary="Inicio de sesion de un usuario",
         operation_description="Permite a un usuario iniciar sesión en el sistema mediante su correo electrónico y contraseña.",
-        
+
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
                 'email': openapi.Schema(type=openapi.TYPE_STRING, description='Correo del usuario'),
-                'password': openapi.Schema(type=openapi.TYPE_STRING, description='Contraseña del usuario'), 
+                'password': openapi.Schema(type=openapi.TYPE_STRING, description='Contraseña del usuario'),
             }
         ),
         responses={
-            #200: 'Inicio de sesion exitoso',
+            # 200: 'Inicio de sesion exitoso',
             201: 'Inicio de sesion exitoso',
             400: 'Usuario o contraseña no validos',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
-    })
+        })
     @action(detail=False, methods=['post'])
     def login(self, request):
         """User sign in."""
@@ -52,11 +54,8 @@ class UserViewSet(viewsets.GenericViewSet):
             return Response(data, status=status.HTTP_201_CREATED)
         else:
             return Response({'error': 'Usuario o contraseña no validos'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        #return Response({'message': 'Inicio de sesion'}, status=status.HTTP_200_OK)
-    
-        
-        
+
+        # return Response({'message': 'Inicio de sesion'}, status=status.HTTP_200_OK)
 
     """
     manual_parameters=[
@@ -83,5 +82,3 @@ class UserViewSet(viewsets.GenericViewSet):
         data = UserModelSerializer(user).data
         return Response(data, status=status.HTTP_201_CREATED)
     """
-    
-    

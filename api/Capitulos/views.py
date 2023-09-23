@@ -36,6 +36,15 @@ Cada episodio, también conocido como capítulo, presenta una parte de la trama 
     | temporada	       | integer           | ID de la temporada a la que pertenece el capitulo |
     | updated          | string (datetime) | Fecha de actualizacion del registro               | 
 
+
+#### Filtros:
+
+    | COLUMNA          | TIPO              |
+    |------------------|-------------------|
+    | numero_cap       | integer           |
+    | titulo           | string            | 
+    | temporada	       | integer           | 
+
     """
     queryset = capitulo.objects.all()
     serializer_class = CapitulosSerializer
@@ -54,6 +63,7 @@ Cada episodio, también conocido como capítulo, presenta una parte de la trama 
         responses={
             200: CapitulosSerializer(),
             400: 'No se ha encontrado el actor solicitado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         })
     def retrieve(self, request, *args, **kwargs):
@@ -65,6 +75,7 @@ Cada episodio, también conocido como capítulo, presenta una parte de la trama 
         responses={
             200: CapitulosSerializer(many=True),
             400: 'No se ha encontrado el listado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         })
     def list(self, request, *args, **kwargs):
@@ -88,6 +99,7 @@ Cada episodio, también conocido como capítulo, presenta una parte de la trama 
             400: 'Error en los datos enviados',
             401: 'No autenticado',
             403: 'Permiso denegado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         },
         # security=[{'Token de acceso': []}]
@@ -114,6 +126,7 @@ Cada episodio, también conocido como capítulo, presenta una parte de la trama 
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         })
     def update(self, request, *args, **kwargs):
@@ -138,6 +151,7 @@ Cada episodio, también conocido como capítulo, presenta una parte de la trama 
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         },
         # security=[{'Token de acceso': []}]
@@ -162,6 +176,7 @@ Cada episodio, también conocido como capítulo, presenta una parte de la trama 
             401: 'No autenticado',
             403: 'Permiso denegado',
             404: 'No encontrado',
+            429: 'Se ha excedido el limite de solicitudes',
             500: 'Se ha producido un error interno en el servidor'
         },
         # security=[{'Token de acceso': []}]
