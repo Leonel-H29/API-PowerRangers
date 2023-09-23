@@ -91,6 +91,7 @@ Esta API incluye las siguientes caracteristicas:
 - ✅ Paginación
 - ✅ Autenticación con JWT
 - ✅ Filtros por campos
+- ✅ 100 solicitudes por dia para un usuario `no autenticado` y 500 solicitudes por dia para un usuario `autenticado` (Versión de prueba)
 
 Para administracion:
 
@@ -522,7 +523,9 @@ icónicos de la serie.
 | personajes       | list (personaje)  | Lista de los personajes que interpreta el actor en la serie |
 | updated          | string (datetime) | Fecha de actualizacion del registro                         |
 
-#### Ejemplo
+> #### Ejemplo:
+>
+> Lista de todos los actores
 
 `Request:`
 
@@ -533,22 +536,142 @@ icónicos de la serie.
 `Response:`
 
 ```json
+HTTP 200 OK
 {
-  "id_actor": 182,
-  "nombre_actor": "Alex Dodd ",
-  "nombre_artistico": "Alex Dodd ",
-  "foto": "https://cdn-icons-png.flaticon.com/512/5987/5987462.png",
-  "biografia": "https://es.wikipedia.org/w/index.php?title=Alex_Dodd",
-  "personajes": [
-    {
-      "id_personaje": 265,
-      "nombre_personaje": "Phantom Ranger",
-      "foto": "https://static.wikia.nocookie.net/powerrangersserie/images/6/6e/Prt-phantom.png",
-      "actor": 182,
-      "updated": "2023-08-18T13:25:43.685094Z"
-    }
-  ],
-  "updated": "2023-08-18T13:25:40.150838Z"
+    "count": 194,
+    "next": "http://localhost/api/actores/?limit=100&offset=100",
+    "previous": null,
+    "results": [
+        {
+            "id_actor": 1,
+            "nombre_actor": "Adam Gardiner",
+            "nombre_artistico": "Adam Gardiner",
+            "foto": "https://static.wikia.nocookie.net/powerrangers/images/a/a2/Adam_Gardiner.jpg",
+            "biografia": "https://en.wikipedia.org/wiki/Adam_Gardiner",
+            "personajes": [
+                {
+                    "id_personaje": 106,
+                    "nombre_personaje": "Kamdor",
+                    "foto": "https://static.wikia.nocookie.net/powerrangers/images/f/fd/End_of_Kamdor.jpg",
+                    "actor": 1,
+                    "updated": "2023-09-21T16:27:31.268960Z"
+                }
+            ],
+            "updated": "2023-09-21T16:27:27.595586Z"
+        },
+        {
+            "id_actor": 2,
+            "nombre_actor": "Adam Tuominen",
+            "nombre_artistico": "Adam Tuominen",
+            "foto": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Adam_Tuominem_%286328045377%29.jpg",
+            "biografia": "https://es.wikipedia.org/wiki/Adam_Tuominen",
+            "personajes": [
+                {
+                    "id_personaje": 91,
+                    "nombre_personaje": "Hunter Bradley",
+                    "foto": "https://i.pinimg.com/564x/15/c4/9c/15c49c563e846a96bd2aa674ac1f5f9f.jpg",
+                    "actor": 2,
+                    "updated": "2023-09-21T16:27:31.268951Z"
+                }
+            ],
+            "updated": "2023-09-21T16:27:27.595588Z"
+        },
+        ...
+    ]
+}
+```
+
+#### Filtros:
+
+| COLUMNA          | TIPO   |
+| ---------------- | ------ |
+| nombre_actor     | string |
+| nombre_artistico | string |
+
+> #### Ejemplo
+>
+> Filtro por `nombre_artistico`
+
+`Request:`
+
+```json
+[GET] http://$URL/api/actores/?nombre_artistico=Rick+Medina
+```
+
+`Response:`
+
+```json
+HTTP 200 OK
+{
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id_actor": 162,
+            "nombre_actor": "Ricardo Medina, Jr.",
+            "nombre_artistico": "Rick Medina",
+            "foto": "https://www.tvguide.com/a/img/hub/2016/01/15/841e73c7-b371-44dc-9ccf-f29881092a2e/150115-news-ricardo-medina-jr.jpg",
+            "biografia": "https://es.wikipedia.org/wiki/Ricardo_Medina,_Jr.",
+            "personajes": [
+                {
+                    "id_personaje": 40,
+                    "nombre_personaje": "Cole Evans",
+                    "foto": "https://i.pinimg.com/originals/66/c7/06/66c706bb2780006eea1e70b63fee703b.jpg",
+                    "actor": 162,
+                    "updated": "2023-09-21T16:27:31.268920Z"
+                },
+                {
+                    "id_personaje": 56,
+                    "nombre_personaje": "Deker",
+                    "foto": "https://static.wikia.nocookie.net/powerrangers/images/f/f7/SS_Deker_profile.png",
+                    "actor": 162,
+                    "updated": "2023-09-21T16:27:31.268930Z"
+                }
+            ],
+            "updated": "2023-09-21T16:27:27.595941Z"
+        }
+    ]
+}
+```
+
+> #### Ejemplo
+>
+> Filtro por `nombre_actor`
+
+`Request:`
+
+```json
+[GET] http://$URL/api/actores/?nombre_actor=Jason+Geiger
+```
+
+`Response:`
+
+```json
+HTTP 200 OK
+{
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id_actor": 85,
+            "nombre_actor": "Jason Geiger",
+            "nombre_artistico": "Austin St. John",
+            "foto": "https://upload.wikimedia.org/wikipedia/commons/4/41/Austin_St._John_Photo_Op_GalaxyCon_Richmond_2019.jpg",
+            "biografia": "https://es.wikipedia.org/wiki/Austin_St._John",
+            "personajes": [
+                {
+                    "id_personaje": 96,
+                    "nombre_personaje": "Jason Lee Scott",
+                    "foto": "https://static.wikia.nocookie.net/powerrangersserie/images/2/23/01._Gold_Ranger.png/revision/latest?cb=20181023211231&path-prefix=es",
+                    "actor": 85,
+                    "updated": "2023-09-21T16:27:31.268954Z"
+                }
+            ],
+            "updated": "2023-09-21T16:27:27.595646Z"
+        }
+    ]
 }
 ```
 
