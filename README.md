@@ -810,11 +810,11 @@ HTTP 200 OK
 
 #### Filtros:
 
-    | COLUMNA          | TIPO              |
-    |------------------|-------------------|
-    | numero_temporada | integer           |
-    | nombre           | string            |
-    | anio_estreno     | integer           |
+| COLUMNA          | TIPO    |
+| ---------------- | ------- |
+| numero_temporada | integer |
+| nombre           | string  |
+| anio_estreno     | integer |
 
 > ##### Ejemplo:
 >
@@ -1026,7 +1026,9 @@ Cada episodio, también conocido como capítulo, presenta una parte de la trama 
 | temporada   | integer           | ID de la temporada a la que pertenece el capitulo |
 | updated     | string (datetime) | Fecha de actualizacion del registro               |
 
-#### Ejemplo
+> ##### Ejemplo:
+>
+> Lista de todos los capitulos
 
 `Request:`
 
@@ -1037,15 +1039,179 @@ Cada episodio, también conocido como capítulo, presenta una parte de la trama 
 `Response:`
 
 ```json
+HTTP 200 OK
 {
-  "id_capitulo": 1939,
-  "numero_cap": 1,
-  "titulo": "El Inicio",
-  "descripcion": "",
-  "temporada": 61,
-  "updated": "2023-08-18T13:25:42.512795Z"
+  "count": 969,
+  "next": "http://localhost/api/capitulos/?limit=100&offset=100",
+  "previous": null,
+  "results": [
+    {
+      "id_capitulo": 1,
+      "numero_cap": 1,
+      "titulo": "El Inicio",
+      "descripcion": "",
+      "temporada": 1,
+      "updated": "2023-09-21T16:27:29.986931Z"
+    },
+    {
+      "id_capitulo": 2,
+      "numero_cap": 2,
+      "titulo": "Para Superar el miedo",
+      "descripcion": "",
+      "temporada": 1,
+      "updated": "2023-09-21T16:27:29.986932Z"
+    },
+    ...
+    {
+      "id_capitulo": 100,
+      "numero_cap": 40,
+      "titulo": "Un Viaje al Pasado Segunda Parte",
+      "descripcion": "",
+      "temporada": 2,
+      "updated": "2023-09-21T16:27:29.986991Z"
+    }
+  ]
 }
 ```
+
+#### Filtros:
+
+| COLUMNA    | TIPO    |
+| ---------- | ------- |
+| numero_cap | integer |
+| titulo     | string  |
+| temporada  | integer |
+
+> ##### Ejemplo
+>
+> Filtro por `numero_cap`
+
+`Request:`
+
+```json
+[GET] http://$URL/api/capitulos/?numero_cap=5
+```
+
+`Response:`
+
+```json
+HTTP 200 OK
+{
+  "count": 29,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id_capitulo": 5,
+      "numero_cap": 5,
+      "titulo": "Una Música Diferente",
+      "descripcion": "",
+      "temporada": 1,
+      "updated": "2023-09-21T16:27:29.986934Z"
+    },
+    {
+      "id_capitulo": 65,
+      "numero_cap": 5,
+      "titulo": "Una Imagen equivocada",
+      "descripcion": "",
+      "temporada": 2,
+      "updated": "2023-09-21T16:27:29.986970Z"
+    },
+    ...
+    {
+      "id_capitulo": 946,
+      "numero_cap": 5,
+      "titulo": "Episodio 5",
+      "descripcion": "",
+      "temporada": 29,
+      "updated": "2023-09-21T16:27:29.987514Z"
+    }
+  ]
+}
+```
+
+> ##### Ejemplo
+>
+> Filtro por `titulo`
+
+`Request:`
+
+```json
+[GET] http://$URL/api/capitulos/?titulo=Un%20Pez%20muy%20Peligroso
+```
+
+`Response:`
+
+```json
+HTTP 200 OK
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id_capitulo": 516,
+      "numero_cap": 20,
+      "titulo": "Un Pez muy Peligroso",
+      "descripcion": "",
+      "temporada": 12,
+      "updated": "2023-09-21T16:27:29.987248Z"
+    }
+  ]
+}
+```
+
+> ##### Ejemplo
+>
+> Filtro por `temporada`
+
+`Request:`
+
+```json
+[GET] http://$URL/api/capitulos/?temporada=1
+```
+
+`Response:`
+
+```json
+HTTP 200 OK
+{
+  "count": 60,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id_capitulo": 1,
+      "numero_cap": 1,
+      "titulo": "El Inicio",
+      "descripcion": "",
+      "temporada": 1,
+      "updated": "2023-09-21T16:27:29.986931Z"
+    },
+    {
+      "id_capitulo": 2,
+      "numero_cap": 2,
+      "titulo": "Para Superar el miedo",
+      "descripcion": "",
+      "temporada": 1,
+      "updated": "2023-09-21T16:27:29.986932Z"
+    },
+    ...
+    {
+      "id_capitulo": 60,
+      "numero_cap": 60,
+      "titulo": "Regalo de Cumpleaños",
+      "descripcion": "",
+      "temporada": 1,
+      "updated": "2023-09-21T16:27:29.986967Z"
+    }
+  ]
+}
+```
+
+</div>
+
+<div class='data-personajes'>
 
 ### Personajes
 
@@ -1085,6 +1251,10 @@ un héroe, villano u otro individuo importante que forma parte de la historia de
   "updated": "2023-08-18T13:25:43.684831Z"
 }
 ```
+
+</div>
+
+<div class='data-apariciones'>
 
 ### Apariciones
 
@@ -1159,5 +1329,7 @@ Es una relación N:N que vincula los personajes específicos con las temporadas 
   "descripcion": "Es \"el siguiente en una larga línea de Alphas\", como él mismo se define al aparecer de una cabina de la Power Cámara tras la marcha de Zordon y Alpha 5. Posee un carácter muy diferente al de este último, y una voz completamente distinta también, más grave y enérgica, aunque de apariencia es similar a Alpha 5."
 }
 ```
+
+</div>
 
 </div>
