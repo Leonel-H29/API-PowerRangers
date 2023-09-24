@@ -1232,7 +1232,9 @@ un héroe, villano u otro individuo importante que forma parte de la historia de
 | actor            | integer           | Id del actor que interpreta al personaje |
 | updated          | string (datetime) | Fecha de actualizacion del registro      |
 
-#### Ejemplo
+> ##### Ejemplo
+>
+> Lista de personajes
 
 `Request:`
 
@@ -1243,12 +1245,102 @@ un héroe, villano u otro individuo importante que forma parte de la historia de
 `Response:`
 
 ```json
+HTTP 200 OK
 {
-  "id_personaje": 204,
-  "nombre_personaje": "Adam Park",
-  "foto": "https://static.wikia.nocookie.net/power-rangers-fanon-wiki-2/images/3/37/Green_Turbo_Ranger.png",
-  "actor": 220,
-  "updated": "2023-08-18T13:25:43.684831Z"
+  "count": 215,
+  "next": "http://localhost/api/personajes/?limit=100&offset=100",
+  "previous": null,
+  "results": [
+    {
+      "id_personaje": 1,
+      "nombre_personaje": "Adam Park",
+      "foto": "https://static.wikia.nocookie.net/power-rangers-fanon-wiki-2/images/3/37/Green_Turbo_Ranger.png",
+      "actor": 102,
+      "updated": "2023-09-21T16:27:31.268897Z"
+    },
+    {
+      "id_personaje": 2,
+      "nombre_personaje": "Albert Collins",
+      "foto": "https://static.wikia.nocookie.net/powerrangers/images/5/52/MrCollinsTF.jpg",
+      "actor": 60,
+      "updated": "2023-09-21T16:27:31.268898Z"
+    },
+    ...
+    {
+      "id_personaje": 99,
+      "nombre_personaje": "Jenji",
+      "foto": "https://i.pinimg.com/564x/21/df/29/21df299dd6102e5b28c9a72c0a6b8d55.jpg",
+      "actor": 146,
+      "updated": "2023-09-21T16:27:31.268956Z"
+    }
+  ]
+}
+```
+
+#### Filtros:
+
+| COLUMNA          | TIPO    |
+| ---------------- | ------- |
+| nombre_personaje | string  |
+| actor            | integer |
+
+> ##### Ejemplo
+>
+> Filtro por `nombre_personaje`
+
+`Request:`
+
+```json
+[GET] http://$URL/api/personajes/?nombre_personaje=Jenji
+```
+
+`Response:`
+
+```json
+HTTP 200 OK
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id_personaje": 99,
+      "nombre_personaje": "Jenji",
+      "foto": "https://i.pinimg.com/564x/21/df/29/21df299dd6102e5b28c9a72c0a6b8d55.jpg",
+      "actor": 146,
+      "updated": "2023-09-21T16:27:31.268956Z"
+    }
+  ]
+}
+```
+
+> ##### Ejemplo
+>
+> Filtro por `actor`
+
+`Request:`
+
+```json
+[GET] http://$URL/api/personajes/?actor=20
+```
+
+`Response:`
+
+```json
+HTTP 200 OK
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id_personaje": 105,
+      "nombre_personaje": "Kai Chen",
+      "foto": "https://i.pinimg.com/564x/bd/b0/02/bdb002ed07bc33569bc61aa74cdab594.jpg",
+      "actor": 20,
+      "updated": "2023-09-21T16:27:31.268959Z"
+    }
+  ]
 }
 ```
 
