@@ -1378,47 +1378,143 @@ Es una relación N:N que vincula los personajes específicos con las temporadas 
 `Response:`
 
 ```json
+HTTP 200 OK
 {
-  "id_aparicion": 272,
-  "personaje": {
-    "id_personaje": 286,
-    "nombre_personaje": "Alpha 6",
-    "foto": "https://static.wikia.nocookie.net/powerrangers/images/e/e2/Alpha6.jpg",
-    "actor": 193,
-    "updated": "2023-08-18T14:13:55.375723Z"
-  },
-  "temporada": {
-    "id_temporada": 65,
-    "numero_temporada": 5,
-    "nombre": "Power Rangers Turbo",
-    "descripcion": "La serie comienza en el mismo punto donde concluye Turbo: A Power Rangers Movie. Rocky sigue resintiéndose de su lesión en la espalda, y decide abandonar para siempre el equipo y dejarle su puesto a Justin. Mientras que los chicos se enfrentan a su graduación y abandonan el instituto de Angel Grove, Divatox, clamando venganza contra los Rangers por estropear sus planes con Maligore, se dirige a la Tierra dispuesta a acabar con ellos y conquistar la Tierra de paso. Poco después de la graduación, Zordon anuncia que Lerigot ha regresado para darle por fin la libertad de su prisión en el agujero temporal, y junto con Alpha 5 se marcha a su planeta natal de Eldar. No tienen tiempo de lamentarse de la despedida cuando un nuevo robot, Alpha 6 y una nueva mentora, Dimitria, llegan para ayudarles a enfrentarse a Divatox y sus ataques de monstruos. Los Rangers veteranos, sin embargo, ya no son unos adolescentes, y deben con el tiempo dejar sus poderes de Power Rangers para seguir adelante con sus vidas, escogiendo ellos mismos a quienes serán sus sucesores, una nueva generación de Power Rangers, también estudiantes de Angel Grove, que proseguirá la lucha contra Divatox.",
-    "anio_estreno": 1997,
-    "foto": "https://images.justwatch.com/poster/250908819/s592/temporada-5.webp",
-    "cancion": "\"Turbo: A Power Rangers Movie\" por Power Rangers",
-    "basada_en": "Gekisou Sentai Carranger",
-    "tematica": "Automóviles de carreras y tecnología",
-    "capitulos": [
-      {
-        "id_capitulo": 2144,
-        "numero_cap": 1,
-        "titulo": "Cambio a Turbo Parte 1",
-        "descripcion": "",
-        "temporada": 65,
-        "updated": "2023-08-18T13:25:42.513648Z"
+  "count": 251,
+  "next": "http://localhost/api/aparecen/?limit=3&offset=3",
+  "previous": null,
+  "results": [
+    {
+      "id_aparicion": 1,
+      "personaje": {
+        "id_personaje": 5,
+        "nombre_personaje": "Alpha 5",
+        "foto": "https://static.wikia.nocookie.net/powerrangersserie/images/7/79/Alpha_5.jpg",
+        "actor": 165,
+        "updated": "2023-09-21T16:27:31.268900Z"
       },
-      {
-        "id_capitulo": 2145,
-        "numero_cap": 2,
-        "titulo": "Cambio a Turbo Parte 2",
-        "descripcion": "",
-        "temporada": 65,
-        "updated": "2023-08-18T13:25:42.513652Z"
-      }
-    ],
-    "updated": "2023-08-18T13:25:41.216069Z"
-  },
-  "rol": "Aliado",
-  "descripcion": "Es \"el siguiente en una larga línea de Alphas\", como él mismo se define al aparecer de una cabina de la Power Cámara tras la marcha de Zordon y Alpha 5. Posee un carácter muy diferente al de este último, y una voz completamente distinta también, más grave y enérgica, aunque de apariencia es similar a Alpha 5."
+      "temporada": {
+        "id_temporada": 1,
+        "numero_temporada": 1,
+        "nombre": "Mighty Morphin Power Rangers (Temporada 1)",
+        "descripcion": "Dos astronautas liberan por accidente a una bruja alienígena llamada Rita Repulsa de su prision espacial, en la cual llevaba atrapada 10.000 años. Inmediatamente, Rita y sus secuaces establecen un castillo en la luna e inician un ataque contra la Tierra, con la intención de conquistarla. Zordon, un poderoso hechicero atrapado por Rita en un agujero en el tiempo y su asistente robótico Alpha 5, reclutan a \"un equipo de adolescentes con actitud\" para que se conviertan en los Power Rangers y defiendan la Tierra. Estos primeros Power Rangers, a los que más tarde se incorporará un sexto miembro, son unos amigos compañeros de clase en el instituto de la ciudad de Angel Grove, con sus nuevos poderes y la ayuda de los Dinozords, se enfrentarán a Rita, sus patrulleros de masilla y sus hordas de monstruos, tarea que deberán seguir compaginando con su vida cotidiana de estudiantes adolescentes sin que nadie descubra el secreto.",
+        "anio_estreno": 1993,
+        "foto": "https://images.justwatch.com/poster/8619651/s592/temporada-1.webp",
+        "cancion": "\"Go Go Power Rangers\" por Ron Wasserman",
+        "basada_en": "Kyōryū Sentai Zyuranger",
+        "tematica": "Dinosaurios",
+        "capitulos": [
+          {
+            "id_capitulo": 1,
+            "numero_cap": 1,
+            "titulo": "El Inicio",
+            "descripcion": "",
+            "temporada": 1,
+            "updated": "2023-09-21T16:27:29.986931Z"
+          },
+          ...
+          {
+            "id_capitulo": 60,
+            "numero_cap": 60,
+            "titulo": "Regalo de Cumpleaños",
+            "descripcion": "",
+            "temporada": 1,
+            "updated": "2023-09-21T16:27:29.986967Z"
+          }
+        ],
+        "updated": "2023-09-21T16:27:28.659808Z"
+      },
+      "rol": "Aliados",
+      "descripcion": "Definido como \"autómata multifuncional ultra-sensible\", es el robot asistente de Zordon. Se encarga de ser sus manos y pies, operando los controles del Centro de Mando y llamando a los Rangers en caso de emergencia. Alpha 5 quiere a Zordon como un padre y vela por su seguridad en la medida de sus posibilidades. Siempre tiene la preocupación clavada en su personalidad, ya sea por sí mismo o por la seguridad de los que quiere, como Zordon o los Power Rangers, y siempre está pronunciando el gritito de \"¡Ay-ay-ay-ay-ay!\" cuando algo le causa temor, que viene a ser casi siempre. Gracias a la seguridad del Centro de Mando, no tiene nada que temer, pero fuera de él es muy vulnerable a cualquier tipo de ataque, bastando con introducir un disco en la ranura situada en su espalda para reprogramarle por completo para hacer el mal o infectarle con un destructivo virus informático que le ponga en peligro."
+    },
+    {
+      "id_aparicion": 2,
+      "personaje": {
+        "id_personaje": 20,
+        "nombre_personaje": "Billy Cranston",
+        "foto": "https://i.ytimg.com/vi/zAaAtpvDafQ/hqdefault.jpg",
+        "actor": 48,
+        "updated": "2023-09-21T16:27:31.268909Z"
+      },
+      "temporada": {
+        "id_temporada": 1,
+        "numero_temporada": 1,
+        "nombre": "Mighty Morphin Power Rangers (Temporada 1)",
+        "descripcion": "Dos astronautas liberan por accidente a una bruja alienígena llamada Rita Repulsa de su prision espacial, en la cual llevaba atrapada 10.000 años. Inmediatamente, Rita y sus secuaces establecen un castillo en la luna e inician un ataque contra la Tierra, con la intención de conquistarla. Zordon, un poderoso hechicero atrapado por Rita en un agujero en el tiempo y su asistente robótico Alpha 5, reclutan a \"un equipo de adolescentes con actitud\" para que se conviertan en los Power Rangers y defiendan la Tierra. Estos primeros Power Rangers, a los que más tarde se incorporará un sexto miembro, son unos amigos compañeros de clase en el instituto de la ciudad de Angel Grove, con sus nuevos poderes y la ayuda de los Dinozords, se enfrentarán a Rita, sus patrulleros de masilla y sus hordas de monstruos, tarea que deberán seguir compaginando con su vida cotidiana de estudiantes adolescentes sin que nadie descubra el secreto.",
+        "anio_estreno": 1993,
+        "foto": "https://images.justwatch.com/poster/8619651/s592/temporada-1.webp",
+        "cancion": "\"Go Go Power Rangers\" por Ron Wasserman",
+        "basada_en": "Kyōryū Sentai Zyuranger",
+        "tematica": "Dinosaurios",
+        "capitulos": [
+          {
+            "id_capitulo": 1,
+            "numero_cap": 1,
+            "titulo": "El Inicio",
+            "descripcion": "",
+            "temporada": 1,
+            "updated": "2023-09-21T16:27:29.986931Z"
+          },
+          ...
+          {
+            "id_capitulo": 60,
+            "numero_cap": 60,
+            "titulo": "Regalo de Cumpleaños",
+            "descripcion": "",
+            "temporada": 1,
+            "updated": "2023-09-21T16:27:29.986967Z"
+          }
+        ],
+        "updated": "2023-09-21T16:27:28.659808Z"
+      },
+      "rol": "Mighty Morphin Blue Ranger",
+      "descripcion": "Es el nerd de la clase, con una inteligencia inversamente proporcional a sus habilidades sociales y a su seguridad en sí mismo. Suele al principio emplear una jerga excesivamente técnica incluso en su vida cotidiana, una jerga que solo Trini puede comprender, soliendo ejercer de intérprete. Al principio, también, carece de habilidades de lucha y le cuesta mucho defenderse sin transformarse, hasta que se apunta a las clases de artes marciales de Jason para mejorar en este aspecto. Con el tiempo y la experiencia, irá aumentando su fuerza y su seguridad en sí mismo, y comenzará a abandonar la jerga técnica según va madurando como luchador y como persona. Por su inteligencia, también es capaz de desarrollar en su laboratorio personal todo tipo de artefactos y herramientas para ayudar al equipo en la pelea, y es capaz de operar en el centro de mando con la misma pericia que el propio Alpha 5. Como Blue Ranger, adquirió los poderes del Triceratops Dinozord en batalla, y su arma personal es la Power Lance. Más adelante recibiría el poder del Unicorn Thunderzord, y después el Wolf Ninjazord y el Blue Shōgunzord."
+    },
+    {
+      "id_aparicion": 3,
+      "personaje": {
+        "id_personaje": 75,
+        "nombre_personaje": "Eugene \"Skull\" Skullovitch",
+        "foto": "https://assets.mycast.io/characters/eugene-skullovitch-589038-normal.jpg",
+        "actor": 83,
+        "updated": "2023-09-21T16:27:31.268941Z"
+      },
+      "temporada": {
+        "id_temporada": 1,
+        "numero_temporada": 1,
+        "nombre": "Mighty Morphin Power Rangers (Temporada 1)",
+        "descripcion": "Dos astronautas liberan por accidente a una bruja alienígena llamada Rita Repulsa de su prision espacial, en la cual llevaba atrapada 10.000 años. Inmediatamente, Rita y sus secuaces establecen un castillo en la luna e inician un ataque contra la Tierra, con la intención de conquistarla. Zordon, un poderoso hechicero atrapado por Rita en un agujero en el tiempo y su asistente robótico Alpha 5, reclutan a \"un equipo de adolescentes con actitud\" para que se conviertan en los Power Rangers y defiendan la Tierra. Estos primeros Power Rangers, a los que más tarde se incorporará un sexto miembro, son unos amigos compañeros de clase en el instituto de la ciudad de Angel Grove, con sus nuevos poderes y la ayuda de los Dinozords, se enfrentarán a Rita, sus patrulleros de masilla y sus hordas de monstruos, tarea que deberán seguir compaginando con su vida cotidiana de estudiantes adolescentes sin que nadie descubra el secreto.",
+        "anio_estreno": 1993,
+        "foto": "https://images.justwatch.com/poster/8619651/s592/temporada-1.webp",
+        "cancion": "\"Go Go Power Rangers\" por Ron Wasserman",
+        "basada_en": "Kyōryū Sentai Zyuranger",
+        "tematica": "Dinosaurios",
+        "capitulos": [
+          {
+            "id_capitulo": 1,
+            "numero_cap": 1,
+            "titulo": "El Inicio",
+            "descripcion": "",
+            "temporada": 1,
+            "updated": "2023-09-21T16:27:29.986931Z"
+          },
+          ...
+          {
+            "id_capitulo": 60,
+            "numero_cap": 60,
+            "titulo": "Regalo de Cumpleaños",
+            "descripcion": "",
+            "temporada": 1,
+            "updated": "2023-09-21T16:27:29.986967Z"
+          }
+        ],
+        "updated": "2023-09-21T16:27:28.659808Z"
+      },
+      "rol": "Aliados",
+      "descripcion": "Un maton del instituto donde estudian los Rangers, además de ser compañeros de clase de estos. Tienen una habilidad innata para ponerse a sí mismos en evidencia, ya sea intentando meterse con los Rangers o intentando superarles en cualquier habilidad, acabando casi siempre por los suelos o cubiertos de todo tipo de comida que suelen arrojar sobre sí mismos, o bien son castigados cuando cometen alguna fechoría en el instituto. Cuando los Rangers les salvan a la llegada de Lord Zedd, se proponen hacerse famosos descubriendo sus identidades, pero todos los planes que idean resultan un fracaso. Tras abandonar esta idea, se alistan en la Policía Juvenil de Angel Grove, en principio con la sola idea de llevar uniformes para gustar a las chicas. Según va pasando el tiempo, van evolucionando y madurando, y aunque nunca pierden del todo su personalidad torpe y atolondrada, sí que van abandonando la actitud malévola del principio, y en más de una ocasión, incluso ayudan a los Power Rangers con o sin conocimiento de ello. Desde que se unen a la policía juvenil, se convierten en subordinados del teniente Stone, a quien siempre llevan por la calle de la amargura por su incompetencia en las misiones que les asigna."
+    }
+    ...
+  ]
 }
 ```
 
