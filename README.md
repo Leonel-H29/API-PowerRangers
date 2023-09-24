@@ -501,6 +501,8 @@ Una vez que hayas ejecutado el comando anterior, se te colocará dentro del cont
 
 # Datos para consumir
 
+<div class='data-actores'>
+
 ### Actores
 
 `/api/actores/`
@@ -523,7 +525,7 @@ icónicos de la serie.
 | personajes       | list (personaje)  | Lista de los personajes que interpreta el actor en la serie |
 | updated          | string (datetime) | Fecha de actualizacion del registro                         |
 
-> #### Ejemplo:
+> ##### Ejemplo:
 >
 > Lista de todos los actores
 
@@ -588,7 +590,7 @@ HTTP 200 OK
 | nombre_actor     | string |
 | nombre_artistico | string |
 
-> #### Ejemplo
+> ##### Ejemplo
 >
 > Filtro por `nombre_artistico`
 
@@ -635,7 +637,7 @@ HTTP 200 OK
 }
 ```
 
-> #### Ejemplo
+> ##### Ejemplo
 >
 > Filtro por `nombre_actor`
 
@@ -675,6 +677,10 @@ HTTP 200 OK
 }
 ```
 
+</div>
+
+<div class='data-temporadas'>
+
 ### Temporadas
 
 `/api/temporadas/`
@@ -701,7 +707,9 @@ franquicia `Power Rangers`.
 | capitulos        | list (capitulo)   | Lista de los capitulos emitidos en la temporada  |
 | updated          | string (datetime) | Fecha de actualizacion del registro              |
 
-#### Ejemplo
+> ##### Ejemplo:
+>
+> Lista de todas las temporadas
 
 `Request:`
 
@@ -712,37 +720,291 @@ franquicia `Power Rangers`.
 `Response:`
 
 ```json
+HTTP 200 OK
 {
-  "id_temporada": 61,
-  "numero_temporada": 1,
-  "nombre": "Mighty Morphin Power Rangers (Temporada 1)",
-  "descripcion": "Dos astronautas liberan por accidente a una bruja alienígena llamada Rita Repulsa de su prision espacial, en la cual llevaba atrapada 10.000 años. Inmediatamente, Rita y sus secuaces establecen un castillo en la luna e inician un ataque contra la Tierra, con la intención de conquistarla. Zordon, un poderoso hechicero atrapado por Rita en un agujero en el tiempo y su asistente robótico Alpha 5, reclutan a \"un equipo de adolescentes con actitud\" para que se conviertan en los Power Rangers y defiendan la Tierra. Estos primeros Power Rangers, a los que más tarde se incorporará un sexto miembro, son unos amigos compañeros de clase en el instituto de la ciudad de Angel Grove, con sus nuevos poderes y la ayuda de los Dinozords, se enfrentarán a Rita, sus patrulleros de masilla y sus hordas de monstruos, tarea que deberán seguir compaginando con su vida cotidiana de estudiantes adolescentes sin que nadie descubra el secreto.",
-  "anio_estreno": 1993,
-  "foto": "https://images.justwatch.com/poster/8619651/s592/temporada-1.webp",
-  "cancion": "\"Go Go Power Rangers\" por Ron Wasserman",
-  "basada_en": "Kyōryū Sentai Zyuranger",
-  "tematica": "Dinosaurios",
-  "capitulos": [
-    {
-      "id_capitulo": 1939,
-      "numero_cap": 1,
-      "titulo": "El Inicio",
-      "descripcion": "",
-      "temporada": 61,
-      "updated": "2023-08-18T13:25:42.512795Z"
-    },
-    {
-      "id_capitulo": 1940,
-      "numero_cap": 2,
-      "titulo": "Para Superar el miedo",
-      "descripcion": "",
-      "temporada": 61,
-      "updated": "2023-08-18T13:25:42.512808Z"
-    }
-  ],
-  "updated": "2023-08-18T13:25:41.216042Z"
+    "count": 30,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id_temporada": 1,
+            "numero_temporada": 1,
+            "nombre": "Mighty Morphin Power Rangers (Temporada 1)",
+            "descripcion": "Dos astronautas liberan por accidente a una bruja alienígena llamada Rita Repulsa de su prision espacial, en la cual llevaba atrapada 10.000 años. Inmediatamente, Rita y sus secuaces establecen un castillo en la luna e inician un ataque contra la Tierra, con la intención de conquistarla. Zordon, un poderoso hechicero atrapado por Rita en un agujero en el tiempo y su asistente robótico Alpha 5, reclutan a \"un equipo de adolescentes con actitud\" para que se conviertan en los Power Rangers y defiendan la Tierra. Estos primeros Power Rangers, a los que más tarde se incorporará un sexto miembro, son unos amigos compañeros de clase en el instituto de la ciudad de Angel Grove, con sus nuevos poderes y la ayuda de los Dinozords, se enfrentarán a Rita, sus patrulleros de masilla y sus hordas de monstruos, tarea que deberán seguir compaginando con su vida cotidiana de estudiantes adolescentes sin que nadie descubra el secreto.",
+            "anio_estreno": 1993,
+            "foto": "https://images.justwatch.com/poster/8619651/s592/temporada-1.webp",
+            "cancion": "\"Go Go Power Rangers\" por Ron Wasserman",
+            "basada_en": "Kyōryū Sentai Zyuranger",
+            "tematica": "Dinosaurios",
+            "capitulos": [
+                {
+                    "id_capitulo": 1,
+                    "numero_cap": 1,
+                    "titulo": "El Inicio",
+                    "descripcion": "",
+                    "temporada": 1,
+                    "updated": "2023-09-21T16:27:29.986931Z"
+                },
+                {
+                    "id_capitulo": 2,
+                    "numero_cap": 2,
+                    "titulo": "Para Superar el miedo",
+                    "descripcion": "",
+                    "temporada": 1,
+                    "updated": "2023-09-21T16:27:29.986932Z"
+                },
+                ...
+                {
+                    "id_capitulo": 60,
+                    "numero_cap": 60,
+                    "titulo": "Regalo de Cumpleaños",
+                    "descripcion": "",
+                    "temporada": 1,
+                    "updated": "2023-09-21T16:27:29.986967Z"
+                }
+            ],
+            "updated": "2023-09-21T16:27:28.659808Z"
+        },
+        {
+            "id_temporada": 2,
+            "numero_temporada": 2,
+            "nombre": "Mighty Morphin Power Rangers (Temporada 2)",
+            "descripcion": "Tras los incontables fracasos de Rita, el jefe de esta, Lord Zedd, regresa desde sus dominios en el espacio para encargarse de la conquista de la Tierra en persona, destituyendo a Rita y enviándola al exilio como castigo por sus fracasos. Para enfrentarse a Lord Zedd y sus nuevos monstruos y patrulleros de masilla Z, Zordon entrega a los Power Rangers unos nuevos Zords más fuertes, los Thunderzords. La batalla escalará cuando Rita regrese de su exilio y gracias a una poción de amor se case con Lord Zedd, convirtiéndose ambos en una amenaza mucho más peligrosa.",
+            "anio_estreno": 1994,
+            "foto": "https://images.justwatch.com/poster/8619781/s592/temporada-2.webp",
+            "cancion": "\"Go Go Power Rangers\" por Ron Wasserman",
+            "basada_en": "Gosei Sentai Dairanger",
+            "tematica": "Animales mitológicos",
+            "capitulos": [
+                {
+                    "id_capitulo": 61,
+                    "numero_cap": 1,
+                    "titulo": "El Motin",
+                    "descripcion": "",
+                    "temporada": 2,
+                    "updated": "2023-09-21T16:27:29.986968Z"
+                },
+                {
+                    "id_capitulo": 62,
+                    "numero_cap": 2,
+                    "titulo": "El Motin Segunda Parte",
+                    "descripcion": "",
+                    "temporada": 2,
+                    "updated": "2023-09-21T16:27:29.986969Z"
+                },
+                ...
+                {
+                    "id_capitulo": 112,
+                    "numero_cap": 52,
+                    "titulo": "Un malvado Ranger Azul",
+                    "descripcion": "",
+                    "temporada": 2,
+                    "updated": "2023-09-21T16:27:29.986999Z"
+                }
+            ],
+            "updated": "2023-09-21T16:27:28.659809Z"
+        },
+    ]
 }
 ```
+
+#### Filtros:
+
+    | COLUMNA          | TIPO              |
+    |------------------|-------------------|
+    | numero_temporada | integer           |
+    | nombre           | string            |
+    | anio_estreno     | integer           |
+
+> ##### Ejemplo:
+>
+> Filtro por `numero_temporada`
+
+`Request:`
+
+```json
+[GET] http://$URL/api/temporadas/?numero_temporada=10
+```
+
+`Response:`
+
+```json
+HTTP 200 OK
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id_temporada": 10,
+      "numero_temporada": 10,
+      "nombre": "Power Rangers Wild Force",
+      "descripcion": "Cole Evans es un muchacho que ha vivido con una tribu en la jungla durante muchos años, y que encuentra por casualidad el Animarium, un lugar místico en el que conoce a otros cuatro jóvenes de distintas procedencias que se unen a él para proteger a la Tierra del ataque de una raza de criaturas llamadas Orgs, liderados por el Amo Org, que pretenden contaminar la Tierra. Para enfrentarse a ellos, la princesa Shayla del Animarium les entrega el poder de los Wild Force Rangers, además de servirles de mentora en la batalla que se avecina.",
+      "anio_estreno": 2002,
+      "foto": "https://images.justwatch.com/poster/8619879/s592/temporada-10.webp",
+      "cancion": "\"Power Rangers Wild Force\" por Power Rangers",
+      "basada_en": "Hyakujuu Sentai Gaoranger",
+      "tematica": "Animales salvajes y orgs",
+      "capitulos": [
+        {
+          "id_capitulo": 419,
+          "numero_cap": 1,
+          "titulo": "Corazón de León",
+          "descripcion": "",
+          "temporada": 10,
+          "updated": "2023-09-21T16:27:29.987190Z"
+        },
+        {
+          "id_capitulo": 420,
+          "numero_cap": 2,
+          "titulo": "El despertar del mal",
+          "descripcion": "",
+          "temporada": 10,
+          "updated": "2023-09-21T16:27:29.987190Z"
+        },
+       ...
+        {
+          "id_capitulo": 458,
+          "numero_cap": 40,
+          "titulo": "El final de los Power Rangers (2ª parte)",
+          "descripcion": "",
+          "temporada": 10,
+          "updated": "2023-09-21T16:27:29.987215Z"
+        }
+      ],
+      "updated": "2023-09-21T16:27:28.659815Z"
+    }
+  ]
+}
+```
+
+> ##### Ejemplo:
+>
+> Filtro por `nombre`
+
+`Request:`
+
+```json
+[GET] http://$URL/api/temporadas/?nombre=Power%20Rangers%20S.P.D.
+```
+
+`Response:`
+
+```json
+HTTP 200 OK
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id_temporada": 13,
+      "numero_temporada": 13,
+      "nombre": "Power Rangers S.P.D.",
+      "descripcion": "Es el año 2025. La humanidad ya convive de forma pacífica con formas alienígenas de todo el universo. Sin embargo, el maligno Imperio Troobian decide conquistar la Tierra. Cuando la primera línea de defensa, el A-Squad de la S.P.D., desaparece sin dejar rastro, la protección de la Tierra queda a cargo del B-Squad de la S.P.D., liderados por el alienígena cánido Anubis \"Doggie\" Cruger, que establece en ellos a los Power Rangers S.P.D. Cuando dos antiguos ladrones reformados se unen al equipo como el Red y la Yellow S.P.D. Rangers, las tensiones amenazan con romper al grupo, pero con la amenaza alienígena cerciéndose sobre la Tierra, deben dejar a un lado sus diferencias y entrar en batalla lo más unidos que puedan.",
+      "anio_estreno": 2005,
+      "foto": "https://images.justwatch.com/poster/54059766/s592/temporada-13.webp",
+      "cancion": "\"Power Rangers S.P.D.\" por Bruce Lynch y John Adair",
+      "basada_en": "Tokusou Sentai Dekaranger (Tokusatsu)",
+      "tematica": "Policías, vehículos y el futuro",
+      "capitulos": [
+        {
+          "id_capitulo": 535,
+          "numero_cap": 1,
+          "titulo": "El comienzo (1ª parte)",
+          "descripcion": "",
+          "temporada": 13,
+          "updated": "2023-09-21T16:27:29.987260Z"
+        },
+        {
+          "id_capitulo": 536,
+          "numero_cap": 2,
+          "titulo": "El comienzo (2ª parte)",
+          "descripcion": "",
+          "temporada": 13,
+          "updated": "2023-09-21T16:27:29.987260Z"
+        },
+        ...
+        {
+          "id_capitulo": 572,
+          "numero_cap": 38,
+          "titulo": "Insomnio",
+          "descripcion": "",
+          "temporada": 13,
+          "updated": "2023-09-21T16:27:29.987294Z"
+        }
+      ],
+      "updated": "2023-09-21T16:27:28.659816Z"
+    }
+  ]
+}
+```
+
+> ##### Ejemplo:
+>
+> Filtro por `anio_estreno`
+
+`Request:`
+
+```json
+[GET] http://$URL/api/temporadas/?anio_estreno=1998
+```
+
+`Response:`
+
+```json
+HTTP 200 OK
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id_temporada": 6,
+      "numero_temporada": 6,
+      "nombre": "Power Rangers In Space",
+      "descripcion": "La historia comienza exactamente en el mismo punto en que concluyó Power Rangers: Turbo. Los Rangers adultos, al saber que el planeta de Zordon, Eldar, estaba bajo ataque, decidieron marchar al espacio en un cohete de la NASADA, dejando a Justin atrás con su padre. Acaban llegando a una nave espacial que les atrae, y donde conocen a un Red Ranger llamado Andros, un alienígena del planeta KO-35, que al principio no se fía de ellos. Sin embargo, sabe que necesitará ayuda para rescatar a Zordon...",
+      "anio_estreno": 1998,
+      "foto": "https://images.justwatch.com/poster/8619798/s592/temporada-6.webp",
+      "cancion": "\"Power Rangers In Space\" por Power Rangers",
+      "basada_en": "Denji Sentai Megaranger",
+      "tematica": "Espacio, tecnología y alienígenas",
+      "capitulos": [
+        {
+          "id_capitulo": 251,
+          "numero_cap": 1,
+          "titulo": "De la nada (1ª parte)",
+          "descripcion": "",
+          "temporada": 6,
+          "updated": "2023-09-21T16:27:29.987079Z"
+        },
+        {
+          "id_capitulo": 252,
+          "numero_cap": 2,
+          "titulo": "De la nada (2ª parte)",
+          "descripcion": "",
+          "temporada": 6,
+          "updated": "2023-09-21T16:27:29.987080Z"
+        },
+        ...
+        {
+          "id_capitulo": 293,
+          "numero_cap": 43,
+          "titulo": "Cuenta atrás hacia la destrucción (2ª parte)",
+          "descripcion": "",
+          "temporada": 6,
+          "updated": "2023-09-21T16:27:29.987104Z"
+        }
+      ],
+      "updated": "2023-09-21T16:27:28.659812Z"
+    }
+  ]
+}
+```
+
+</div>
+
+<div class='data-capitulos'>
 
 ### Capitulos
 
