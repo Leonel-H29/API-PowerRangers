@@ -73,7 +73,7 @@ class DBSettings():
 
     # Insert en una tabla de la base de datos
 
-    def insert_table_query(self, query: str = None, params: list = []) -> None:
+    def __insert_table_query(self, query: str = None, params: list = []) -> None:
         """
         La función se encarga de insertar un registro en la base de datos mediante una consulta
 
@@ -143,7 +143,7 @@ class DBSettings():
 
     # Funcion para obtener el ID del registro
 
-    def get_id_query(self, query: str = None, params: tuple = ()) -> int:
+    def __get_id_query(self, query: str = None, params: tuple = ()) -> int:
         """
         La función realiza una consulta a la base de datos y
         retorna el ID de un registro especifico
@@ -223,7 +223,7 @@ class DBSettings():
         query = queries.get(table, "actor")
 
         # Ejecutar la consulta con la lista de valores
-        return self.get_id_query(query=query[0], params=query[1])
+        return self.__get_id_query(query=query[0], params=query[1])
 
     # Funcion para hacer un insert en la DB segun la tabla
 
@@ -251,7 +251,7 @@ class DBSettings():
         query = queries.get(table,  "actor")
 
         # Ejecutar la consulta con la lista de valores
-        self.insert_table_query(query=query, params=values)
+        self.__insert_table_query(query=query, params=values)
 
     # Funcion para lipiar las tablas de las apps
 

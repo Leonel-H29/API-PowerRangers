@@ -14,7 +14,7 @@ class CrudPersonajes(CrudParent):
 
     # Funcion para retornar una lista con datos unicos
 
-    def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
+    def __uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
         """
             La funcion se encarga de controlar que los datos extraidos dentro de la lista `list_data` sean unicos, es decir, datos no repetidos dentro de
             la lista, como asi que no esten ya cargados en la base de datos
@@ -86,18 +86,18 @@ class CrudPersonajes(CrudParent):
 
                     # Verifico si el actor ya se encuentra registrado
                     # print(type(list_insert))
-                    list_insert = self.uniq_data(
+                    list_insert = self.__uniq_data(
                         dic=dic, list_data=list_insert
                     )
             # print(list_insert)
-            self.prepare_query_insert(list_data=list_insert)
+            self.__prepare_query_insert(list_data=list_insert)
         else:
             print(Fore.RED + "Tabla Forenea vacia")
 
     def put_personajes(personajes):
         pass
 
-    def prepare_query_insert(self, list_data: list = []) -> None:
+    def __prepare_query_insert(self, list_data: list = []) -> None:
         """
             La funcion que encarga de ordenar los registros para poder realizar la consulta en la base de datos
 

@@ -55,7 +55,7 @@ class CrudParent():
 
         # Funcion para realizar un insert multiple
 
-        def prepare_query_insert(self, list_data: list = []) -> None:
+        def __prepare_query_insert(self, list_data: list = []) -> None:
             """
             La funcion que encarga de ordenar los registros para poder realizar la consulta en la base de datos
 
@@ -72,7 +72,7 @@ class CrudParent():
             pass
 
          # Funcion para retornar una lista con datos unicos
-        def uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
+        def __uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
             """
             La funcion se encarga de controlar que los datos extraidos dentro de la lista `list_data` sean unicos, es decir, datos no repetidos dentro de
             la lista, como asi que no esten ya cargados en la base de datos
