@@ -60,6 +60,20 @@ class CrudParent():
         """
         return self.__sheet_file
 
+    def open_file(self):
+        """
+            La funcion se encarga de abrir el archivo y retorna los datos de una hoja especifica del archivo
+
+            ### Returns:
+            `xlrd`: Datos de la hoja del archivo 
+        """
+        # Abro el archivo
+        openFile = xlrd.open_workbook(self.file)
+        # Indico con que hoja voy a trabajar
+        sheet = openFile.sheet_by_name(self.sheet_file)
+
+        return sheet
+
         # Funcion para realizar un insert multiple
 
     def __prepare_query_insert(self, list_data: list = []) -> None:
