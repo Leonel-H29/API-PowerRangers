@@ -2,6 +2,7 @@ import os
 import psycopg2
 from colorama import Fore
 from api.settings.base import *
+import re
 
 
 class DBSettings():
@@ -40,7 +41,7 @@ class DBSettings():
         self.conn.close()
 
     # Retorna la cantidad de registros en una tabla especifica
-    def len_table_db_query(self, table: str = None) -> int:
+    def __len_table_db_query(self, table: str = None) -> int:
         """
         La función realiza una consulta a la base de datos y
         retorna la cantidad total de registros en una tabla especifica
@@ -225,6 +226,22 @@ class DBSettings():
         # Ejecutar la consulta con la lista de valores
         return self.__get_id_query(query=query[0], params=query[1])
 
+    # Funcion para obtener la cantidad de registros
+    def get_len_table(self, table: str = None) -> int:
+        """
+        La funcion recibe el nombre de la tabla de la DB y luego realiza la consulta para obtener la 
+        cantidad de registros
+
+        ### Args:
+            `table (str)`: Nombre de tabla dentro de la base de datos
+
+        ### Returns:
+            `int`: Cantidad total de registros de esa tabla
+
+        """
+        table = self.delete_regular_exp(text=table)
+        return self.__len_table_db_query(table=table)
+
     # Funcion para hacer un insert en la DB segun la tabla
 
     def post_on_table(self, table: str, values: list) -> None:
@@ -266,13 +283,14 @@ class DBSettings():
 
         try:
             for app in self.table_apps:
-                query = "DELETE FROM %s;" % (app)
+                app_name = self.delete_regular_exp(app)
+                query = "DELETE FROM %s;" % (app_name)
                 # print(query)
-                cursor.execute(query, app)
-                resultado = self.len_table_db_query(app)
+                cursor.execute(query, app_name)
+                resultado = self.__len_table_db_query(app_name)
                 if resultado == 0:
                     print(Fore.GREEN + "Cantidad de registros en '{0}' :{1}".format(
-                        app, resultado)
+                        app_name, resultado)
                     )
                 else:
                     print("Hubo un error al realizar la consulta")
@@ -280,3 +298,19 @@ class DBSettings():
             print(Fore.RED + "{0}".format(str(e)))
         finally:
             cursor.close()
+
+    # Funcion para eliminar las expresiones regulares
+    def delete_regular_exp(self, text: str = None) -> str:
+        """
+        La función analiza el texto ingresado por parametro y elimina de ese texto las expresiones regulares retornando un texto mas limpio
+
+        ### Args:
+            `text (str)`: Texto ingresado por parametro
+
+        ### Returns:
+            `str`: Texto sin expresiones regulares
+
+        """
+        sqli_reg_exp = re.compile(r"['\";:\-\(\)\[\]\<\>\*\=\+`%]")
+        clean_text = sqli_reg_exp.sub("", text)
+        return clean_text

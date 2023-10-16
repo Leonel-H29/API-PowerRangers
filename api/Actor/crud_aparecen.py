@@ -55,7 +55,7 @@ class CrudAparecen(CrudParent):
         """
             La funcion se encarga de extraer todos los datos de la hoja
         """
-        if self.DB.len_table_db_query(table=self.db_table_name_fk1) > 0 and self.DB.len_table_db_query(table=self.db_table_name_fk2) > 0:
+        if self.DB.get_len_table(table=self.db_table_name_fk1) > 0 and self.DB.get_len_table(table=self.db_table_name_fk2) > 0:
 
             sheet = self.open_file()
 

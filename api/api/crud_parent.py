@@ -3,6 +3,7 @@ import os
 # from dotenv import load_dotenv
 from api.settings.production import *
 from api.db_settings import DBSettings
+from abc import abstractclassmethod
 # from colorama import Fore
 # from datetime import datetime
 
@@ -10,7 +11,7 @@ from api.db_settings import DBSettings
 
 
 class CrudParent():
-
+    @abstractclassmethod
     def __init__(self, DBstt: DBSettings, sheet: str = None, tableName: str = None) -> None:
         # pass
         self.__DB = DBstt  # Inicio una instancia de 'DBSettings'
@@ -20,6 +21,9 @@ class CrudParent():
         self.__sheet_file = sheet  # Hoja especifica del archivo
         self.__db_table_name = tableName  # Nombre de la tabla en la base de datos
 
+    """
+    GETTERS & SETTERS
+    """
     @property
     def file(self):
         """
@@ -60,6 +64,8 @@ class CrudParent():
         """
         return self.__sheet_file
 
+    # Funcion para abrir el archivo
+
     def open_file(self):
         """
             La funcion se encarga de abrir el archivo y retorna los datos de una hoja especifica del archivo
@@ -74,8 +80,9 @@ class CrudParent():
 
         return sheet
 
-        # Funcion para realizar un insert multiple
+    # Funcion para realizar un insert multiple
 
+    @abstractclassmethod
     def __prepare_query_insert(self, list_data: list = []) -> None:
         """
         La funcion que encarga de ordenar los registros para poder realizar la consulta en la base de datos
@@ -85,14 +92,18 @@ class CrudParent():
         """
         pass
 
-        # Funcion para extraer los datos del archivo
+     # Funcion para extraer los datos del archivo
+
+    @abstractclassmethod
     def get_data_file(self):
         """
         La funcion se encarga de extraer todos los datos de la hoja
         """
         pass
 
-        # Funcion para retornar una lista con datos unicos
+    # Funcion para retornar una lista con datos unicos
+
+    @abstractclassmethod
     def __uniq_data(self, dic: dict = {}, list_data: list = []) -> list:
         """
         La funcion se encarga de controlar que los datos extraidos dentro de la lista `list_data` sean unicos, es decir, datos no repetidos dentro de
